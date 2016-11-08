@@ -1,5 +1,5 @@
 angular
-  .module('app', ['ui.router', 'chart.js'])
+  .module('app', ['ui.router', 'chart.js', 'mgcrea.ngStrap'])
   .config(function (ChartJsProvider) {
     ChartJsProvider
       .setOptions({
