@@ -9,7 +9,7 @@ angular
   });
 
 function techController($scope) {
-  $scope.labels = ["Download Sales", "In-Store Sales"];
+  $scope.labels = ["", ""];
   $scope.data = [300, 500];
   $scope.options = {
     rotation: 1 * Number(Math.PI),
