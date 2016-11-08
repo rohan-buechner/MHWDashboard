@@ -6,7 +6,11 @@ angular
       tech: '<'
     },
     controller: function($scope) {
-      $scope.labels = ["Download Sales", "In-Store Sales", "Mail-Order Sales"];
-      $scope.data = [300, 500, 100];
+      $scope.labels = ["Download Sales", "In-Store Sales"];
+      $scope.data = [300, 500];
+      $scope.options = {
+        rotation: 1 * Math.PI,
+        circumference: 1 * Math.PI
+      }
     }
   });
