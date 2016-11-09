@@ -1,11 +1,28 @@
-<div class="tech">
-  <h3 class="tech-h3">
+<div class="well">
+  <h3>
     {{ $ctrl.tech.title }}
   </h3>
-  <canvas id="doughnut"
-          class="chart chart-doughnut"
-          chart-data="data"
-          chart-labels="labels"
-          chart-options="options">
-  </canvas>
+  <!--<canvas id="doughnut"-->
+  <!--class="chart chart-doughnut"-->
+  <!--chart-data="data"-->
+  <!--chart-labels="labels"-->
+  <!--chart-options="options">-->
+  <!--</canvas>-->
+  <div class="row">
+    <div class="col-md-6 col-lg-offset-3">
+      <ng-dial-gauge id="gauge1"
+                     scale-min="0"
+                     scale-max="100"
+                     border-width="1"
+                     ng-model="$ctrl.tech.value"
+                     bar-color="pink"
+                     bar-width="6"
+                     units="%"
+                     angle="135"
+                     rotate="180"
+                     line-cap="round"
+                     style="stroke:blue;font-weight:100;">
+      </ng-dial-gauge>
+    </div>
+  </div>
 </div>

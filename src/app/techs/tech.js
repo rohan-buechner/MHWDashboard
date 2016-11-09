@@ -8,11 +8,13 @@ angular
     controller: techController
   });
 
-function techController($scope) {
-  $scope.labels = ["", ""];
-  $scope.data = [300, 500];
-  $scope.options = {
+function techController($log) {
+  this.labels = ["Download Sales", "In-Store Sales"];
+  this.data = [300, 500];
+  this.options = {
     rotation: 1 * Number(Math.PI),
     circumference: 1 * Number(Math.PI)
   };
+  $log.debug(this);
+  this.value = this.tech.value || 0;
 }
