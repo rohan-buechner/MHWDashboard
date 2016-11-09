@@ -6,7 +6,8 @@
       "min":0,
       "max":100
     },
-    "value": 75
+    "value": 87,
+    "unit": "L"
   },
   {
     "key": "water-gauge",
@@ -15,15 +16,27 @@
       "min":0,
       "max":100
     },
-    "value": 75
+    "value": 50,
+    "unit": "c"
+  },
+  {
+    "key": "battery-gauge",
+    "title": "Battery",
+    "range": {
+      "min":0,
+      "max":100
+    },
+    "value": 90,
+    "unit":"kW"
   },
   {
     "key": "freezer-gauge",
     "title": "Freezer",
     "range": {
-      "min":0,
-      "max":100
+      "min":5,
+      "max":20
     },
-    "value": 75
+    "value": 15,
+    "unit":"c"
   }
 ]
