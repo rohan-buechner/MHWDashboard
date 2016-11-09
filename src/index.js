@@ -1,5 +1,5 @@
 angular
-  .module('app', ['ui.router', 'chart.js', 'mgcrea.ngStrap', 'angular-dialgauge'])
+  .module('app', ['ui.router', 'chart.js', 'mgcrea.ngStrap', 'angular-dialgauge', 'angularjs-gauge'])
   .config(function (ChartJsProvider) {
     ChartJsProvider.setOptions({
       colors: ['#97BBCD', '#DCDCDC', '#F7464A', '#46BFBD', '#FDB45C', '#949FB1', '#4D5360']
