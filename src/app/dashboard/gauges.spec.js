@@ -26,7 +26,7 @@ describe('techs component', function () {
   beforeEach(angular.mock.module('app'));
 
   it('should render 3 elements <fountain-gauge>', angular.mock.inject(function ($rootScope, $compile, $httpBackend) {
-    $httpBackend.when('GET', 'app/techs/techs.json').respond(techsJson);
+    $httpBackend.when('GET', 'app/dashboard/gauges.json').respond(techsJson);
     var element = $compile('<fountain-gauge></fountain-gauge>')($rootScope);
     $httpBackend.flush();
     $rootScope.$digest();
