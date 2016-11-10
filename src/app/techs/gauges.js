@@ -6,12 +6,13 @@ angular
   });
 
 /** @ngInject */
-function GaugesController($http) {
+function GaugesController($http, $log) {
   var vm = this;
 
   $http
     .get('app/techs/gauges.json')
     .then(function (response) {
+      $log.info(response);
       vm.gauges = response.data;
     });
 }

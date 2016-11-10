@@ -1,6 +1,6 @@
 angular
   .module('app')
-  .component('fountainGauge', {
+  .component('gaugeWidget', {
     templateUrl: 'app/techs/gauge.html',
     bindings: {
       gauge: '<'
@@ -8,6 +8,7 @@ angular
     controller: gaugeController
   });
 
-function gaugeController() {
+function gaugeController($log) {
+  $log.info(this);
   this.value = this.gauge.value || 0;
 }
