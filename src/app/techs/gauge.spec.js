@@ -1,8 +1,8 @@
 describe('tech component', function () {
   beforeEach(module('app', function ($provide) {
-    $provide.factory('fountainTech', function () {
+    $provide.factory('fountainGauge', function () {
       return {
-        templateUrl: 'app/techs/tech.html'
+        templateUrl: 'app/techs/gauge.html'
       };
     });
   }));
@@ -15,9 +15,9 @@ describe('tech component', function () {
       text1: 'The streaming build system',
       text2: 'Automate and enhance your workflow'
     };
-    var element = $compile('<fountain-tech tech="fixture"></fountain-tech>')($scope);
+    var element = $compile('<fountain-gauge gauge="fixture"></fountain-gauge>')($scope);
     $scope.$digest();
-    var tech = element.find('h3');
-    expect(tech.html().trim()).toEqual('Gulp');
+    var gauge = element.find('h3');
+    expect(gauge.html().trim()).toEqual('Gulp');
   }));
 });
