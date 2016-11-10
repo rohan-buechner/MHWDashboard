@@ -8,8 +8,10 @@ function routesConfig($stateProvider, $urlRouterProvider, $locationProvider) {
   $urlRouterProvider.otherwise('/');
 
   $stateProvider
-    .state('app', {
-      url: '/',
-      component: 'app'
-    });
+    .state('app', {url: '/', component: 'app'})
+    .state('info', {url: '/info', component: 'gauges'})
+    .state('camp', {url: '/camp', component: 'camp'})
+    .state('driving', {url: '/driving', component: 'driving'})
+    .state('media', {url: '/media', component: 'media'})
+    .state('topview', {url: '/topview', component: 'topview'});
 }

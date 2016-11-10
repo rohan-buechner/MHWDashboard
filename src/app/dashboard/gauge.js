@@ -1,7 +1,7 @@
 angular
   .module('app')
   .component('gaugeWidget', {
-    templateUrl: 'app/techs/gauge.html',
+    templateUrl: 'app/dashboard/gauge.html',
     bindings: {
       gauge: '<'
     },
