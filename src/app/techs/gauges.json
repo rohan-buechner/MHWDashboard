@@ -1,42 +1,109 @@
 [
   {
-    "key": "fuel-gauge",
-    "title": "Fuel",
+    "key": "dieseltank",
+    "title": "Diesel Tank",
     "range": {
       "min":0,
-      "max":100
+      "max":4093
     },
-    "value": 87,
-    "unit": "L"
+    "value": 2043,
+    "unit": "%"
   },
   {
-    "key": "water-gauge",
-    "title": "Water",
+    "key": "watertank",
+    "title": "Water Tank",
     "range": {
       "min":0,
-      "max":100
+      "max":4093
     },
     "value": 50,
-    "unit": "c"
+    "unit": "%"
   },
   {
-    "key": "battery-gauge",
-    "title": "Battery",
+    "key": "batteryamps",
+    "title": "Battery Amps",
     "range": {
       "min":0,
-      "max":100
+      "max":4093
     },
     "value": 90,
-    "unit":"kW"
+    "unit":"A"
   },
   {
-    "key": "freezer-gauge",
-    "title": "Freezer",
+    "key": "fridge",
+    "title": "Fridge",
     "range": {
-      "min":5,
-      "max":20
+      "min":0,
+      "max":4093
     },
     "value": 15,
     "unit":"c"
+  },
+  {
+    "key": "freezer",
+    "title": "Freezer",
+    "range": {
+      "min":0,
+      "max":4093
+    },
+    "value": 15,
+    "unit":"c"
+  },
+  {
+    "key": "housebattery",
+    "title": "House Battery",
+    "range": {
+      "min":0,
+      "max":4093
+    },
+    "value": 15,
+    "unit":"V"
+  },
+
+
+ {
+    "key": "ivecobattery",
+    "title": "IVECO Battery",
+    "range": {
+      "min":0,
+      "max":4093
+    },
+    "value": 15,
+    "unit":"V"
+  },
+
+   {
+    "key": "insidetemperature",
+    "title": "Inside Temperature",
+    "range": {
+      "min":0,
+      "max":4093
+    },
+    "value": 15,
+    "unit":"c"
+  },
+
+   {
+    "key": "outsidetemperature",
+    "title": "Outside Temperature",
+    "range": {
+      "min":0,
+      "max":4093
+    },
+    "value": 15,
+    "unit":"c"
+  },
+
+   {
+    "key": "acpower",
+    "title": "AC Power",
+    "range": {
+      "min":0,
+      "max":4093
+    },
+    "value": 15,
+    "unit":"V"
   }
 ]
+
+
