@@ -25,9 +25,9 @@ var techsJson = [
 describe('techs component', function () {
   beforeEach(angular.mock.module('app'));
 
-  it('should render 3 elements <fountain-tech>', angular.mock.inject(function ($rootScope, $compile, $httpBackend) {
+  it('should render 3 elements <fountain-gauge>', angular.mock.inject(function ($rootScope, $compile, $httpBackend) {
     $httpBackend.when('GET', 'app/techs/techs.json').respond(techsJson);
-    var element = $compile('<fountain-techs></fountain-techs>')($rootScope);
+    var element = $compile('<fountain-gauge></fountain-gauge>')($rootScope);
     $httpBackend.flush();
     $rootScope.$digest();
     var techs = element.find('fountain-tech');
