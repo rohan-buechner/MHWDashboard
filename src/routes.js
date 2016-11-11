@@ -5,13 +5,14 @@ angular
 /** @ngInject */
 function routesConfig($stateProvider, $urlRouterProvider, $locationProvider) {
   $locationProvider.html5Mode(true).hashPrefix('!');
-  $urlRouterProvider.otherwise('/');
 
   $stateProvider
-    .state('app', {url: '/', component: 'app'})
-    .state('info', {url: '/info', component: 'gauges'})
-    .state('camp', {url: '/camp', component: 'camp'})
-    .state('driving', {url: '/driving', component: 'driving'})
-    .state('media', {url: '/media', component: 'media'})
-    .state('topview', {url: '/topview', component: 'topview'});
+    .state('app', {url: '/halsema', component: 'app'})
+    .state('app.info', {url: '/info', component: 'gauges'})
+    .state('app.camp', {url: '/camp', component: 'camp'})
+    .state('app.driving', {url: '/driving', component: 'driving'})
+    .state('app.media', {url: '/media', component: 'media'})
+    .state('app.topview', {url: '/topview', component: 'topview'});
+
+  $urlRouterProvider.otherwise('/halsema/info');
 }

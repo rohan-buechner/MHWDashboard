@@ -37,7 +37,7 @@
       "max":4093
     },
     "value": 15,
-    "unit":"c"
+    "unit":"°C"
   },
   {
     "key": "freezer",
@@ -47,7 +47,7 @@
       "max":4093
     },
     "value": 15,
-    "unit":"c"
+    "unit":"°C"
   },
   {
     "key": "housebattery",
@@ -80,7 +80,7 @@
       "max":4093
     },
     "value": 15,
-    "unit":"c"
+    "unit":"°C"
   },
 
    {
@@ -91,7 +91,7 @@
       "max":4093
     },
     "value": 15,
-    "unit":"c"
+    "unit":"°C"
   },
 
    {
