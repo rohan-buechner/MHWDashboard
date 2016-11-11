@@ -1,0 +1,455 @@
+﻿h2.acc_trigger {
+	padding: 0;	margin: 0 0 5px 0;
+	height: 40px;	line-height: 40px;
+	width: 768px;
+	font-size: 2em;
+	font-weight: normal;
+	float: left;
+	background-image: url(/images/layout/accordion-tabs.png);
+}
+h2.acc_trigger a {
+	color: #fff;
+	text-decoration: none;
+	display: block;
+	padding: 0 0 0 50px;
+}
+h2.acc_trigger a:hover {
+	color: #ccc;
+}
+h2.active {background-position: left bottom;}
+.acc_container {
+	margin: 0 0 5px; padding: 0;
+	overflow: hidden;
+	font-size: 1.2em;
+	width: 768px;
+	clear: both;
+	background-image: url(/images/layout/cream-cover.png);
+	border: 1px solid #d6d6d6;
+}
+.acc_container .block {
+	padding: 20px;
+}
+.RelayLabel {
+ text-align: left;
+ width: 460px;
+}
+.RelayStatus {
+ width: 60px;
+}
+ul#nav li a {
+ background-image: url(/images/layout/nav-button.jpg);
+ background-position: top;
+ background-repeat: no-repeat;
+ height: 22px;
+ font-size: 14pt;
+ padding-top: 12px;
+ color: #efefef;
+ text-align: left;
+ padding-left: 16px;
+ border-bottom: 1px solid #efefef;
+ width: 164px;
+	display: block;
+	text-decoration: none;
+	padding-bottom: 5px;
+}
+ul#nav li a:hover {
+ background-position: 0px -40px;
+}
+ul#nav li a:active {
+ background-position: 0px -80px;
+}
+.relayButton{
+  width: 80px;
+  height: 42px;
+  cursor: pointer;
+}
+#Relays a.Relays, #AD a.AD, #Console a.Console, #Network a.Network, #Configuration a.Configuration, #MyPage .MyPage {
+ background-position: 0px -80px;
+}
+.ADRow td {
+				background-image: url(/images/layout/ad-row-back.png);
+				color: white;
+				height: 32px;
+				vertical-align: middle;
+}
+.ADName {
+				width: 100px;
+				padding: 4px;
+				padding-left: 16px;
+}
+.ADValue {
+				text-align: right;
+				width: 100px;
+				padding: 4px 16px 4px 4px;
+}
+.ADBar {
+				width: 255px;
+				padding: 4px;
+}
+.ADProgress {
+				background-color: #369;
+				float: left;
+				height: 16px;
+				width:0px;
+				border-radius: 12px;
+}
+.ADNameCol {
+				width: 80px;
+				background-color: #bbbbff;
+				padding: 4px;
+				padding-left: 16px;
+				-moz-border-radius: 5px;
+}
+td.LeftSide {
+				-moz-border-radius-topleft: 4px;
+				-moz-border-radius-bottomleft: 4px;
+				-webkit-border-top-left-radius: 4px;
+    -webkit-border-bottom-left-radius: 4px;
+				border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
+    -o-border-top-left-radius: 4px; 
+    -o-border-bottom-left-radius: 4px;
+    width: 200px;
+}
+td.RightSide {
+				-moz-border-radius-topright: 4px;
+				-moz-border-radius-bottomright: 4px;
+				-webkit-border-top-right-radius: 4px;
+    -webkit-border-bottom-right-radius: 4px;
+				border-top-right-radius: 4px;
+    border-bottom-right-radius: 4px;
+    -o-border-top-right-radius: 4px; 
+    -o-border-bottom-right-radius: 4px; 
+}
+.ADBarContainer {
+    border: 1px solid #333;
+				border-radius: 12px;
+    -webkit-border-radius: 12px;
+    -o-border-radius: 12px; 
+				-moz-border-radius: 12px;
+    height: 16px;
+    width: 412px;
+}
+div {
+	font-family: Arial;
+	font-size: 10pt;
+}
+img {
+	border: 0px solid black;
+}
+.Container {
+	min-height: 10px;
+	width: 800px;
+	padding-top: 20px;
+}
+.Header {
+	text-align: center;
+}
+p {
+	font-family: Arial;
+	font-size: 10pt;
+	margin-top: 2px;
+	margin-bottom: 20px;
+}
+td {
+	font-family: Arial;
+	font-size: 10pt;
+	vertical-align: middle;
+}
+table.TableLayout {
+ vertical-align: top;
+}
+h1{
+	font: normal normal bold 17pt Arial;
+	margin: 0px;
+	margin-top: 6px;
+	padding: 0px;
+}
+h2{
+	font: normal normal bold 15pt Arial;
+	margin: 0px;
+	margin-top: 6px;
+	padding: 0px;
+}
+h3{
+	font: normal bold 14pt Arial;
+	margin: 0px;
+	margin-top: 6px;
+	padding: 0px;
+}
+h4{
+	font: normal bold 13pt Arial;
+	margin: 0px;
+	margin-top: 6px;
+	padding: 0px;
+}
+h5{
+	font: normal bold 10pt Arial;
+	margin: 0px;
+	margin-top: 6px;
+	padding: 0px;
+	font-style: italic;
+}
+ul.nav {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	width: 180px;
+	text-align: center;
+	font-family: Arial;
+	font-size: 10pt;
+	position: relative;
+	z-index: 100;
+}
+ul li a.link:hover {
+	background: #8786FF;
+	color:#FFFF00;
+}
+a {color: blue;}
+a:visited {color: blue;}
+a:hover {color: red; text-decoration: none;}
+:focus {
+	-moz-outline-style:none;
+}
+body {
+	text-align: center;
+	padding-bottom: 10px;
+	padding-top: 10px;
+	margin: 0px;
+	background-color: black;
+	background-image: url(/images/layout/background-bluetoblack.jpg);
+	background-repeat: repeat-x;
+}
+.LeftNavLinks {
+    color: #666666;
+    display: block;
+    font-size: 8pt;
+    min-height: 16px;
+    padding-bottom: 0;
+    padding-left: 2px;
+    padding-top: 4px;
+    text-decoration: none;
+    vertical-align: bottom;
+}
+.LeftNavLinks:hover {
+    color: #333333;
+}
+a.LeftNavLinks:visited {
+    color: #666666;
+}
+ul.LeftNavSection {
+    font-family: Tahoma;
+    font-size: 10pt;
+    font-weight: bold;
+    list-style: none outside none;
+    margin: 0 0 10px 2px;
+    padding-bottom: 10px;
+    padding-left: 0;
+    text-align: left;
+}
+ul.LeftNavSection li {
+    background-image: url("/images/LeftNavDarkTrace.png");
+    background-position: right bottom;
+    background-repeat: no-repeat;
+    padding-left: 19px;
+}
+ul.LeftNavSection li:hover {
+    background-image: url("/images/LeftNavUnderlineGold.png");
+}
+.LeftNavHeaderLink {
+    color: #333333;
+    display: block;
+    text-decoration: none;
+    width: 100%;
+}
+.LeftNavHeaderLink:visited {
+    color: #333333;
+}
+div.GlobalFooter {
+	clear: both;
+	width: 1000px;
+	margin-top: 20px;
+	padding-bottom: 12px;
+}
+div.GlobalHeaderDiv {
+ position: absolute;
+ left: 0px;
+ right: auto;
+ width: 100%;
+ height: 68px;
+ background-image: url(/images/layout/shaded-header.png);
+ top: 0px;
+ 
+}
+.GlobalFooter {
+ clear: both;
+}
+.UniqueContentContainer {
+ background-color: white;
+ display: inline-block;
+ width: 792px;
+ padding-left: 12px;
+ text-align: left;
+ padding-bottom: 12px;
+ min-height: 1364px;
+ margin-right: -4px;
+}
+.ContentSuperContainerBGMiddle {
+ clear: both;
+ margin-top: 68px;
+ background-image: url(/images/layout/content-background.png);
+}
+.UniqueContentContainerFull {
+ background-color: white;
+ display: inline-block;
+ width: 100%;
+ text-align: left;
+}
+div.OuterWrapper {
+	background-color: transparent;
+	margin-left: auto;
+	margin-right: auto;
+	width: 980px;
+	text-align: left;
+}
+div.HeaderSubContainer {
+ width: 960px;
+ margin-left: auto;
+ margin-right: auto;
+}
+.LogoContainer {
+ text-align: left;
+ float: left;
+ height: 68px;
+ width: 200px;
+ background-image: url(/images/layout/web-i_logo.png);
+}
+.HeaderTitle {
+ float: left;
+ color: white;
+ text-align: left;
+ height: 68px;
+}
+.LeftNavContainer {
+ padding: 0px;
+ border-right: 1px solid gray;
+ float: none;
+ vertical-align: top;
+ width: 115px;
+}
+.TableLayout {
+ border-collapse: collapse;
+}
+.Content {
+ padding: 14px;
+ width: 800px;
+ vertical-align: top;
+}
+.bankTable {
+ width: 100%;
+ text-align: center;
+}
+a.configLink {
+ background-image: url(/images/layout/nav-button.jpg);
+ background-position: top;
+ background-repeat: no-repeat;
+ height: 22px;
+ font-size: 14pt;
+ padding-top: 12px;
+ color: #efefef;
+ text-align: left;
+ padding-left: 16px;
+ border-bottom: 1px solid #efefef;
+ width: 164px;
+ display: block;
+ text-decoration: none;
+ padding-bottom: 5px;
+ font-size: 11pt;
+ float: left;
+ border-radius: 10px;
+ margin-left: 6px;
+ margin-right: 6px;
+}
+body.ADConfiguration a.ADConfiguration, body.RelayConfiguration a.RelayConfiguration, body.DeviceConfiguration a.DeviceConfiguration, body.MyPageConfiguration a.MyPageConfiguration {
+ background-position: 0px -40px;
+ font-weight: bold;
+ border-color: 1px solid white;
+}
+.configNavDiv {
+ margin-left: auto;
+ margin-right: auto;
+ height: 40px;
+}
+.formButtonCells {
+ text-align: center;
+ height: 46px;
+}
+.configLabelCell {
+ padding-left: 16px;
+}
+.adLabelCells {
+ text-align: center;
+ width: 80px;
+}
+.configTable {
+ border-collapse: collapse;
+ border-radius: 8px;
+}
+.NetworkInfoHeaders {
+ margin-top: 28px;
+ margin-left: 12px;
+}
+.RelayConfigurationBank {
+ border-collapse: collapse;
+ float: left;
+ width: 240px;
+ margin-left: 8px;
+ margin-right: 9px;
+ background-image: url(/images/layout/cream-cover.png);
+ -webkit-border-radius: 8px;
+ position: relative;
+ margin-bottom: 12px;
+ text-align: center;
+}
+th.BankLeft {
+ background-image: url(/images/layout/ad-row-back.png);
+ -moz-border-radius-topleft: 8px;
+ -webkit-border-top-left-radius: 8px;
+ border-top-left-radius: 8px;
+ -o-border-top-left-radius: 8px;
+ color: white;
+}
+th.BankRight {
+ background-image: url(/images/layout/ad-row-back.png);
+ -moz-border-radius-topright: 8px;
+ -webkit-border-top-right-radius: 8px;
+ border-top-right-radius: 8px;
+ -o-border-top-right-radius: 8px;
+}
+.RelayNumber {
+ width: 68px;
+}
+.UpdateCell {
+ text-align: right;
+ padding-right: 16px;
+ padding-bottom: 8px;
+}
+.RelayLabel, .RelayStatus, .relayButton {
+ font-size: 14pt;
+}
+div {
+ font-size: 14pt;
+}
+.ConfigDiv {
+ background-image: url(/images/layout/cream-cover.png);
+ margin-bottom: 24px;
+ border-radius: 8px;
+}
+.DeviceConfigButton {
+ float: right;
+ margin-top: -48px;
+ margin-right: 12px;
+}
+#boardInfo {
+ padding: 12px;
+}

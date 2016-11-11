@@ -1,0 +1,33 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>The device is currently rebootin</title>
+<script language="javascript" type="text/javascript" src="/JS/prototype.js"></script>
+<script type="text/javascript">
+function reboot()
+{
+ new Ajax.Request('/cgi-bin/update.sh',
+ {
+  method:'get',
+  onSuccess: function(transport)
+  {
+ 	},
+  onFailure: function(){}
+ });
+ setTimeout("rebootDone()", 30000);
+}
+
+function rebootDone() {
+ window.location = "/index.html";
+}
+
+</script>
+</head>
+
+<body style="text-align: center;" onload="reboot();">
+ The device is currently rebooting. This page will redirect you in 30 seconds. Please wait the 30 seconds before attempting to access the module.
+</body>
+
+</html>

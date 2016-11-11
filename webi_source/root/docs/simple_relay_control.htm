@@ -1,0 +1,96 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Relay 1</title>
+<script language="javascript" type="text/javascript" src="/JS/prototype.js"></script>
+<script type="text/javascript">
+//this function is for the activation of relays 
+ function TurnOnRelay(_bankId, _relayId)
+ {
+  // creates a value based on the number of the relay that will target that relay in the subsequent command
+  var c1 = 108 + _relayId;
+  // creates a value that will target the correct relay bank
+  var b1 = _bankId + 1;
+  // creates the command string to be sent to the board
+  var cmd = "cmd=254," + c1 + ","  + b1;
+  //activates the function that will send the command and passes along the bank id and the command string
+  var commandReturn = SendCommand(cmd, _bankId);
+ }
+//this function is for the deactivation of relays
+ function TurnOffRelay(_bankId, _relayId)
+ {
+  // creates a value based on the number of the relay that will target that relay in the subsequent command
+  var c1 = 100 + _relayId;
+  // creates a value that will target the correct relay bank
+  var b1 = _bankId + 1;
+  // creates the command string to be sent to the board
+  var cmd = "cmd=254," + c1 + ","  + b1;
+  //activates the function that will send the command and passes along the bank id and the command string
+  var commandReturn = SendCommand(cmd, _bankId);
+ }
+ function SendCommand(cmd, _bankId)
+ {
+  //this starts an ajax request that will send the command to the board for relay manipuation
+  new Ajax.Request('/cgi-bin/runcommand.sh?' + Math.floor(Math.random()*1000) + ":" + cmd,
+  {
+    method:'get',
+    onSuccess: function(transport)
+    {
+   	},
+ 
+    onFailure: function(){ alert('Something went wrong...') }
+  });
+ }
+</script>
+</head>
+
+<body>
+<table class="bankTable">
+ <tr>
+  <td class="RelayLabel">Relay 1</td>
+  <!--the following onclick="" function passes along the value of the bank (bank 0 in this case, which is the first bank)
+  and the value of the relay (which is relay 0 again, which is the first relay) to the appropriate function in the javascript-->
+  <td><button onclick="TurnOnRelay(0,0)" class="relayButton">On</button></td>
+  <td><button onclick="TurnOffRelay(0,0)" class="relayButton">Off</button></td>
+ </tr>
+ <tr>
+  <td class="RelayLabel">Customizable Relay Name</td>
+  <td><button onclick="TurnOnRelay(0,1)" class="relayButton">On</button></td>
+  <td><button onclick="TurnOffRelay(0,1)" class="relayButton">Off</button></td>
+ </tr>
+ <tr>
+  <td class="RelayLabel">Pump</td>
+  <td><button onclick="TurnOnRelay(0,2)" class="relayButton">On</button></td>
+  <td><button onclick="TurnOffRelay(0,2)" class="relayButton">Off</button></td>
+ </tr>
+ <tr>
+  <td class="RelayLabel">Conveyor</td>
+  <td><button onclick="TurnOnRelay(0,3)" class="relayButton">On</button></td>
+  <td><button onclick="TurnOffRelay(0,3)" class="relayButton">Off</button></td>
+ </tr>
+ <tr>
+  <td class="RelayLabel">Outlet</td>
+  <td><button onclick="TurnOnRelay(0,4)" class="relayButton">On</button></td>
+  <td><button onclick="TurnOffRelay(0,4)" class="relayButton">Off</button></td>
+ </tr>
+ <tr>
+  <td class="RelayLabel">Alarm</td>
+  <td><button onclick="TurnOnRelay(0,5)" class="relayButton">On</button></td>
+  <td><button onclick="TurnOffRelay(0,5)" class="relayButton">Off</button></td>
+ </tr>
+ <tr>
+  <td class="RelayLabel">Camera</td>
+  <td><button onclick="TurnOnRelay(0,6)" class="relayButton">On</button></td>
+  <td><button onclick="TurnOffRelay(0,6)" class="relayButton">Off</button></td>
+ </tr>
+ <tr>
+  <td class="RelayLabel">Door</td>
+  <td><button onclick="TurnOnRelay(0,7)" class="relayButton">On</button></td>
+  <td><button onclick="TurnOffRelay(0,7)" class="relayButton">Off</button></td>
+ </tr>
+</table>
+</body>
+
+</html>

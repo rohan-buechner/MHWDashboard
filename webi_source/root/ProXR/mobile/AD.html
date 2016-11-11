@@ -1,0 +1,233 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>A/D Monitoring with NCD's Web-i Interface</title>
+<script language="javascript" type="text/javascript" src="/JS/prototype.js"></script>
+
+<meta http-equiv="Content-type" content="text/html;charset=utf-8">
+    <script language="javascript" type="text/javascript">
+function updateAdValue()
+{
+	new Ajax.Request('/cgi-bin/readad.sh?' + Math.floor(Math.random()*1000) + ':' + 'cmd=254,166',
+	{
+ 	method:'get',
+ 	onSuccess: function(transport){
+   var response = transport.responseText || "no response text";
+  	var vr = response.split("\n");
+  	var adValues= vr[1].split(",");
+  	document.getElementById("adt1").innerHTML=adValues[0] + "/255";
+  	document.getElementById("adt2").innerHTML=adValues[1] + "/255";
+  	document.getElementById("adt3").innerHTML=adValues[2] + "/255";
+  	document.getElementById("adt4").innerHTML=adValues[3] + "/255";
+  	document.getElementById("adt5").innerHTML=adValues[4] + "/255";
+  	document.getElementById("adt6").innerHTML=adValues[5] + "/255";
+  	document.getElementById("adt7").innerHTML=adValues[6] + "/255";
+  	document.getElementById("adt8").innerHTML=adValues[7] + "/255";
+  
+  	document.getElementById("adp1").style.width=adValues[0]/255*100 + "%";
+ 		document.getElementById("adp2").style.width=adValues[1]/255*100 + "%";
+ 		document.getElementById("adp3").style.width=adValues[2]/255*100 + "%";
+ 		document.getElementById("adp4").style.width=adValues[3]/255*100 + "%";
+ 		document.getElementById("adp5").style.width=adValues[4]/255*100 + "%";
+ 		document.getElementById("adp6").style.width=adValues[5]/255*100 + "%";
+ 		document.getElementById("adp7").style.width=adValues[6]/255*100 + "%";
+ 		document.getElementById("adp8").style.width=adValues[7]/255*100 + "%";
+	 },
+	 onFailure: function(){ alert('Something went wrong...') }
+	});
+}
+
+// update ad channels name
+function updateADNames()
+{
+	var refreshRate;
+	new Ajax.Request('/cgi-bin/getAdNames.sh?' + Math.floor(Math.random()*1000),
+	{
+	 method:'get',
+	 onSuccess: function(transport){
+	  var response = decodeURI(transport.responseText || "no response text");
+			var adInfo = response.split(":");
+			document.getElementById("adname1").innerHTML=adInfo[0];
+			document.getElementById("adname2").innerHTML=adInfo[1];
+			document.getElementById("adname3").innerHTML=adInfo[2];
+			document.getElementById("adname4").innerHTML=adInfo[3];
+			document.getElementById("adname5").innerHTML=adInfo[4];
+			document.getElementById("adname6").innerHTML=adInfo[5];
+			document.getElementById("adname7").innerHTML=adInfo[6];
+			document.getElementById("adname8").innerHTML=adInfo[7];
+   refreshRate = (adInfo[8]*1000);
+  	updateAdValue();
+   setInterval("updateAdValue();", refreshRate);
+	 },
+	 onFailure: function(){ alert('Something went wrong...') }
+	});
+ correctNavigation();
+ displayDeviceInfo();
+}
+
+function correctNavigation() {
+ new Ajax.Request("/cgi-bin/getDefaultHome.sh?" + Math.floor(Math.random()*1000),
+ {
+  method:'get',
+  onSuccess: function(transport)
+  {
+   var response = decodeURI(transport.responseText || "no response text");
+   var returnValue = response.split(":");
+   var targetDevice = returnValue[0].split("/");
+   if(targetDevice[1] == "")
+   {
+    document.getElementById("RelayLink").href="/" + targetDevice[0] + "/Relays.html"
+    document.getElementById("ADLink").href="/" + targetDevice[0] + "/AD.html"
+    document.getElementById("MyPageLink").href="/" + targetDevice[0] + "/" + targetDevice[1] + "/MyPage.html"
+    document.getElementById("ConsoleLink").href="/" + targetDevice[0] + "/" + targetDevice[1] + "/Console.html"
+    document.getElementById("NetworkLink").href="/" + targetDevice[0] + "/" + targetDevice[1] + "/Network.html"
+    document.getElementById("ConfigurationLink").href="/" + targetDevice[0] + "/" + targetDevice[1] + "/DeviceConfiguration.html"
+   }
+   else
+   {
+    document.getElementById("RelayLink").href="/" + targetDevice[0] + "/" + targetDevice[1] + "/Relays.html"
+    document.getElementById("ADLink").href="/" + targetDevice[0] + "/" + targetDevice[1] + "/AD.html"
+    document.getElementById("MyPageLink").href="/" + targetDevice[0] + "/" + targetDevice[1] + "/MyPage.html"
+    document.getElementById("ConsoleLink").href="/" + targetDevice[0] + "/" + targetDevice[1] + "/Console.html"
+    document.getElementById("NetworkLink").href="/" + targetDevice[0] + "/" + targetDevice[1] + "/Network.html"
+    document.getElementById("ConfigurationLink").href="/" + targetDevice[0] + "/" + targetDevice[1] + "/DeviceConfiguration.html"
+   }
+ 	},
+  onFailure: function(){ alert('Something went wrong...') }
+ });
+}
+function displayDeviceInfo()
+{
+ new Ajax.Request('/cgi-bin/getDeviceNameAddress.sh?' + Math.floor(Math.random()*1000),
+ {
+  method:'get',
+  onSuccess: function(transport)
+  {
+   var response = decodeURI(transport.responseText || "no response text");
+   var returnValue = response.split(":");
+   document.getElementById("boardInfo").innerHTML = "<strong>" + returnValue[0] + "</strong></p><p>" + returnValue[1] + "<br>"
+    + returnValue[2] + ", " + returnValue[3] + " " + returnValue[4];
+   document.title = returnValue[0] + " - Web-i";
+ 	},
+  onFailure: function(){ alert('Something went wrong...') }
+ });
+}
+</script>
+<link rel="stylesheet" type="text/css" href="/styles/style.css">
+</head>
+<body id="AD" onload="updateADNames();">
+<div class="GlobalHeaderDiv">
+ <div class="HeaderSubContainer">
+  <div class="LogoContainer"></div>
+  <div class="HeaderTitle">
+  <h1>National Control </h1>
+  <p>World's Largest Manufacturer of Computer Controlled Switching Devices Since 1995.</p>
+  </div>
+ </div>
+</div>
+<div class="OuterWrapper">
+<div class="ContentSuperContainerBGMiddle">
+<table class="TableLayout" cellpadding="0" cellspacing="0">
+ <tr>
+  <td class="LeftNavContainer">
+   <ul id="nav" class="nav">
+    <li class="treet"><a class="link Relays" id ="RelayLink" href="Relays.html">Relays</a></li>
+    <li class="treet"><a class="link AD" id="ADLink" href="AD.html">A/D</a></li>
+    <li class="treet"><a class="link MyPage" id="MyPageLink" href="MyPage.html">My Page</a></li>
+    <li class="treet"><a class="link Console" id="ConsoleLink" href="Console.html">Console</a></li>
+    <li class="treet"><a class="link Network" id="NetworkLink" href="Network.html">Network</a></li>
+    <li class="treet"><a class="link Configuration" id="ConfigurationLink" href="DeviceConfiguration.html">Configure</a></li>
+    <li class="tree"><a class="link" href="http://www.controlanything.com/">NCD Home</a></li>
+   </ul>
+   <p id="boardInfo"></p>
+  </td>
+  <td class="Content">
+<table class="ADTable">
+	<tr class="ADRow">
+		<td class="ADName LeftSide"><div id="adname1">A/D 1</div></td>
+		<td class="ADBar">
+	 	<div class="ADBarContainer">
+	 		<div id="adp1" class="ADProgress">&nbsp;</div>
+	 	</div>
+		</td>
+		<td class="ADValue RightSide"><div id="adt1"> 0/255</div></td>
+	</tr>
+
+	<tr class="ADRow">
+		<td class="ADName LeftSide"><div id="adname2">A/D 2</div></td>
+		<td class="ADBar"> 
+	 	<div class="ADBarContainer">
+	 		<div id="adp2" class="ADProgress">&nbsp;</div>
+	 	</div>
+		</td>
+		<td class="ADValue RightSide"><div id="adt2"> 0/255</div></td>
+	</tr>
+
+	<tr class="ADRow">
+		<td class="ADName LeftSide"><div id="adname3">A/D 3</div></td>
+		<td class="ADBar"> 
+	 	<div class="ADBarContainer">
+	 		<div id="adp3" class="ADProgress">&nbsp;</div>
+	 	</div>
+		</td>
+		<td class="ADValue RightSide"><div id="adt3"> 0/255</div></td>
+	</tr>
+
+	<tr class="ADRow">
+		<td class="ADName LeftSide"><div id="adname4">A/D 4</div></td>
+		<td class="ADBar"> 
+	 	<div class="ADBarContainer">
+	 		<div id="adp4" class="ADProgress">&nbsp;</div>
+	 	</div>
+		</td>
+		<td class="ADValue RightSide"><div id="adt4"> 0/255</div></td>
+	</tr>
+
+	<tr class="ADRow">
+		<td class="ADName LeftSide"><div id="adname5">A/D 5</div></td>
+		<td class="ADBar"> 
+	 	<div class="ADBarContainer">
+	 		<div id="adp5" class="ADProgress">&nbsp;</div>
+	 	</div>
+		</td>
+		<td class="ADValue RightSide"><div id="adt5"> 0/255</div></td>
+	</tr>
+
+	<tr class="ADRow">
+		<td class="ADName LeftSide"><div id="adname6">A/D 6</div></td>
+		<td class="ADBar"> 
+	 	<div class="ADBarContainer">
+	 		<div id="adp6" class="ADProgress">&nbsp;</div>
+	 	</div>
+		</td>
+		<td class="ADValue RightSide"><div id="adt6"> 0/255</div></td>
+	</tr>
+
+	<tr class="ADRow">
+		<td class="ADName LeftSide"><div id="adname7">A/D 7</div></td>
+		<td class="ADBar"> 
+	 	<div class="ADBarContainer">
+	 		<div id="adp7" class="ADProgress">&nbsp;</div>
+	 	</div>
+		</td>
+		<td class="ADValue RightSide"><div id="adt7"> 0/255</div></td>
+	</tr>
+
+	<tr class="ADRow">
+		<td class="ADName LeftSide"><div id="adname8">A/D 8</div></td>
+		<td class="ADBar"> 
+	 	<div class="ADBarContainer">
+	 		<div id="adp8" class="ADProgress">&nbsp;</div>
+	 	</div>
+		</td>
+		<td class="ADValue RightSide"><div id="adt8"> 0/255</div></td>
+	</tr>
+</table>
+
+  </td>
+ </tr>
+</table>
+</div>
+</div>
+</body>
+</html>

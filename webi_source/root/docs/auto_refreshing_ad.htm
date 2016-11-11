@@ -1,0 +1,160 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Relay 1</title>
+<script language="javascript" type="text/javascript" src="/JS/prototype.js"></script>
+<script type="text/javascript">
+//queries the board for the status of the A/D Inputs and displays them in specified elements in the html
+function updateAdValue()
+ {
+ // sends the ajax request to readad.sh? with the command to return the status of all 8 inputs at once
+	new Ajax.Request('/cgi-bin/readad.sh?' + Math.floor(Math.random()*1000) + ':' + 'cmd=254,166',
+	  {
+	    method:'get',
+	    onSuccess: function(transport){
+	     //captures the return value in a variable
+	     var response = transport.responseText || "no response text";
+      //splits up the response based on a delimiter of \n and then by commas
+    		var vr = response.split("\n");
+    		var rv = vr[1].split(",");
+    		//creates an array with the returned values broken up by input number
+    		var adValues=[rv[0], rv[1],rv[2],rv[3],rv[4],rv[5],rv[6],rv[7],];
+    		//targets the elements that have ids that start with adt and set them to display the returned value
+    		document.getElementById("adt1").innerHTML=adValues[0] + "/255";
+    		document.getElementById("adt2").innerHTML=adValues[1] + "/255";
+    		document.getElementById("adt3").innerHTML=adValues[2] + "/255";
+    		document.getElementById("adt4").innerHTML=adValues[3] + "/255";
+    		document.getElementById("adt5").innerHTML=adValues[4] + "/255";
+    		document.getElementById("adt6").innerHTML=adValues[5] + "/255";
+    		document.getElementById("adt7").innerHTML=adValues[6] + "/255";
+    		document.getElementById("adt8").innerHTML=adValues[7] + "/255";
+      
+      //targets the elements that have ids that start with adp and sets the width to a percent
+    		document.getElementById("adp1").style.width=adValues[0]/255*100 + "%";
+    		document.getElementById("adp2").style.width=adValues[1]/255*100 + "%";
+    		document.getElementById("adp3").style.width=adValues[2]/255*100 + "%";
+    		document.getElementById("adp4").style.width=adValues[3]/255*100 + "%";
+    		document.getElementById("adp5").style.width=adValues[4]/255*100 + "%";
+    		document.getElementById("adp6").style.width=adValues[5]/255*100 + "%";
+    		document.getElementById("adp7").style.width=adValues[6]/255*100 + "%";
+    		document.getElementById("adp8").style.width=adValues[7]/255*100 + "%";
+  },
+ onFailure: function(){ alert('Something went wrong...') }
+ });
+}
+ //this function tells the input values to update continuously
+document.observe("dom:loaded", function()
+{
+	//this line tells which function to trigger and the 3000 tells it to trigger every 3 seconds. 4000 would be 4 seconds.
+	setInterval("updateAdValue();",3000);
+});
+
+</script>
+<style type="text/css">
+/*Gives the A/D Bar some basic looks and more importantly makes them show.*/
+.ADBarContainer {
+    border: 1px solid #333;
+				border-radius: 12px;
+    -webkit-border-radius: 12px;
+    -o-border-radius: 12px; 
+				-moz-border-radius: 12px;
+    height: 16px;
+    width: 412px;
+}
+.ADProgress {
+				background-color: #369;
+				float: left;
+				height: 16px;
+				width:0px;
+				border-radius: 12px;
+}
+</style>
+</head>
+
+<body>
+<table class="ADTable">
+	<tr class="ADRow">
+		<td class="ADName LeftSide"><div id="adname1">A/D 1</div></td>
+		<td class="ADBar">
+	 	<div class="ADBarContainer">
+	 		<div id="adp1" class="ADProgress">&nbsp;</div>
+	 	</div>
+		</td>
+		<td class="ADValue RightSide"><div id="adt1"> 0/255</div></td>
+	</tr>
+
+	<tr class="ADRow">
+		<td class="ADName LeftSide"><div id="adname2">A/D 2</div></td>
+		<td class="ADBar"> 
+	 	<div class="ADBarContainer">
+	 		<div id="adp2" class="ADProgress">&nbsp;</div>
+	 	</div>
+		</td>
+		<td class="ADValue RightSide"><div id="adt2"> 0/255</div></td>
+	</tr>
+
+	<tr class="ADRow">
+		<td class="ADName LeftSide"><div id="adname3">A/D 3</div></td>
+		<td class="ADBar"> 
+	 	<div class="ADBarContainer">
+	 		<div id="adp3" class="ADProgress">&nbsp;</div>
+	 	</div>
+		</td>
+		<td class="ADValue RightSide"><div id="adt3"> 0/255</div></td>
+	</tr>
+
+	<tr class="ADRow">
+		<td class="ADName LeftSide"><div id="adname4">A/D 4</div></td>
+		<td class="ADBar"> 
+	 	<div class="ADBarContainer">
+	 		<div id="adp4" class="ADProgress">&nbsp;</div>
+	 	</div>
+		</td>
+		<td class="ADValue RightSide"><div id="adt4"> 0/255</div></td>
+	</tr>
+
+	<tr class="ADRow">
+		<td class="ADName LeftSide"><div id="adname5">A/D 5</div></td>
+		<td class="ADBar"> 
+	 	<div class="ADBarContainer">
+	 		<div id="adp5" class="ADProgress">&nbsp;</div>
+	 	</div>
+		</td>
+		<td class="ADValue RightSide"><div id="adt5"> 0/255</div></td>
+	</tr>
+
+	<tr class="ADRow">
+		<td class="ADName LeftSide"><div id="adname6">A/D 6</div></td>
+		<td class="ADBar"> 
+	 	<div class="ADBarContainer">
+	 		<div id="adp6" class="ADProgress">&nbsp;</div>
+	 	</div>
+		</td>
+		<td class="ADValue RightSide"><div id="adt6"> 0/255</div></td>
+	</tr>
+
+	<tr class="ADRow">
+		<td class="ADName LeftSide"><div id="adname7">A/D 7</div></td>
+		<td class="ADBar"> 
+	 	<div class="ADBarContainer">
+	 		<div id="adp7" class="ADProgress">&nbsp;</div>
+	 	</div>
+		</td>
+		<td class="ADValue RightSide"><div id="adt7"> 0/255</div></td>
+	</tr>
+
+	<tr class="ADRow">
+		<td class="ADName LeftSide"><div id="adname8">A/D 8</div></td>
+		<td class="ADBar"> 
+	 	<div class="ADBarContainer">
+	 		<div id="adp8" class="ADProgress">&nbsp;</div>
+	 	</div>
+		</td>
+		<td class="ADValue RightSide"><div id="adt8"> 0/255</div></td>
+	</tr>
+</table>
+</body>
+
+</html>

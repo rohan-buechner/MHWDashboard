@@ -1,0 +1,780 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="/styles/style.css">
+<style type="text/css">
+button {
+ width: 80px;
+ height: 28px;
+}
+select {
+ width: 80px;
+}
+</style>
+<script type="text/javascript">
+// return the value of the radio button that is checked
+// return an empty string if none are checked, or
+// there are no radio buttons
+function getRadioValue(radioObj) {
+	if(!radioObj)
+		return "";
+	var radioLength = radioObj.length;
+	if(radioLength == undefined)
+		if(radioObj.checked)
+			return radioObj.value;
+		else
+			return "";
+	for(var i = 0; i < radioLength; i++) {
+		if(radioObj[i].checked) {
+			return radioObj[i].value;
+		}
+	}
+	return "";
+}
+// set the radio button with the given value as being checked
+// do nothing if there are no radio buttons
+// if the given value does not exist, all the radio buttons
+// are reset to unchecked
+function setIpCheckedValue(radioObj, newValue) {
+	if(!radioObj)
+		return;
+	var radioLength = radioObj.length;
+	if(radioLength == undefined) {
+		radioObj.checked = (radioObj.value == newValue.toString());
+		return;
+	}
+	for(var i = 0; i < radioLength; i++) {
+		radioObj[i].checked = false;
+		if(radioObj[i].value == newValue.toString()) {
+			radioObj[i].checked = true;
+		}
+	}
+}
+
+function uploadDefaultHome()
+{
+ var updateData = getRadioValue(document.forms['homePageForm'].elements['homePage']);
+ var updateData2 = getRadioValue(document.forms['homePageForm'].elements['series']);
+ var updateData3 = getRadioValue(document.forms['homePageForm'].elements['device']);
+ new Ajax.Request("/cgi-bin/setDefaultHome.sh?" + Math.floor(Math.random()*1000) + ":" + updateData2 + updateData3 + ":" + updateData,
+ {
+  method:'get',
+  onSuccess: function(transport){
+   location.reload(true);
+ 	},
+  onFailure: function(){ alert('Something went wrong...') }
+ });
+}
+
+function uploadIpConfiguration()
+{
+ var updateData = getRadioValue(document.forms['ipConfig'].elements['AddressOption']) + ':' + document.getElementById('ipAddress').value
+   + ':' + document.getElementById('subnetMask').value + ':' + document.getElementById('defaultGateway').value;
+ new Ajax.Request("/cgi-bin/setIpConfig.sh?" + Math.floor(Math.random()*1000) + ":" + updateData,
+ {
+  method:'get',
+  onSuccess: function(transport){
+   location.reload(true);
+ 	},
+  onFailure: function(){ alert('Something went wrong...') }
+ });
+}
+
+function setWebConfiguration(webConfigForm) {
+ var checkList = "";
+ with(document.webConfigForm) {
+  for(var i = 0; i < WebConfig.length; i++)
+  {
+   if(WebConfig[i].checked) {
+    checkList += WebConfig[i].value + ":";
+   }
+   else {
+    checkList += "0:";
+   }
+  }
+ }
+ checkList = checkList.substring(0, checkList.length-1);
+  new Ajax.Request("/cgi-bin/setWebConfig.sh?" + Math.floor(Math.random()*1000) + ":" + checkList,
+ {
+  method:'get',
+  onSuccess: function(transport){
+   location.reload(true);
+ 	},
+  onFailure: function(){ alert('Something went wrong...') }
+ });
+}
+
+function startRename()
+{
+ getDeviceNameAddress();
+ getWebConfig();
+ getIpConfig();
+ getHomeConfig();
+ getRemoteServer();
+ getPasswordEnable();
+ correctNavigation();
+ displayDeviceInfo();
+ getTCPPort();
+}
+
+function getHomeConfig()
+{
+ new Ajax.Request("/cgi-bin/getDefaultHome.sh?" + Math.floor(Math.random()*1000),
+ {
+  method:'get',
+  onSuccess: function(transport)
+  {
+   var response = decodeURI(transport.responseText || "no response text");
+   var returnValue = response.split(":");
+   var targetDevice = returnValue[0].split("/");
+   homePage = returnValue[1].substring(0, returnValue[1].length-6);
+   if (targetDevice[0] != "") {
+    document.getElementById(targetDevice[0]).setAttribute("checked", "checked");
+   }
+   if (targetDevice[1] != "")
+   {
+    document.getElementById(targetDevice[1]).setAttribute("checked", "checked");
+   }
+   document.getElementById(homePage).setAttribute("checked", "checked");
+ 	},
+  onFailure: function(){ alert('Something went wrong...') }
+ });
+}
+
+function getWebConfig()
+{
+ new Ajax.Request("/cgi-bin/getWebConfig.sh?" + Math.floor(Math.random()*1000),
+ {
+  method:'get',
+  onSuccess: function(transport)
+  {
+   var response = decodeURI(transport.responseText || "no response text");
+   var returnValue = response.split(":");
+   for (i = 0; i < returnValue.length; i++)
+   {
+    if (returnValue[i] == 1) 
+    {
+     document.getElementById("webConfigOption" + i).setAttribute("checked", "checked");
+    }
+   }
+ 	},
+  onFailure: function(){ alert('Something went wrong...') }
+ });
+}
+function getIpConfig()
+{
+ new Ajax.Request('/cgi-bin/getIpConfig.sh?' + Math.floor(Math.random()*1000),
+ {
+  method:'get',
+  onSuccess: function(transport)
+  {
+   var response = decodeURI(transport.responseText || "no response text");
+   var returnValue = response.split(":");
+   if (returnValue[0] == 1)
+   {
+    document.ipConfig.AddressOption[0].checked=true;
+   }
+   else {
+    document.ipConfig.AddressOption[1].checked=true;
+   }
+   document.getElementById("ipAddress").value = returnValue[1];
+   document.getElementById("subnetMask").value = returnValue[2];
+   document.getElementById("defaultGateway").value = returnValue[3];
+ 	},
+  onFailure: function(){ alert('Something went wrong...') }
+ });
+}
+function setDeviceNameAddress()
+{
+ var boardName = document.getElementById("boardName").value;
+ var streetAddress = document.getElementById("streetAddress").value;
+ var cityAddress = document.getElementById("cityAddress").value;
+ var stateAddress = document.getElementById("stateAddress").value;
+ var zipAddress = document.getElementById("zipAddress").value;
+ new Ajax.Request('/cgi-bin/setDeviceNameAddress.sh?' + Math.floor(Math.random()*1000) + ":" + boardName + ":" + streetAddress + ":" + cityAddress + ":" + stateAddress + ":" + zipAddress,
+ {
+  method:'get',
+  onSuccess: function(transport)
+  {
+   location.reload(true);
+ 	},
+  onFailure: function(){ alert('Something went wrong...') }
+ });
+}
+function getDeviceNameAddress()
+{
+ new Ajax.Request('/cgi-bin/getDeviceNameAddress.sh?' + Math.floor(Math.random()*1000),
+ {
+  method:'get',
+  onSuccess: function(transport)
+  {
+   var response = decodeURI(transport.responseText || "no response text");
+   var returnValue = response.split(":");
+   document.getElementById("boardName").value = returnValue[0];
+   document.getElementById("streetAddress").value = returnValue[1];
+   document.getElementById("cityAddress").value = returnValue[2];
+   document.getElementById("stateAddress").value = returnValue[3];
+   document.getElementById("zipAddress").value = returnValue[4];
+ 	},
+  onFailure: function(){ alert('Something went wrong...') }
+ });
+}
+function setRemoteServer()
+{
+ var remoteServer = document.getElementById("remoteServer").value;
+ var portNumber = document.getElementById("portNumber").value;
+ new Ajax.Request('/cgi-bin/setRemoteServer.sh?' + Math.floor(Math.random()*1000) + ":" + remoteServer + ":" + portNumber,
+ {
+  method:'get',
+  onSuccess: function(transport)
+  {
+   location.reload(true);
+ 	},
+  onFailure: function(){ alert('Something went wrong...') }
+ });
+}
+function setTCPPort()
+{
+ var portNumber = document.getElementById("tcpPortNumber").value;
+ new Ajax.Request('/cgi-bin/setTcpPort.sh?' + Math.floor(Math.random()*1000) + ":" + portNumber,
+ {
+  method:'get',
+  onSuccess: function(transport)
+  {
+   location.reload(true);
+ 	},
+  onFailure: function(){ alert('Something went wrong...') }
+ });
+}
+function getRemoteServer()
+{
+ new Ajax.Request('/cgi-bin/getRemoteServer.sh?' + Math.floor(Math.random()*1000),
+ {
+  method:'get',
+  onSuccess: function(transport)
+  {
+   var response = decodeURI(transport.responseText || "no response text");
+   var returnValue = response.split(":");
+   document.getElementById("remoteServer").value = returnValue[0];
+   document.getElementById("portNumber").value = returnValue[1];
+ 	},
+  onFailure: function(){ alert('Something went wrong...') }
+ });
+}
+function getTCPPort()
+{
+ new Ajax.Request('/cgi-bin/getTcpPort.sh?' + Math.floor(Math.random()*1000),
+ {
+  method:'get',
+  onSuccess: function(transport)
+  {
+   var response = decodeURI(transport.responseText || "no response text");
+   var returnValue = response.split(":");
+   document.getElementById("tcpPortNumber").value = returnValue[0];
+ 	},
+  onFailure: function(){ alert('Something went wrong...') }
+ });
+}
+function setPassword()
+{
+ var password = document.getElementById("password").value;
+ var passwordValidation = document.getElementById("passwordRetype").value;
+ var regexp = /^[a-zA-Z0-9-_]+$/;
+ var passwordEnabled = getRadioValue(document.forms['passwordForm'].elements['passwordEnable']);
+ if (passwordEnabled == 1) {
+  if (password.search(regexp) == -1)
+   { alert('Invalid Password. Password can only contain a-z and numeric characters.'); }
+  else
+  {
+   if (password == passwordValidation) {
+    new Ajax.Request('/cgi-bin/setPassword.sh?' + Math.floor(Math.random()*1000) + ":" + password,
+    {
+     method:'get',
+     onSuccess: function(transport)
+     {
+      //I set the status of the password enabled in another ajax request so that we don't have to call the password to populate that field
+      setPasswordEnable();
+    	},
+     onFailure: function(){ alert('Something went wrong...') }
+    });
+   }
+   else {
+    alert("The passwords did not match, please check your Caps Lock and retype you password");
+   }
+  }
+ }
+ else {
+  setPasswordEnable(); 
+ }
+}
+function setPasswordEnable()
+{
+ var passwordEnabled = getRadioValue(document.forms['passwordForm'].elements['passwordEnable']);
+ //I set the status of the password enabled in another ajax request so that we don't have to call the password to populate that field
+ new Ajax.Request('/cgi-bin/setPasswordEnabled.sh?' + Math.floor(Math.random()*1000) + ":" + passwordEnabled,
+ {
+  method:'get',
+  onSuccess: function(transport)
+  {
+   location.reload(true);
+ 	},
+  onFailure: function(){ alert('Something went wrong...') }
+ });
+}
+
+function getPasswordEnable()
+{
+ new Ajax.Request('/cgi-bin/getPasswordEnable.sh?' + Math.floor(Math.random()*1000),
+ {
+  method:'get',
+  onSuccess: function(transport)
+  {
+   var response = decodeURI(transport.responseText || "no response text");
+   if (response == 1) {
+    document.getElementById("passwordEnable").setAttribute("checked", "checked");
+    
+   }
+ 	},
+  onFailure: function(){ alert('Something went wrong...') }
+ });
+}
+
+function reboot()
+{
+ window.location = "/reboot.html"
+}
+
+function correctNavigation() {
+ new Ajax.Request("/cgi-bin/getDefaultHome.sh?" + Math.floor(Math.random()*1000),
+ {
+  method:'get',
+  onSuccess: function(transport)
+  {
+   var response = decodeURI(transport.responseText || "no response text");
+   var returnValue = response.split(":");
+   var targetDevice = returnValue[0].split("/");
+   if(targetDevice[1] == "")
+   {
+    document.getElementById("RelayLink").href="/" + targetDevice[0] + "/Relays.html"
+    document.getElementById("ADLink").href="/" + targetDevice[0] + "/AD.html"
+    document.getElementById("MyPageLink").href="/" + targetDevice[0] + "/MyPage.html"
+    document.getElementById("ConsoleLink").href="/" + targetDevice[0] + "/Console.html"
+    document.getElementById("NetworkLink").href="/" + targetDevice[0] + "/Network.html"
+    document.getElementById("ConfigurationLink").href="/" + targetDevice[0] + "/DeviceConfiguration.html"
+    document.getElementById("DeviceConfigurationLink").href="/" + targetDevice[0] + "/DeviceConfiguration.html"
+    document.getElementById("RelayConfigurationLink").href="/" + targetDevice[0] + "/RelayConfiguration.html"
+    document.getElementById("MyPageConfigurationLink").href="/" + targetDevice[0] + "/MyPageConfiguration.html"
+    document.getElementById("ADConfigurationLink").href="/" + targetDevice[0] + "/" + "/ADConfiguration.html"
+   }
+   else
+   {
+    document.getElementById("RelayLink").href="/" + targetDevice[0] + "/" + targetDevice[1] + "/Relays.html"
+    document.getElementById("ADLink").href="/" + targetDevice[0] + "/" + targetDevice[1] + "/AD.html"
+    document.getElementById("MyPageLink").href="/" + targetDevice[0] + "/" + targetDevice[1] + "/MyPage.html"
+    document.getElementById("ConsoleLink").href="/" + targetDevice[0] + "/" + targetDevice[1] + "/Console.html"
+    document.getElementById("NetworkLink").href="/" + targetDevice[0] + "/" + targetDevice[1] + "/Network.html"
+    document.getElementById("ConfigurationLink").href="/" + targetDevice[0] + "/" + targetDevice[1] + "/DeviceConfiguration.html"
+    document.getElementById("DeviceConfigurationLink").href="/" + targetDevice[0] + "/" + targetDevice[1] + "/DeviceConfiguration.html"
+    document.getElementById("RelayConfigurationLink").href="/" + targetDevice[0] + "/" + targetDevice[1] + "/RelayConfiguration.html"
+    document.getElementById("MyPageConfigurationLink").href="/" + targetDevice[0] + "/" + targetDevice[1] + "/MyPageConfiguration.html"
+    document.getElementById("ADConfigurationLink").href="/" + targetDevice[0] + "/" + targetDevice[1] + "/ADConfiguration.html"
+   }
+ 	},
+  onFailure: function(){ alert('Something went wrong...') }
+ });
+}
+function displayDeviceInfo()
+{
+ new Ajax.Request('/cgi-bin/getDeviceNameAddress.sh?' + Math.floor(Math.random()*1000),
+ {
+  method:'get',
+  onSuccess: function(transport)
+  {
+   var response = decodeURI(transport.responseText || "no response text");
+   var returnValue = response.split(":");
+   document.getElementById("boardInfo").innerHTML = "<strong>" + returnValue[0] + "</strong></p><p>" + returnValue[1] + "<br>"
+    + returnValue[2] + ", " + returnValue[3] + " " + returnValue[4];
+   document.title = returnValue[0] + " - Web-i";
+ 	},
+  onFailure: function(){ alert('Something went wrong...') }
+ });
+}
+</script>
+
+<title>Web-i Relay Control from National Control Devices</title>
+<script language="javascript" type="text/javascript" src="/JS/prototype.js"></script>
+<meta http-equiv="Content-type" content="text/html;charset=utf-8">
+</head>
+<body id="Configuration" class="DeviceConfiguration" onload="startRename();">
+<div class="GlobalHeaderDiv">
+ <div class="HeaderSubContainer">
+  <div class="LogoContainer"></div>
+  <div class="HeaderTitle">
+  <h1>National Control Devices</h1>
+  <p>World's Largest Manufacturer of Computer Controlled Switching Devices Since 1995.</p>
+  </div>
+ </div>
+</div>
+<div class="OuterWrapper">
+<div class="ContentSuperContainerBGMiddle">
+<table class="TableLayout" cellpadding="0" cellspacing="0">
+ <tr>
+  <td class="LeftNavContainer">
+   <ul id="nav" class="nav">
+    <li class="treet"><a class="link Relays" id ="RelayLink" href="Relays.html">Relays</a></li>
+    <li class="treet"><a class="link AD" id="ADLink" href="AD.html">A/D</a></li>
+    <li class="treet"><a class="link MyPage" id="MyPageLink" href="MyPage.html">My Page</a></li>
+    <li class="treet"><a class="link Console" id="ConsoleLink" href="Console.html">Console</a></li>
+    <li class="treet"><a class="link Network" id="NetworkLink" href="Network.html">Network</a></li>
+    <li class="treet"><a class="link Configuration" id="ConfigurationLink" href="DeviceConfiguration.html">Configure</a></li>
+    <li class="tree"><a class="link" href="http://www.controlanything.com/">NCD Home</a></li>
+   </ul>
+   <p id="boardInfo"></p>
+  </td>
+  <td class="Content">
+   <div class="configNavDiv"><a href="/DeviceConfiguration.html" class="configLink DeviceConfiguration" id="DeviceConfigurationLink">Device Configuration</a><a href="/RelayConfiguration.html" class="configLink RelayConfiguration" id="RelayConfigurationLink">Relay Configuration</a><a href="/MyPageConfiguration.html" class="configLink MyPageConfiguration" id="MyPageConfigurationLink">My Page Configuration</a><a href="/ADConfiguration.html" class="configLink ADConfiguration" id="ADConfigurationLink">A/D Configuration</a></div>
+   <h3>Device Configuration</h3>
+   <div class="ConfigDiv">
+   <button onclick="reboot();" class="DeviceConfigButton" style="margin-top: 12px; margin-left: 12px;">Reboot</button>
+   <p style="padding: 12px; font-weight: 600;">Changes made to this page will require a reboot of the module to come into effect. Once you are done configuring this module select Reboot to the right.</p> 
+   </div>
+
+   <div class="ConfigDiv">
+   <form id="webConfigForm" name="deviceNameAddress">
+   <table class="configTable" style="width: 58%;">
+    <tr>
+     <th colspan="2" style="text-align: left;">Name This Board:</th>
+    </tr>
+    
+    <tr>
+     <td class="configLabelCell">
+      Board Name:
+     </td>
+     <td>
+      <input type="text" value="" id="boardName">
+     </td>
+    </tr>
+    <tr>
+     <th colspan="2" style="text-align: left;">
+      Physical Address of the Device:
+     </th>
+     <td>
+      &nbsp;</td>
+    </tr>
+    <tr>
+     <td class="configLabelCell">
+      Street Address:
+     </td>
+     <td>
+      <input type="text" value="" id="streetAddress">
+     </td>
+    </tr>
+<tr>
+     <td class="configLabelCell">
+      City:
+     </td>
+     <td>
+      <input type="text" value="" id="cityAddress">
+     </td>
+    </tr>
+<tr>
+     <td class="configLabelCell">
+      State:</td>
+     <td>
+      <input type="text" value="" id="stateAddress">
+     </td>
+    </tr>
+<tr>
+     <td class="configLabelCell">
+      ZIP Code:</td>
+     <td>
+      <input type="text" value="" id="zipAddress">
+     </td>
+    </tr>
+    <tr>
+     <td colspan="2">
+     </td>
+    </tr>
+   </table>
+   </form>
+   <button onclick="setDeviceNameAddress();" class="DeviceConfigButton">Update</button>
+   </div>
+<div class="ConfigDiv">
+   <form id="passwordForm" name="passwordForm">
+   <table class="configTable" style="width: 58%;">
+    <tr>
+     <th colspan="2" style="text-align: left;">
+      Set Up the Password for the Device</th>
+     <td>
+      &nbsp;</td>
+    </tr>
+    <tr>
+     <td class="formButtonCells" style="width: 40px;">
+      <input type="checkbox" id="passwordEnable" name="passwordEnable" value="1">
+     </td>
+     <td>
+     Enable Password Protection</td>
+    </tr>
+    <tr>
+     <td class="configLabelCell">
+      Password:</td>
+     <td>
+      <input type="password" value="" id="password">
+     </td>
+    </tr>
+<tr>
+     <td class="configLabelCell">
+      Retype:</td>
+     <td>
+      <input type="password" value="" id="passwordRetype">
+     </td>
+    </tr>
+    <tr>
+     <td colspan="2">
+     </td>
+    </tr>
+   </table>
+   </form>
+   <button onclick="setPassword();" class="DeviceConfigButton">Update</button>
+   </div>
+<div class="ConfigDiv">
+   <form id="webConfigForm" name="webConfigForm">
+   <table cellpadding="4" class="configTable" cellspacing="0" style="width: 48%;">
+    <tr>
+     <th colspan="2" style="text-align: left;">Services</th>
+    </tr>
+    <tr>
+     <td class="formButtonCells" style="width: 40px;">
+      <input type="checkbox" id="webConfigOption0" name="WebConfig" value="1">
+     </td>
+     <td>
+     NCD Network Component
+     </td>
+    </tr>
+    <tr>
+     <td class="formButtonCells">
+      <input type="checkbox" id="webConfigOption1" name="WebConfig" value="1">
+     </td>
+     <td>
+      SignalSwitch.com
+     </td>
+    </tr>
+    </table>
+   </form>
+   <button onclick="setWebConfiguration(document.getElementById('webConfigForm'));" class="DeviceConfigButton">Update</button>
+   </div>
+   <div class="ConfigDiv">
+   <form id="homePageForm" name="homePageForm">
+   <table cellpadding="4" class="configTable" cellspacing="0" style="width: 100%;">
+    <tr>
+     <th colspan="2" style="text-align: left;">Choose which page you would like the Web-i to bring up as the home page</th>
+    </tr>
+    <tr>
+     <td class="formButtonCells" style="width: 40px;">
+      <input type="radio" id="Relays" name="homePage" value="Relays.html" checked="checked">
+     </td>
+     <td>
+      Relay Control</td>
+    </tr>
+    <tr>
+     <td class="formButtonCells">
+      <input type="radio" id="MyPage" name="homePage" value="MyPage.html">
+     </td>
+     <td>
+      My Page</td>
+    </tr>
+    <tr>
+     <td class="formButtonCells">
+      <input type="radio" id="Console" name="homePage" value="Console.html">
+     </td>
+     <td>
+      Console
+     </td>
+    </tr>
+    <tr>
+     <td class="formButtonCells">
+      <input type="radio" id="Network" name="homePage" value="Network.html">
+     </td>
+     <td>
+      Network
+     </td>
+    </tr>
+    <tr>
+     <th colspan="2" style="text-align: left;">Choose which series you would like the Web Page to be 
+		targeted for</th>
+    </tr>
+    <tr>
+     <td class="formButtonCells" style="width: 40px;">
+      <input type="radio" id="ProXR" name="series" value="ProXR/" checked="checked">
+     </td>
+     <td>
+      ProXR &amp; ProXR Lite</td>
+    </tr>
+        <tr>
+     <td class="formButtonCells">
+      <input type="radio" id="Reactor" name="series" value="Reactor/">
+     </td>
+     <td>
+      Reactor - A/D Triggered Relays</td>
+    </tr>
+    <tr>
+     <td class="formButtonCells">
+      <input type="radio" id="Taralist" name="series" value="Taralist/">
+     </td>
+     <td>
+      Taralist - Schedule Controlled Relays</td>
+    </tr>
+	   <tr>
+		   <td class="formButtonCells">
+			   <input type="radio" id="Fusion" name="series" value="Fusion/">
+		   </td>
+		   <td>
+			   Fusion - Reactor, Taralist, and ProXR Combined
+		   </td>
+	   </tr>
+   <tr>
+     <th colspan="2" style="text-align: left;">Choose which device you would like the Web Page to be optimized for</th>
+    </tr>
+    <tr>
+     <td class="formButtonCells" style="width: 40px;">
+      <input type="radio" id="Desktop" name="device" value="" checked="checked">
+     </td>
+     <td>
+      Desktop</td>
+    </tr>
+    <tr>
+     <td class="formButtonCells">
+      <input type="radio" id="tablet" name="device" value="tablet/">
+     </td>
+     <td>
+      Tablet</td>
+    </tr>
+    <tr>
+     <td class="formButtonCells">
+      <input type="radio" id="mobile" name="device" value="mobile/">
+     </td>
+     <td>
+      Mobile Phone</td>
+    </tr>
+   </table>
+   </form>
+   <button onclick="uploadDefaultHome();" class="DeviceConfigButton">Update</button>
+   </div>
+   <div class="ConfigDiv">
+   <form name="ipConfig">
+   <table class="configTable" style="width: 58%;">
+    <tr>
+     <th colspan="2" style="text-align: left;">Set your IP Address Configuration</th>
+    </tr>
+    <tr>
+     <td class="formButtonCells" style="width: 120px;">
+      <input type="radio" name="AddressOption" value="1">
+     </td>
+     <td>
+      Obtain an IP Address automatically using DHCP
+     </td>
+    </tr>
+    <tr>
+     <td class="formButtonCells">
+      <input type="radio" name="AddressOption" value="0">
+     </td>
+     <td>
+      Use the following IP 
+      Address:
+     </td>
+    </tr>
+    
+    <tr>
+     <td class="configLabelCell">
+      IP Address:
+     </td>
+     <td>
+      <input type="text" value="192.168.0.7" id="ipAddress">
+     </td>
+    </tr>
+    <tr>
+     <td class="configLabelCell">
+      Subnet Mask:
+     </td>
+     <td>
+      <input type="text" value="255.255.255.0" id="subnetMask">
+     </td>
+    </tr>
+    <tr>
+     <td class="configLabelCell">
+      Default Gateway:
+     </td>
+     <td>
+      <input type="text" value="192.168.0.1" id="defaultGateway">
+     </td>
+    </tr>
+    <tr>
+     <td colspan="2">
+     </td>
+    </tr>
+   </table>
+   </form>
+         <button onclick="uploadIpConfiguration();" class="DeviceConfigButton">Update</button>
+   </div>
+   <div class="ConfigDiv">
+
+   <form name="signalSwitchConfig">
+   <table class="configTable" style="width: 68%;">
+    <tr>
+     <th colspan="2" style="text-align: left;">Remote Server Configuration</th>
+    </tr>
+    <tr>
+     <td class="configLabelCell">
+      Remote Server Address:</td>
+     <td>
+      <input type="text" value="link.signalswitch.com" id="remoteServer" size="30">
+     </td>
+    </tr>
+    <tr>
+     <td class="configLabelCell">
+      Port Forwarding Number:</td>
+     <td>
+      <input type="text" value="2101" id="portNumber" size="6">
+     </td>
+    </tr>
+    <tr>
+     <td class="configLabelCell" colspan="2" style="color: #666666; font-size: .6em;">
+      *The default remote Server Address is &quot;http://link.signalswitch.com/&quot;</td>
+    </tr>
+    <tr>
+     <td colspan="2">
+     </td>
+    </tr>
+   </table>
+   </form>
+   <button onclick="setRemoteServer();" class="DeviceConfigButton">Update</button>
+   </div>
+<div class="ConfigDiv">
+
+   <form name="tcpPortConfig">
+   <table class="configTable" style="width: 68%;">
+    <tr>
+     <th colspan="2" style="text-align: left;">TCP Socket Listener</th>
+    </tr>
+    <tr>
+     <td class="configLabelCell" style="width: 220px;">
+      Port Forwarding Number:</td>
+     <td>
+      <input type="text" value="2101" id="tcpPortNumber" size="6">
+     </td>
+    </tr>
+    <tr>
+     <td colspan="2">
+     </td>
+    </tr>
+   </table>
+   </form>
+   <button onclick="setTCPPort();" class="DeviceConfigButton">Update</button>
+   </div>
+  </td>
+ </tr>
+</table>
+</div>
+</div>
+</body>
+</html>

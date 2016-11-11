@@ -1,0 +1,740 @@
+﻿<html>
+<head>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<meta http-equiv="X-UA-Compatible" content="IE=9" >
+<title>Customized Macros</title>
+<link rel="stylesheet" type="text/css" href="/styles/style.css">
+<script language="javascript" type="text/javascript" src="/JS/prototype.js"></script>
+<script type="text/javascript">
+function getMacros()
+{
+ for (m = 0; m < 8; m++)
+ {
+  getMacroInfo(m);
+ }
+ getMacrosTitle();
+ correctNavigation();
+ displayDeviceInfo();
+}
+
+function getMacroInfo(_macroId)
+{
+ new Ajax.Request('/cgi-bin/getMacros.sh?' + Math.floor(Math.random()*1000) + ":" + _macroId,
+ {
+  method:'get',
+  onSuccess: function(transport)
+  {
+   var response = decodeURI(transport.responseText || "no response text");
+   var returnValue = response.split(":");
+  	document.getElementById("macro" + _macroId + "Label").setAttribute("value", returnValue[0]);
+  	var firstCommand = returnValue[1].split(";");
+  	var secondCommand = returnValue[2].split(";");
+  	var thirdCommand = returnValue[3].split(";");
+  	document.getElementById("macro" + _macroId + "Command0").setAttribute("value", firstCommand[0]);
+  	document.getElementById("macro" + _macroId + "BytesReturn0").setAttribute("value", firstCommand[1]);
+  	document.getElementById("macro" + _macroId + "ServerTimeout0").setAttribute("value", firstCommand[2]);
+  	document.getElementById("macro" + _macroId + "Command1").setAttribute("value", secondCommand[0]);
+  	document.getElementById("macro" + _macroId + "BytesReturn1").setAttribute("value", secondCommand[1]);
+  	document.getElementById("macro" + _macroId + "ServerTimeout1").setAttribute("value", secondCommand[2]);
+  	document.getElementById("macro" + _macroId + "Command2").setAttribute("value", thirdCommand[0]);
+  	document.getElementById("macro" + _macroId + "BytesReturn2").setAttribute("value", thirdCommand[1]);
+  	document.getElementById("macro" + _macroId + "ServerTimeout2").setAttribute("value", thirdCommand[2]);
+	 },
+  onFailure: function(){ alert('Something went wrong...') }
+ });
+}
+
+function setMacro(_macroId)
+{
+ var updateString = document.getElementById("macro" + _macroId + "Label").value + ":" + 
+	document.getElementById("macro" + _macroId + "Command0").value + ";" + 
+	document.getElementById("macro" + _macroId + "BytesReturn0").value + ";" + 
+	document.getElementById("macro" + _macroId + "ServerTimeout0").value + ":" +
+	document.getElementById("macro" + _macroId + "Command1").value + ";" + 
+	document.getElementById("macro" + _macroId + "BytesReturn1").value + ";" + 
+	document.getElementById("macro" + _macroId + "ServerTimeout1").value + ":" +
+	document.getElementById("macro" + _macroId + "Command2").value + ";" + 
+	document.getElementById("macro" + _macroId + "BytesReturn2").value + ";" + 
+	document.getElementById("macro" + _macroId + "ServerTimeout2").value;
+ new Ajax.Request('/cgi-bin/setMacros.sh?' + Math.floor(Math.random()*1000) + ":" + _macroId + ":" + updateString,
+ {
+  method:'get',
+  onSuccess: function(transport){
+   location.reload(true);
+ 	},
+  onFailure: function(){ alert('Something went wrong...') }
+ });
+}
+
+function getMacrosTitle()
+{
+ new Ajax.Request('/cgi-bin/getMacrosTitle.sh?' + Math.floor(Math.random()*1000),
+ {
+  method:'get',
+  onSuccess: function(transport)
+  {
+   var title = decodeURI(transport.responseText || "no response text");
+  	document.getElementById("myPageTitle").setAttribute("value", title);
+	 },
+  onFailure: function(){ alert('Something went wrong...') }
+ });
+}
+
+function setMacrosTitle()
+{
+ var title = document.getElementById('myPageTitle').value;
+ new Ajax.Request('/cgi-bin/setMacrosTitle.sh?' + Math.floor(Math.random()*1000) + ":" + title,
+ {
+  method:'get',
+  onSuccess: function(transport)
+  {
+   location.reload(true);
+	 },
+  onFailure: function(){ alert('Something went wrong...') }
+ });
+}
+function correctNavigation() {
+ new Ajax.Request("/cgi-bin/getDefaultHome.sh?" + Math.floor(Math.random()*1000),
+ {
+  method:'get',
+  onSuccess: function(transport)
+  {
+   var response = decodeURI(transport.responseText || "no response text");
+   var returnValue = response.split(":");
+   var targetDevice = returnValue[0].split("/");
+   if(targetDevice[1] == "")
+   {
+    document.getElementById("RelayLink").href="/" + targetDevice[0] + "/Relays.html"
+    document.getElementById("ADLink").href="/" + targetDevice[0] + "/AD.html"
+    document.getElementById("TriggerEventsLink").href="/" + targetDevice[0] + "/TriggerEvents.html"
+    document.getElementById("MyPageLink").href="/" + targetDevice[0] + "/MyPage.html"
+    document.getElementById("ConsoleLink").href="/" + targetDevice[0] + "/Console.html"
+    document.getElementById("NetworkLink").href="/" + targetDevice[0] + "/Network.html"
+    document.getElementById("ConfigurationLink").href="/" + targetDevice[0] + "/DeviceConfiguration.html"
+    document.getElementById("DeviceConfigurationLink").href="/" + targetDevice[0] + "/DeviceConfiguration.html"
+    document.getElementById("RelayConfigurationLink").href="/" + targetDevice[0] + "/RelayConfiguration.html"
+    document.getElementById("MyPageConfigurationLink").href="/" + targetDevice[0] + "/MyPageConfiguration.html"
+    document.getElementById("ADConfigurationLink").href="/" + targetDevice[0] + "/ADConfiguration.html"
+   }
+   else
+   {
+    document.getElementById("RelayLink").href="/" + targetDevice[0] + "/" + targetDevice[1] + "/Relays.html"
+    document.getElementById("ADLink").href="/" + targetDevice[0] + "/" + targetDevice[1] + "/AD.html"
+    document.getElementById("TriggerEventsLink").href="/" + targetDevice[0] + "/" + targetDevice[1] + "/TriggerEvents.html"
+    document.getElementById("MyPageLink").href="/" + targetDevice[0] + "/" + targetDevice[1] + "/MyPage.html"
+    document.getElementById("ConsoleLink").href="/" + targetDevice[0] + "/" + targetDevice[1] + "/Console.html"
+    document.getElementById("NetworkLink").href="/" + targetDevice[0] + "/" + targetDevice[1] + "/Network.html"
+    document.getElementById("ConfigurationLink").href="/" + targetDevice[0] + "/" + targetDevice[1] + "/DeviceConfiguration.html"
+    document.getElementById("DeviceConfigurationLink").href="/" + targetDevice[0] + "/" + targetDevice[1] + "/DeviceConfiguration.html"
+    document.getElementById("RelayConfigurationLink").href="/" + targetDevice[0] + "/" + targetDevice[1] + "/RelayConfiguration.html"
+    document.getElementById("MyPageConfigurationLink").href="/" + targetDevice[0] + "/" + targetDevice[1] + "/MyPageConfiguration.html"
+    document.getElementById("ADConfigurationLink").href="/" + targetDevice[0] + "/" + targetDevice[1] + "/ADConfiguration.html"
+   }
+ 	},
+  onFailure: function(){ alert('Something went wrong...') }
+ });
+}
+function displayDeviceInfo()
+{
+ new Ajax.Request('/cgi-bin/getDeviceNameAddress.sh?' + Math.floor(Math.random()*1000),
+ {
+  method:'get',
+  onSuccess: function(transport)
+  {
+   var response = decodeURI(transport.responseText || "no response text");
+   var returnValue = response.split(":");
+   document.getElementById("boardInfo").innerHTML = "<strong>" + returnValue[0] + "</strong></p><p>" + returnValue[1] + "<br>"
+    + returnValue[2] + ", " + returnValue[3] + " " + returnValue[4];
+   document.title = returnValue[0] + " - Web-i";
+ 	},
+  onFailure: function(){ alert('Something went wrong...') }
+ });
+}
+</script>
+</head>
+<body onload="getMacros();" id="Configuration" class="MyPageConfiguration">
+<div class="GlobalHeaderDiv">
+ <div class="HeaderSubContainer">
+  <div class="LogoContainer"></div>
+  <div class="HeaderTitle">
+  <h1>National Control Devices</h1>
+  <p>World's Largest Manufacturer of Computer Controlled Switching Devices Since 1995.</p>
+  </div>
+ </div>
+</div>
+<div class="OuterWrapper">
+<div class="ContentSuperContainerBGMiddle">
+<table cellpadding="0" cellspacing="0">
+ <tr>
+  <td class="LeftNavContainer">
+   <ul id="nav" class="nav">
+    <li class="treet"><a class="link Relays" id ="RelayLink" href="Relays.html">Relays</a></li>
+    <li class="treet"><a class="link AD" id="ADLink" href="AD.html">A/D</a></li>
+    <li class="treet"><a class="link MyPage" id="MyPageLink" href="MyPage.html">My Page</a></li>
+    <li class="treet"><a class="link TriggerEvents" id="TriggerEventsLink" href="TriggerEvents.html">Trigger Events</a></li>
+    <li class="treet"><a class="link Console" id="ConsoleLink" href="Console.html">Console</a></li>
+    <li class="treet"><a class="link Network" id="NetworkLink" href="Network.html">Network</a></li>
+    <li class="treet"><a class="link Configuration" id="ConfigurationLink" href="DeviceConfiguration.html">Configure</a></li>
+    <li class="tree"><a class="link" href="http://www.controlanything.com/">NCD Home</a></li>
+   </ul>
+   <p id="boardInfo"></p>
+  </td>
+  <td class="Content" id="Content">
+  <div class="configNavDiv"><a href="/DeviceConfiguration.html" class="configLink DeviceConfiguration" id="DeviceConfigurationLink">Device Configuration</a><a href="/RelayConfiguration.html" class="configLink RelayConfiguration" id="RelayConfigurationLink">Relay Configuration</a><a href="/MyPageConfiguration.html" class="configLink MyPageConfiguration" id="MyPageConfigurationLink">My Page Configuration</a><a href="/ADConfiguration.html" class="configLink ADConfiguration" id="ADConfigurationLink">A/D Configuration</a></div>
+  <h3>Customize your Page</h3>
+  <div id="response"></div>
+  <p>
+  Title of MyPage:&nbsp;&nbsp; 
+  <input id="myPageTitle"><button onclick="setMacrosTitle();">Update</button>
+  </p>
+  <div class="configDiv">
+  <h4>Button 1:
+     <input id="macro0Label"></h4>
+  <table>
+   <tr>
+    <td>
+    </td>
+    <td>
+     Command:
+    </td>
+    <td>
+     Bytes Back:
+    </td>
+    <td>
+     Command Timeout:
+    </td>
+    <td>
+    
+    </td>
+   </tr>
+   <tr>
+    <td>
+     Command 1:</td>
+    <td>
+     <input id="macro0Command0">
+    </td>
+    <td>
+     <input id="macro0BytesReturn0">
+    </td>
+    <td>
+     <input id="macro0ServerTimeout0">
+    </td>
+    <td>
+    </td>
+   </tr>
+   <tr>
+    <td>
+     Command 2:</td>
+    <td>
+     <input id="macro0Command1">
+    </td>
+    <td>
+     <input id="macro0BytesReturn1">
+    </td>
+    <td>
+     <input id="macro0ServerTimeout1">
+    </td>
+    <td>
+     <button id="macro0Update" onclick="setMacro(0);">Update</button>
+    </td>
+   </tr>
+   <tr>
+    <td>
+     Command 3:</td>
+    <td>
+     <input id="macro0Command2">
+    </td>
+    <td>
+     <input id="macro0BytesReturn2">
+    </td>
+    <td>
+     <input id="macro0ServerTimeout2">
+    </td>
+    <td>
+
+    </td>
+   </tr>
+   </table>
+  </div>
+<div class="configDiv">
+  <h4>Button 2:
+     <input id="macro1Label"></h4>
+  <table>
+   <tr>
+    <td>
+    </td>
+    <td>
+     Command:
+    </td>
+    <td>
+     Bytes Back:
+    </td>
+    <td>
+     Command Timeout:
+    </td>
+    <td>
+    </td>
+   </tr>
+   <tr>
+    <td>
+     Command 1:</td>
+    <td>
+     <input id="macro1Command0">
+    </td>
+    <td>
+     <input id="macro1BytesReturn0">
+    </td>
+    <td>
+     <input id="macro1ServerTimeout0">
+    </td>
+    <td>
+    </td>
+   </tr>
+   <tr>
+    <td>
+     Command 2:</td>
+    <td>
+     <input id="macro1Command1">
+    </td>
+    <td>
+     <input id="macro1BytesReturn1">
+    </td>
+    <td>
+     <input id="macro1ServerTimeout1">
+    </td>
+    <td>
+     <button id="macro1Update" onclick="setMacro(1);">Update</button>
+    </td>
+   </tr>
+   <tr>
+    <td>
+     Command 3:</td>
+    <td>
+     <input id="macro1Command2">
+    </td>
+    <td>
+     <input id="macro1BytesReturn2">
+    </td>
+    <td>
+     <input id="macro1ServerTimeout2">
+    </td>
+    <td>
+    </td>
+   </tr>
+   </table>
+  </div>
+<div class="configDiv">
+  <h4>Button 3:
+     <input id="macro2Label"></h4>
+  <table>
+   <tr>
+    <td>
+    </td>
+    <td>
+     Command:
+    </td>
+    <td>
+     Bytes Back:
+    </td>
+    <td>
+     Command Timeout:
+    </td>
+    <td>
+    
+    </td>
+   </tr>
+   <tr>
+    <td>
+     Command 1:</td>
+    <td>
+     <input id="macro2Command0">
+    </td>
+    <td>
+     <input id="macro2BytesReturn0">
+    </td>
+    <td>
+     <input id="macro2ServerTimeout0">
+    </td>
+    <td>
+    </td>
+   </tr>
+   <tr>
+    <td style="height: 30px">
+     Command 2:</td>
+    <td style="height: 30px">
+     <input id="macro2Command1">
+    </td>
+    <td style="height: 30px">
+     <input id="macro2BytesReturn1">
+    </td>
+    <td style="height: 30px">
+     <input id="macro2ServerTimeout1">
+    </td>
+    <td style="height: 30px">
+     <button id="macro2Update" onclick="setMacro(2);">Update</button>
+    </td>
+   </tr>
+   <tr>
+    <td>
+     Command 3:</td>
+    <td>
+     <input id="macro2Command2">
+    </td>
+    <td>
+     <input id="macro2BytesReturn2">
+    </td>
+    <td>
+     <input id="macro2ServerTimeout2">
+    </td>
+    <td>
+    </td>
+   </tr>
+   </table>
+  </div>
+<div class="configDiv">
+  <h4>Button 4:
+     <input id="macro3Label"></h4>
+  <table>
+   <tr>
+    <td>
+    </td>
+    <td>
+     Command:
+    </td>
+    <td>
+     Bytes Back:
+    </td>
+    <td>
+     Command Timeout:
+    </td>
+    <td>
+    
+    </td>
+   </tr>
+   <tr>
+    <td>
+     Command 1:</td>
+    <td>
+     <input id="macro3Command0">
+    </td>
+    <td>
+     <input id="macro3BytesReturn0">
+    </td>
+    <td>
+     <input id="macro3ServerTimeout0">
+    </td>
+    <td>
+    </td>
+   </tr>
+   <tr>
+    <td>
+     Command 2:</td>
+    <td>
+     <input id="macro3Command1">
+    </td>
+    <td>
+     <input id="macro3BytesReturn1">
+    </td>
+    <td>
+     <input id="macro3ServerTimeout1">
+    </td>
+    <td>
+     <button id="macro3Update" onclick="setMacro(3);">Update</button>
+    </td>
+   </tr>
+   <tr>
+    <td>
+     Command 3:</td>
+    <td>
+     <input id="macro3Command2">
+    </td>
+    <td>
+     <input id="macro3BytesReturn2">
+    </td>
+    <td>
+     <input id="macro3ServerTimeout2">
+    </td>
+    <td>
+    </td>
+   </tr>
+   </table>
+  </div>
+<div class="configDiv">
+  <h4>Button 5:
+     <input id="macro4Label"></h4>
+  <table>
+   <tr>
+    <td>
+    </td>
+    <td>
+     Command:
+    </td>
+    <td>
+     Bytes Back:
+    </td>
+    <td>
+     Command Timeout:
+    </td>
+    <td>
+    
+    </td>
+   </tr>
+   <tr>
+    <td>
+     Command 1:</td>
+    <td>
+     <input id="macro4Command0">
+    </td>
+    <td>
+     <input id="macro4BytesReturn0">
+    </td>
+    <td>
+     <input id="macro4ServerTimeout0">
+    </td>
+    <td>
+    </td>
+   </tr>
+   <tr>
+    <td>
+     Command 2:</td>
+    <td>
+     <input id="macro4Command1">
+    </td>
+    <td>
+     <input id="macro4BytesReturn1">
+    </td>
+    <td>
+     <input id="macro4ServerTimeout1">
+    </td>
+    <td>
+     <button id="macro4Update" onclick="setMacro(4);">Update</button>
+    </td>
+   </tr>
+   <tr>
+    <td>
+     Command 3:</td>
+    <td>
+     <input id="macro4Command2">
+    </td>
+    <td>
+     <input id="macro4BytesReturn2">
+    </td>
+    <td>
+     <input id="macro4ServerTimeout2">
+    </td>
+    <td>
+    </td>
+   </tr>
+   </table>
+  </div>
+<div class="configDiv">
+  <h4>Button 6:
+     <input id="macro5Label"></h4>
+  <table>
+   <tr>
+    <td>
+    </td>
+    <td>
+     Command:
+    </td>
+    <td>
+     Bytes Back:
+    </td>
+    <td>
+     Command Timeout:
+    </td>
+    <td>
+    
+    </td>
+   </tr>
+   <tr>
+    <td>
+     Command 1:</td>
+    <td>
+     <input id="macro5Command0">
+    </td>
+    <td>
+     <input id="macro5BytesReturn0">
+    </td>
+    <td>
+     <input id="macro5ServerTimeout0">
+    </td>
+    <td>
+    </td>
+   </tr>
+   <tr>
+    <td style="height: 30px">
+     Command 2:</td>
+    <td style="height: 30px">
+     <input id="macro5Command1">
+    </td>
+    <td style="height: 30px">
+     <input id="macro5BytesReturn1">
+    </td>
+    <td style="height: 30px">
+     <input id="macro5ServerTimeout1">
+    </td>
+    <td style="height: 30px">
+     <button id="macro5Update" onclick="setMacro(5);">Update</button>
+    </td>
+   </tr>
+   <tr>
+    <td>
+     Command 3:</td>
+    <td>
+     <input id="macro5Command2">
+    </td>
+    <td>
+     <input id="macro5BytesReturn2">
+    </td>
+    <td>
+     <input id="macro5ServerTimeout2">
+    </td>
+    <td>
+    </td>
+   </tr>
+   </table>
+  </div>
+<div class="configDiv">
+  <h4>Button 7:
+     <input id="macro6Label"></h4>
+  <table>
+   <tr>
+    <td>
+    </td>
+    <td>
+     Command:
+    </td>
+    <td>
+     Bytes Back:
+    </td>
+    <td>
+     Command Timeout:
+    </td>
+    <td>
+    
+    </td>
+   </tr>
+   <tr>
+    <td>
+     Command 1:</td>
+    <td>
+     <input id="macro6Command0">
+    </td>
+    <td>
+     <input id="macro6BytesReturn0">
+    </td>
+    <td>
+     <input id="macro6ServerTimeout0">
+    </td>
+    <td>
+    </td>
+   </tr>
+   <tr>
+    <td>
+     Command 2:</td>
+    <td>
+     <input id="macro6Command1">
+    </td>
+    <td>
+     <input id="macro6BytesReturn1">
+    </td>
+    <td>
+     <input id="macro6ServerTimeout1">
+    </td>
+    <td>
+     <button id="macro6Update" onclick="setMacro(6);">Update</button>
+    </td>
+   </tr>
+   <tr>
+    <td>
+     Command 3:</td>
+    <td>
+     <input id="macro6Command2">
+    </td>
+    <td>
+     <input id="macro6BytesReturn2">
+    </td>
+    <td>
+     <input id="macro6ServerTimeout2">
+    </td>
+    <td>
+    </td>
+   </tr>
+   </table>
+  </div>
+<div class="configDiv">
+  <h4>Button 8:
+     <input id="macro7Label" style="height: 22px"></h4>
+  <table>
+   <tr>
+    <td>
+    </td>
+    <td>
+     Command:
+    </td>
+    <td>
+     Bytes Back:
+    </td>
+    <td>
+     Command Timeout:
+    </td>
+    <td>
+    
+    </td>
+   </tr>
+   <tr>
+    <td style="height: 30px">
+     Command 1:</td>
+    <td style="height: 30px">
+     <input id="macro7Command0">
+    </td>
+    <td style="height: 30px">
+     <input id="macro7BytesReturn0">
+    </td>
+    <td style="height: 30px">
+     <input id="macro7ServerTimeout0">
+    </td>
+    <td style="height: 30px">
+    </td>
+   </tr>
+   <tr>
+    <td>
+     Command 2:</td>
+    <td>
+     <input id="macro7Command1">
+    </td>
+    <td>
+     <input id="macro7BytesReturn1">
+    </td>
+    <td>
+     <input id="macro7ServerTimeout1">
+    </td>
+    <td>
+     <button id="macro7Update" onclick="setMacro(7);">Update</button>
+    </td>
+   </tr>
+   <tr>
+    <td>
+     Command 3:</td>
+    <td>
+     <input id="macro7Command2">
+    </td>
+    <td>
+     <input id="macro7BytesReturn2">
+    </td>
+    <td>
+     <input id="macro7ServerTimeout2">
+    </td>
+    <td>
+    </td>
+   </tr>
+   </table>
+  </div>
+  </td>
+ </tr>
+</table>
+</div>
+</div>
+</body>
+</html>

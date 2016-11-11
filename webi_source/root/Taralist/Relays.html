@@ -1,0 +1,366 @@
+﻿<html> 
+<head>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<meta http-equiv="X-UA-Compatible" content="IE=9" >
+<title>Relay Control with NCD's Web-i Interface</title>
+<script type="text/javascript" src="/JS/jquery-1.4.2.min.js"></script>
+<script language="javascript" type="text/javascript" src="/JS/prototype.js"></script>
+<script type="text/javascript" src="/JS/jquery.tools.min.js"></script>
+<script type="text/javascript">
+function accordion() {
+ $('.acc_container').hide(); //Hide/close all containers
+ $('.acc_trigger:first').addClass('active').next().show(); //Add "active" class to first trigger, then show/open the immediate next container
+ 
+ $('.acc_trigger').click(function(){
+ 	if( $(this).next().is(':hidden') ) { //If immediate next container is closed...
+ 		$('.acc_trigger').removeClass('active').next().slideUp(); //Remove all "active" state and slide up the immediate next container
+ 		$(this).toggleClass('active').next().slideDown(); //Add "active" state to clicked trigger and slide down the immediate next container
+ 	}
+ 	return false; //Prevent the browser jump to the link anchor
+ });
+ return;
+};
+</script>
+
+<script type="text/javascript" language="javascript">
+ var bankCount = 1;
+ var bankNames=["Bank1"];
+ var relayNames=["R1 Default","R2 Default","R3 Default","R4 Default","R5 Default","R6 Default","R7 Default","R8 Default"];
+
+ function createBanks()
+ {
+  new Ajax.Request('/cgi-bin/getBankCount.sh?' + Math.floor(Math.random()*1000),
+  {
+   method:'get',
+   onSuccess: function(transport)
+   {
+    var response = decodeURI(transport.responseText || "no response text");
+    bankCount = Number(response);
+  		for( i = 0; i < bankCount; i++)
+  		{
+     var hTag = document.createElement("h2");
+     hTag.id = "bank" + i;
+     hTag.className = "acc_trigger";
+     hTag.innerHTML = "<a href=\"#\">Bank Name</a>";
+     document.getElementById("Content").appendChild(hTag);
+     var acc_containerDiv = document.createElement("div");
+     acc_containerDiv.className = "acc_container";
+     document.getElementById("Content").appendChild(acc_containerDiv);
+     var blockDiv = document.createElement("div");
+     blockDiv.className = "block";
+     acc_containerDiv.appendChild(blockDiv);
+     var tableTag = document.createElement("table");
+     tableTag.className = "bankTable";
+     blockDiv.appendChild(tableTag);     
+  			createBank(i, hTag, tableTag);
+ 	 	}
+    accordion();
+ 	 	SendUpdateCommand(0); // initialze the first bank status         
+  	},
+   onFailure: function(){ alert('Something went wrong...') }
+  });
+  correctNavigation();
+  displayDeviceInfo();
+ }
+ 
+ function createBank(_bankId, hTag, tableTag)
+ {
+  new Ajax.Request('/cgi-bin/getBankRelayNames.sh?' + Math.floor(Math.random()*1000) + ":" + _bankId,
+  {
+   method:'get',
+   onSuccess: function(transport)
+   {
+    var response = decodeURI(transport.responseText || "no response text");
+    var returnValue = response.split(":");
+    var bankName = returnValue[0]; // the first item is the bank count
+    var relayNames = returnValue[1].split(";");  // the seconds groups are bank names
+    hTag.innerHTML = "<a href=\"#\" onclick=\"SendUpdateCommand(" + _bankId + ");\">" + bankName + "</a><button style=\"margin-left: 680px; margin-top: -39px; position: absolute; height: 38px;\" onclick=\"SendUpdateCommand(" + _bankId + ")\">Refresh</button>";
+    for(r = 0; r < 8; r ++)
+    {
+    	var trTag = document.createElement("tr");
+     tableTag.appendChild(trTag);
+     var RelayLabelTag = document.createElement("td");
+     RelayLabelTag.className = "RelayLabel";
+     RelayLabelTag.innerHTML = relayNames[r];
+     trTag.appendChild(RelayLabelTag);
+     var relayStatusTag = document.createElement("td");
+     relayStatusTag.id = "Relay" + r + "B" + _bankId;
+     relayStatusTag.className = "RelayStatus";
+     relayStatusTag.innerHTML = "Off";
+     trTag.appendChild(relayStatusTag);
+     var tdOnTag = document.createElement("td");
+     tdOnTag.innerHTML = "<button onclick=\"TurnOnRelay(" + _bankId + "," + r  + ")\" class=\"relayButton\">On</button>";
+     trTag.appendChild(tdOnTag);
+     var tdOffTag = document.createElement("td");
+     tdOffTag.innerHTML = "<button onclick=\"TurnOffRelay(" + _bankId + "," + r + ")\" class=\"relayButton\">Off</button>";
+     trTag.appendChild(tdOffTag);
+     var tdReturnTag = document.createElement("td");
+     tdReturnTag.innerHTML = "<button onclick=\"returnControl(" + _bankId + "," + r + ");\" class=\"returnControlButton\">Return Control</button>";
+     trTag.appendChild(tdReturnTag);
+//     trTag.innerHTML = "<td class=\"RelayLabel\">" + relayNames[r] + "</td>";
+//       + "</td><td id=\"Relay" + r + "B" +_bankId + "\" class=\"RelayStatus\">Off</td>" 
+//       + "<td><button onclick=\"TurnOnRelay(" + _bankId + "," + r  + ")\" class=\"relayButton\">On</button></td>"
+//       +"<td><button onclick=\"TurnOffRelay(" + _bankId + "," + r + ")\" class=\"relayButton\">Off</button></td>";
+    }
+    trTag = document.createElement("tr");
+    tableTag.appendChild(trTag);
+    var allOnOfftd = document.createElement("td");
+    trTag.appendChild(allOnOfftd);
+    allOnOfftd = document.createElement("td");
+    trTag.appendChild(allOnOfftd);
+    allOnOfftd = document.createElement("td");
+    allOnOfftd.innerHTML = "<button onclick=\"turnAllOn(" + _bankId + ")\" class=\"relayButton\">All On</button>";
+    trTag.appendChild(allOnOfftd);
+    allOnOfftd = document.createElement("td");
+    allOnOfftd.innerHTML = "<button onclick=\"turnAllOff(" + _bankId + ")\" class=\"relayButton\">All Off</button>";
+    trTag.appendChild(allOnOfftd);
+    allOnOfftd = document.createElement("td");
+    allOnOfftd.innerHTML = "<button onclick=\"SendCommand('cmd=64,129," + _bankId + "');\" class=\"returnControlButton\">Return All</button>";
+    trTag.appendChild(allOnOfftd);
+  	},
+   onFailure: function(){ alert('Something went wrong...') }
+  });
+ }
+function returnControl(_bankId, _relayNumber) {
+ var command = 'cmd=64,10' + _relayNumber + ',' + _bankId;
+ SendCommand(command);
+}
+
+function turnAllOn(_bankId) {
+ var b1 = _bankId + 1;
+ var cmd = "cmd=254,130,"  + b1;
+ var commandReturn = SendCommand(cmd, _bankId);
+}
+function turnAllOff(_bankId) {
+ var b1 = _bankId + 1;
+ var cmd = "cmd=254,129,"  + b1;
+ var commandReturn = SendCommand(cmd, _bankId);
+}
+
+ function TurnOnRelay(_bankId, _relayId)
+ {
+  document.getElementById("Relay" + _relayId + "B" + _bankId ).innerHTML="<img src=\"/images/layout/ajax-loader.gif\">";
+  var c1 = 108 + _relayId;
+  var b1 = _bankId + 1;
+  var cmd = "cmd=254," + c1 + ","  + b1;
+  
+  var commandReturn = SendCommand(cmd, _bankId);
+ }
+ 
+ 
+ function TurnOffRelay(_bankId, _relayId)
+ {
+  document.getElementById("Relay" + _relayId + "B" + _bankId ).innerHTML="<img src=\"/images/layout/ajax-loader.gif\">";
+  var c1 = 100 + _relayId;
+  var b1 = _bankId + 1;
+  var cmd = "cmd=254," + c1 + ","  + b1;
+  var commandReturn = SendCommand(cmd, _bankId);
+ }
+ 
+// send 254, 124, bankId to get bank status and update the GUI
+function SendUpdateCommand(_bankId)
+{
+    var  b1 = _bankId + 1;
+    new Ajax.Request('/cgi-bin/runcommand.sh?' + Math.floor(Math.random()*1000) + ":" + 'cmd=254,124,'+ b1,
+    {
+      method:'get',
+      onSuccess: function(transport){
+        var response = transport.responseText || "no response text";
+        //splits the OK from the 85,
+       	var returnValue = response.split("\n");
+       	//shaves off comma at the end of 85
+       	var bankStatus = returnValue[1].substring(0, returnValue[1].length-1);
+       	UpdateBankStatus(_bankId, bankStatus);
+      },
+      onFailure: function(){ alert('Something went wrong...') }
+    });
+
+}
+
+// update bank status
+function UpdateBankStatus(_bankId, _bankStatus)
+{
+   	var val = Number(_bankStatus);
+   	var RelayValues = ["Off","Off","Off","Off","Off","Off","Off","Off"];
+   	if(val > 127)
+   	{
+   		RelayValues[7] = "On";
+   		val = val - 128;
+   		document.getElementById("Relay7B" + _bankId ).style.color = 'green';
+   	}
+   	else {
+   		document.getElementById("Relay7B" + _bankId ).style.color = 'red';
+   	}
+   	if(val > 63)
+   	{	
+   		RelayValues[6] = "On";
+   		val = val - 64
+   		document.getElementById("Relay6B" + _bankId ).style.color = 'green';
+   	}
+   	else {
+   		document.getElementById("Relay6B" + _bankId ).style.color = 'red';
+   	}
+   	if(val > 31)
+   	{
+   		RelayValues[5] = "On";
+   		val = val - 32;
+   		document.getElementById("Relay5B" + _bankId ).style.color = 'green';
+   	}
+   	else {
+   		document.getElementById("Relay5B" + _bankId ).style.color = 'red';
+   	}
+   	if(val > 15)
+   	{
+   		RelayValues[4] = "On";
+   		val = val - 16;
+   		document.getElementById("Relay4B" + _bankId ).style.color = 'green';
+   	}
+   	else {
+   		document.getElementById("Relay4B" + _bankId ).style.color = 'red';
+   	}
+   	if(val > 7)
+   	{
+   		RelayValues[3] = "On";
+   		val = val - 8;
+   		document.getElementById("Relay3B" + _bankId ).style.color = 'green';
+   	}
+   	else {
+   		document.getElementById("Relay3B" + _bankId ).style.color = 'red';
+   	}
+   	if(val > 3)
+   	{	
+   		RelayValues[2] = "On";
+   		val = val - 4
+   		document.getElementById("Relay2B" + _bankId ).style.color = 'green';
+   	}
+   	else {
+   		document.getElementById("Relay2B" + _bankId ).style.color = 'red';
+   	}
+   	if(val > 1)
+   	{
+   		RelayValues[1] = "On";
+   		val = val - 2;
+   		document.getElementById("Relay1B" + _bankId ).style.color = 'green';
+   	}
+   	else {
+   		document.getElementById("Relay1B" + _bankId ).style.color = 'red';
+   	}
+   	if(val > 0)
+   	{
+   		RelayValues[0] = "On";
+   		document.getElementById("Relay0B" + _bankId ).style.color = 'green';
+   	}
+   	else {
+   		document.getElementById("Relay0B" + _bankId ).style.color = 'red';
+   	}
+   
+   	document.getElementById("Relay0B" + _bankId ).innerHTML=RelayValues[0];
+   	document.getElementById("Relay1B" + _bankId ).innerHTML=RelayValues[1];
+   	document.getElementById("Relay2B" + _bankId ).innerHTML=RelayValues[2];
+   	document.getElementById("Relay3B" + _bankId ).innerHTML=RelayValues[3];
+   	document.getElementById("Relay4B" + _bankId ).innerHTML=RelayValues[4];
+   	document.getElementById("Relay5B" + _bankId ).innerHTML=RelayValues[5];
+   	document.getElementById("Relay6B" + _bankId ).innerHTML=RelayValues[6];
+   	document.getElementById("Relay7B" + _bankId ).innerHTML=RelayValues[7];
+
+}
+
+ function SendCommand(cmd, _bankId)
+ {
+  new Ajax.Request('/cgi-bin/runcommand.sh?' + Math.floor(Math.random()*1000) + ":" + cmd,
+  {
+    method:'get',
+    onSuccess: function(transport)
+    {
+       var response = transport.responseText || "no response text";
+   	   var returnValue = response.split("\n")[1];
+   	   var val = Number(returnValue[1]);
+       SendUpdateCommand(_bankId);
+   	},
+ 
+    onFailure: function(){ alert('Something went wrong...') }
+  });
+ }
+function correctNavigation() {
+ new Ajax.Request("/cgi-bin/getDefaultHome.sh?" + Math.floor(Math.random()*1000),
+ {
+  method:'get',
+  onSuccess: function(transport)
+  {
+   var response = decodeURI(transport.responseText || "no response text");
+   var returnValue = response.split(":");
+   var targetDevice = returnValue[0].split("/");
+   if(targetDevice[1] == "")
+   {
+    document.getElementById("RelayLink").href="/" + targetDevice[0] + "/Relays.html"
+    document.getElementById("MyPageLink").href="/" + targetDevice[0] + "/MyPage.html"
+    document.getElementById("ConsoleLink").href="/" + targetDevice[0] + "/Console.html"
+    document.getElementById("NetworkLink").href="/" + targetDevice[0] + "/Network.html"
+    document.getElementById("ConfigurationLink").href="/" + targetDevice[0] + "/DeviceConfiguration.html"
+   }
+   else
+   {
+    document.getElementById("RelayLink").href="/" + targetDevice[0] + "/" + targetDevice[1] + "/Relays.html"
+    document.getElementById("MyPageLink").href="/" + targetDevice[0] + "/" + targetDevice[1] + "/MyPage.html"
+    document.getElementById("ConsoleLink").href="/" + targetDevice[0] + "/" + targetDevice[1] + "/Console.html"
+    document.getElementById("NetworkLink").href="/" + targetDevice[0] + "/" + targetDevice[1] + "/Network.html"
+    document.getElementById("ConfigurationLink").href="/" + targetDevice[0] + "/" + targetDevice[1] + "/DeviceConfiguration.html"
+   }
+ 	},
+  onFailure: function(){ alert('Something went wrong...') }
+ });
+}
+function displayDeviceInfo()
+{
+ new Ajax.Request('/cgi-bin/getDeviceNameAddress.sh?' + Math.floor(Math.random()*1000),
+ {
+  method:'get',
+  onSuccess: function(transport)
+  {
+   var response = decodeURI(transport.responseText || "no response text");
+   var returnValue = response.split(":");
+   document.getElementById("boardInfo").innerHTML = "<strong>" + returnValue[0] + "</strong></p><p>" + returnValue[1] + "<br>"
+    + returnValue[2] + ", " + returnValue[3] + " " + returnValue[4];
+   document.title = returnValue[0] + " - Web-i";
+ 	},
+  onFailure: function(){ alert('Something went wrong...') }
+ });
+}
+</script>
+<link rel="stylesheet" type="text/css" href="/styles/style.css">
+</head>
+<body onload="createBanks();" id="Relays">
+<div class="GlobalHeaderDiv">
+ <div class="HeaderSubContainer">
+  <div class="LogoContainer"></div>
+  <div class="HeaderTitle">
+  <h1>National Control Devices</h1>
+  <p>World's Largest Manufacturer of Computer Controlled Switching Devices Since 1995.</p>
+  </div>
+ </div>
+</div>
+<div class="OuterWrapper">
+<div class="ContentSuperContainerBGMiddle">
+<table cellpadding="0" cellspacing="0">
+ <tr>
+  <td class="LeftNavContainer">
+   <ul id="nav" class="nav">
+    <li class="treet"><a class="link Relays" id ="RelayLink" href="Relays.html">Relays</a></li>
+    
+    <li class="treet"><a class="link MyPage" id="MyPageLink" href="MyPage.html">My Page</a></li>
+    <li class="treet"><a class="link Console" id="ConsoleLink" href="Console.html">Console</a></li>
+    <li class="treet"><a class="link Network" id="NetworkLink" href="Network.html">Network</a></li>
+    <li class="treet"><a class="link Configuration" id="ConfigurationLink" href="DeviceConfiguration.html">Configure</a></li>
+    <li class="tree"><a class="link" href="http://www.controlanything.com/">NCD Home</a></li>
+   </ul>
+   <p id="boardInfo"></p>
+  </td>
+  <td class="Content" id="Content">
+  </td>
+ </tr>
+</table>
+<!--This loads the loader image so it shows instantly when requested--><img src="/images/layout/ajax-loader.gif" style="display: none; position: absolute;">
+</div>
+</div>
+</body>
+</html>
