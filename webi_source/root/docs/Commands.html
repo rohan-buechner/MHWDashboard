@@ -1,0 +1,130 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Web-i Javascript Gateways</title>
+<style type="text/css">
+ .example {
+  text-align: right;
+  color: #666;
+}
+ .description {
+  padding-left: 16px;
+}
+</style>
+</head>
+
+<body>
+<h3>Web-i Javascript Gateways</h3>
+<p>This is a library demonstrating how to access the gateways built into the Web-i module using javascript.</p>
+<h4>getAdNames.sh</h4>
+<p class="description">This allows you to pull the user customized names of the 
+A/D inputs stored in the module and returns a string.</p>
+<p class="example">Example: http://192.168.1.12/cgi-bin/getAdNames.sh</p>
+<p class="ajaxExample">function testFunction() {<br />
+new Ajax.Request(&quot;/cgi-bin/getAdNames.sh?&quot; 
++ Math.floor(Math.random()*1000),<br />
+{<br />
+&nbsp;method:&#39;get&#39;,<br />
+&nbsp;onSuccess: function(transport)<br />
+&nbsp;{<br />
+&nbsp; var response = decodeURI(transport.responseText || &quot;no response text&quot;);<br />
+&nbsp;},<br />
+&nbsp;onFailure: function(){ alert(&#39;Something went wrong...&#39;) }<br />
+&nbsp;});<br />
+}<br />
+</p>
+<h4>getBankCount.sh</h4>
+<p class="description">This queries the number of relay banks currently 
+configured for the board and returns an integer</p>
+<p class="example">Example: http://192.168.1.12/cgi-bin/getBankCount.sh</p>
+<p class="ajaxExample">function testFunction() {<br />
+new Ajax.Request(&quot;/cgi-bin/getBankCount.sh?&quot; 
++ Math.floor(Math.random()*1000),<br />
+{<br />
+&nbsp;method:&#39;get&#39;,<br />
+&nbsp;onSuccess: function(transport)<br />
+&nbsp;{<br />
+&nbsp; var response = decodeURI(transport.responseText || &quot;no response text&quot;);<br />
+&nbsp;},<br />
+&nbsp;onFailure: function(){ alert(&#39;Something went wrong...&#39;) }<br />
+&nbsp;});<br />
+}<br />
+</p>
+<h4>getBankRelayNames.sh</h4>
+<p class="description">This queries the name of the bank and the relays in that 
+bank of a specified bank number and returns a string.</p>
+<p class="example">Example: http://192.168.1.12/cgi-bin/getBankRelayNames.sh?1</p><p class="ajaxExample">function testFunction() {<br />
+new Ajax.Request(&quot;/cgi-bin/getBankRelayNames.sh?&quot; 
++ Math.floor(Math.random()*1000),<br />
+{<br />
+&nbsp;method:&#39;get&#39;,<br />
+&nbsp;onSuccess: function(transport)<br />
+&nbsp;{<br />
+&nbsp; var response = decodeURI(transport.responseText || &quot;no response text&quot;);<br />
+&nbsp;},<br />
+&nbsp;onFailure: function(){ alert(&#39;Something went wrong...&#39;) }<br />
+&nbsp;});<br />
+}<br />
+</p>
+
+<h4>getDefaultHome.sh</h4>
+<p class="description">This allows you to query the selected default homepage 
+for the Web-i Interface. Returns a string.</p>
+<p class="example">Example: http://192.168.1.12/cgi-bin/getDefaultHome.sh</p>
+<h4>getMacros.sh</h4>
+<p class="description">Queries the module for the individual Macro Commands on 
+the My Page section of the interface. Returns a string.</p>
+<p class="example">Example: http://192.168.1.12/cgi-bin/getMacros.sh?0</p>
+<h4>getnetworkinfo.sh</h4>
+<p class="description">This queries the board for its mac address and ip 
+address. Returns a string.</p>
+<p class="example">Example: http://192.168.1.12/cgi-bin/getnetworkinfo.sh</p>
+<h4>getWebConfig.sh</h4>
+<p class="description">Queries the module for the web configuration information. 
+Returns a string</p>
+<p class="example">Example: http://192.168.1.12/cgi-bin/getWebConfig.sh</p>
+<h4>runcommand.sh</h4>
+<p class="description">Forwards commands to the module. Can be used for a single 
+command or a series of up to 3. Can also specify the number of bytes expected 
+back and the timeout period Returns a string. The syntax is &quot;cmd=254,108,1r1t300&quot; 
+where directly after the cmd= is the command you want to send, then the number 
+after the r is bytes expected back, and the number after the t is the timeout 
+period for communications.</p>
+<p class="example">Example: http://192.168.1.12/cgi-bin/runcommand.sh?cmd=254,109,1r1t300:cmd=254,110,1r1t300:cmd=254,101,1r1t300</p>
+<h4>setAdNames.sh</h4>
+<p class="description">Saves the names of the A/D inputs into the module. </p>
+<p class="example">Example: http://192.168.1.12/cgi-bin/setAdNames.sh?name1,name2,name3,name4,name5,name6,name7,name8</p>
+<h4>setBankCount.sh</h4>
+<p class="description">Saves the number of banks into the module</p>
+<p class="example">Example: http://192.168.1.12/cgi-bin/setBankCount.sh?4</p>
+<h4>setBankRelayNames.sh</h4>
+<p class="description">Saves the number of banks into the module. The syntax is 
+&quot;bankNumber;name1,name2,name3,name4,name5,name6,name7,name8&quot;</p>
+<p class="example">Example: http://192.168.1.12/cgi-bin/setBankRelayNames.sh?1;name1,name2,name3,name4,name5,name6,name7,name8</p>
+<h4>setDefaultHome.sh</h4>
+<p class="description">Saves the preferred home page for the Web-i interface 
+into the module.</p>
+<p class="example">Example: http://192.168.1.12/cgi-bin/setDefaultHome.sh?Relays.html</p>
+<h4>setIpConfig.sh</h4>
+<p class="description">Saves the IP Address and configuration into the module. 
+The syntax is &quot;0,ipAddress,subnetMask,defaultGateway&quot; where the first value of 0 
+is a static IP Address and 1 is DHCP enabled.</p>
+<p class="example">Example: http://192.168.1.12/cgi-bin/setIpConfig.sh?0,192.168.1.25,255.255.255.0,192.168.1.1</p>
+<h4>setMacros.sh</h4>
+<p class="description">Saves the commands in the macro to the module. The syntax 
+is 
+macroTitle:command1;bytesback1;timeout1:command2;bytesback2;timeout2:command3;bytesback3;timeout3</p>
+<p class="example">Example: http://192.168.1.12/cgi-bin/setMacros.sh?My 
+Macro:254,109,1;1;300:254,110,1;1;300:254,111,1;1;300</p>
+<h4>setWebConfig.sh</h4>
+<p class="description">Saves the web configuration preferences such as whether 
+it will work with signalswitch.com or whether it will have a web page. The 
+syntax is &quot;1,0,1&quot;. A 1 means enabled and a 0 means disabled. The first number is 
+the NCD Network Component, the second is the use with signalswitch.com, the 
+third is whether the module has a web page or not. </p>
+<p class="example">Example: http://192.168.1.12/cgi-bin/setWebConfig.sh?1,0,1</p>
+</body>
+
+</html>

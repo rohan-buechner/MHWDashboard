@@ -1,0 +1,82 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Relay 1</title>
+<script language="javascript" type="text/javascript" src="/JS/prototype.js"></script>
+<script type="text/javascript">
+//function that accepts three commands at the same time and forwards them to the board
+function SendMacroCommand(firstCommand, secondCommand, thirdCommand)
+{
+ //splits up the first command to be sent in the correct format
+ firstCommand = firstCommand.split(";");
+ //same with the second
+ secondCommand = secondCommand.split(";");
+ //same with the third
+ thirdCommand = thirdCommand.split(";");
+ //sends the commands to the board
+ new Ajax.Request("/cgi-bin/runcommand.sh?" + Math.floor(Math.random()*1000) + ":" +
+  "cmd="+firstCommand[0]+"r"+firstCommand[1]+"t"+firstCommand[2] + ":" +
+  "cmd="+secondCommand[0]+"r"+secondCommand[1]+"t"+secondCommand[2] + ":" +
+  "cmd="+thirdCommand[0]+"r"+thirdCommand[1]+"t"+thirdCommand[2],
+ {
+  method:'get',
+  onSuccess: function(transport)
+  {
+   //captures the response in a variable
+   var response = transport.responseText || "No response text";
+   //splits the response to isolate the number value
+   var returnValue = response.split("\n");
+   var val = returnValue[1];
+   //slices off the last comma
+   val = val.slice(0,-1);
+   //displays the response from the server on the web page
+   document.getElementById("response").innerHTML="Command was sent, the board responded: " + val;
+ 	},
+  onFailure: function(){ alert('Something went wrong...') }
+ });
+}
+</script>
+</head>
+
+<body>
+<div id="response"></div>
+<table cellspacing="8" class="MyPageTable">
+   <tr>
+    <td>
+     <!--this line sends a set of three commands, bytes expected back, and timeouts in the syntax 'command;bytesBack;timout', 'command;bytesBack;timout', etc.-->
+     <button id="macro0" onclick="SendMacroCommand('254,108,1;1;300', '254,109,1;1;300', '254,110,1;1;300')">Macro 1</button>
+    </td>
+    <td>
+     <button id="macro1" onclick="SendMacroCommand('254,100,1;1;300', '254,101,1;1;300', '254,102,1;1;300')">Macro 2</button>
+    </td>
+   </tr>
+   <tr>
+    <td>
+     <button id="macro2" onclick="SendMacroCommand('254,111,1;1;300', '254,112,1;1;300', '254,113,1;1;300')">Macro 3</button>
+    </td>
+    <td>
+     <button id="macro3" onclick="SendMacroCommand('254,103,1;1;300', '254,104,1;1;300', '254,105,1;1;300')">Macro 4</button>
+    </td>
+   </tr>
+   <tr>
+    <td>
+     <button id="macro4" onclick="SendMacroCommand('254,114,1;1;300', '254,115,1;1;300', '254,116,1;1;300')">Macro 5</button>
+    </td>
+    <td>
+     <button id="macro5" onclick="SendMacroCommand('254,106,1;1;300', '254,107,1;1;300', '254,108,1;1;300')">Macro 6</button>
+    </td>
+   </tr>
+   <tr>
+    <td>
+     <button id="macro6" onclick="SendMacroCommand('254,108,1;1;300', '254,109,1;1;300', '254,110,1;1;300')">Macro 7</button>
+    </td>
+    <td>
+     <button id="macro7" onclick="SendMacroCommand('254,100,1;1;300', '254,101,1;1;300', '254,102,1;1;300')">Macro 8</button>
+    </td>
+   </tr>
+  </table>
+</body>
+
+</html>

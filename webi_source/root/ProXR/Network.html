@@ -1,0 +1,110 @@
+﻿<html>
+<head>
+<title>Network Information for NCD's Web-i Interface Module</title>
+<link rel="stylesheet" type="text/css" href="/styles/style.css">
+<script language="javascript" type="text/javascript" src="/JS/prototype.js"></script>
+<script type="text/javascript">
+function getNetworkInfo()
+{
+ new Ajax.Request("/cgi-bin/getNetworkInfo.sh?" + Math.floor(Math.random()*1000),
+ {
+  method:'get',
+  onSuccess: function(transport)
+  {
+   var response = transport.responseText || "no response text";
+   var returnValue = response.split("\n");
+   var networkInformation = returnValue[1].split(",");
+  	document.getElementById("ipAddress").innerHTML="IP Address: " + networkInformation[0];
+  	document.getElementById("macAddress").innerHTML="MAC Address: " + networkInformation[1];
+ 	},
+  onFailure: function(){ alert('Something went wrong...') }
+ });
+ correctNavigation();
+ displayDeviceInfo();
+}
+function correctNavigation() {
+ new Ajax.Request("/cgi-bin/getDefaultHome.sh?" + Math.floor(Math.random()*1000),
+ {
+  method:'get',
+  onSuccess: function(transport)
+  {
+   var response = decodeURI(transport.responseText || "no response text");
+   var returnValue = response.split(":");
+   var targetDevice = returnValue[0].split("/");
+   if(targetDevice[1] == "")
+   {
+    document.getElementById("RelayLink").href="/" + targetDevice[0] + "/Relays.html"
+    document.getElementById("ADLink").href="/" + targetDevice[0] + "/AD1216.html"
+    document.getElementById("MyPageLink").href="/" + targetDevice[0] + "/MyPage.html"
+    document.getElementById("ConsoleLink").href="/" + targetDevice[0] + "/Console.html"
+    document.getElementById("NetworkLink").href="/" + targetDevice[0] + "/Network.html"
+    document.getElementById("ConfigurationLink").href="/" + targetDevice[0] + "/DeviceConfiguration.html"
+   }
+   else
+   {
+    document.getElementById("RelayLink").href="/" + targetDevice[0] + "/" + targetDevice[1] + "/Relays.html"
+    document.getElementById("ADLink").href="/" + targetDevice[0] + "/" + targetDevice[1] + "/AD1216.html"
+    document.getElementById("MyPageLink").href="/" + targetDevice[0] + "/" + targetDevice[1] + "/MyPage.html"
+    document.getElementById("ConsoleLink").href="/" + targetDevice[0] + "/" + targetDevice[1] + "/Console.html"
+    document.getElementById("NetworkLink").href="/" + targetDevice[0] + "/" + targetDevice[1] + "/Network.html"
+    document.getElementById("ConfigurationLink").href="/" + targetDevice[0] + "/" + targetDevice[1] + "/DeviceConfiguration.html"
+   }
+ 	},
+  onFailure: function(){ alert('Something went wrong...') }
+ });
+}
+function displayDeviceInfo()
+{
+ new Ajax.Request('/cgi-bin/getDeviceNameAddress.sh?' + Math.floor(Math.random()*1000),
+ {
+  method:'get',
+  onSuccess: function(transport)
+  {
+   var response = decodeURI(transport.responseText || "no response text");
+   var returnValue = response.split(":");
+   document.getElementById("boardInfo").innerHTML = "<strong>" + returnValue[0] + "</strong></p><p>" + returnValue[1] + "<br>"
+    + returnValue[2] + ", " + returnValue[3] + " " + returnValue[4];
+   document.title = returnValue[0] + " - Web-i";
+ 	},
+  onFailure: function(){ alert('Something went wrong...') }
+ });
+}
+</script>
+</head>
+<body onload="getNetworkInfo();" id="Network">
+<div class="GlobalHeaderDiv">
+ <div class="HeaderSubContainer">
+  <div class="LogoContainer"></div>
+  <div class="HeaderTitle">
+  <h1>National Control Devices</h1>
+  <p>World's Largest Manufacturer of Computer Controlled Switching Devices Since 1995.</p>
+  </div>
+ </div>
+</div>
+<div class="OuterWrapper">
+<div class="ContentSuperContainerBGMiddle">
+<table cellpadding="0" cellspacing="0">
+ <tr>
+  <td class="LeftNavContainer">
+   <ul id="nav" class="nav">
+    <li class="treet"><a class="link Relays" id ="RelayLink" href="Relays.html">Relays</a></li>
+    <li class="treet"><a class="link AD" id="ADLink" href="AD1216.html">A/D</a></li>
+    <li class="treet"><a class="link MyPage" id="MyPageLink" href="MyPage.html">My Page</a></li>
+    <li class="treet"><a class="link Console" id="ConsoleLink" href="Console.html">Console</a></li>
+    <li class="treet"><a class="link Network" id="NetworkLink" href="Network.html">Network</a></li>
+    <li class="treet"><a class="link Configuration" id="ConfigurationLink" href="DeviceConfiguration.html">Configure</a></li>
+    <li class="tree"><a class="link" href="http://www.controlanything.com/">NCD Home</a></li>
+   </ul>
+   <p id="boardInfo"></p>
+  </td>
+  <td class="Content" id="Content">
+  <h3>Network Information</h3>
+  <h4 id="ipAddress" class="NetworkInfoHeaders">IP Address: <img src="/images/layout/ajax-loader.gif"></h4>
+  <h4 id="macAddress" class="NetworkInfoHeaders">MAC Address: <img src="/images/layout/ajax-loader.gif"></h4>
+  </td>
+ </tr>
+</table>
+</div>
+</div>
+</body>
+</html>
