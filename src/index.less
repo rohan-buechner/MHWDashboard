@@ -237,3 +237,12 @@ button.depth:active {
   line-height: 86px;
 }
 /* buttons */
+
+
+/* this will remove the weird grey border hat applied by the browsers user agent stylesheet */
+/* !important must be specified as the user agent stylesheet gets applied last and will override any custom css*/
+ul, menu, dir, button, * {
+  :focus {
+    outline: -webkit-focus-ring-color auto 0px !important;
+  }
+}
