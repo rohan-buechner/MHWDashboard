@@ -1,9 +1,10 @@
 <div class="title">
-  <div ng-model="button.radio">
-  	<label class="btn btn-default btn-circle btn-xl" ui-sref="app.driving"><input type="radio" class="btn btn-default" value="0"> Driving</label>
-  	<label class="btn btn-default btn-circle btn-xl" ui-sref="app.info" ui-sref-active="active"><input type="radio" class="btn btn-default" value="1"> Info</label>
-  	<label class="btn btn-default btn-circle btn-xl" ui-sref="app.camp"><input type="radio" class="btn btn-default" value="2"> Camp</label>
-  	<label class="btn btn-default btn-circle btn-xl" ui-sref="app.topview"><input type="radio" class="btn btn-default" value="3">TopView </label>
-  	<label class="btn btn-default btn-circle btn-xl" ui-sref="app.media"><input type="radio" class="btn btn-default" value="4">Media</label>
-  </div>
+  <header class="active">
+		  <ul class="nav">
+			    <li class="loud"><a ui-sref="app.driving">Driving</a></li>
+			    <li class="loud"><a ui-sref="app.info">Info</a></li>
+			    <li class="loud"><a ui-sref="app.camp">Camp</a></li>
+			    <li class="loud"><a ui-sref="app.topview">Clients</a></li>
+		  </ul>
+	</header>
 </div>
