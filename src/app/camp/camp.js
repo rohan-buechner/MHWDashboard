@@ -16,9 +16,9 @@ function CampController($log, WebIService, $interval, $scope) {
     WebIService.buttonClick('camp');
   }
 
-  killRunner = $interval(pollDevice, 1000);
+  killRunner = $interval(pollDevice, 2000);   // 1000 = 1 sec
 
-  $scope.$on('$destroy', function() {
+  $scope.$on('$destroy', function () {
     $interval.cancel(killRunner);
   });
 }

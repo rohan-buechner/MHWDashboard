@@ -18,6 +18,6 @@ function WebIService($log) {
 
   return {
     buttonClick: _webIClick,
-    getState: _getCurrentState,
-  }
+    getState: _getCurrentState
+  };
 }
