@@ -14,8 +14,8 @@ function GaugesController($http, $log) {
       $log.info(response.data);
       vm.gauges = response.data;
 
-      angular.forEach(response.data, function(value, key){
-        vm["gauge"+key] = value;
+      angular.forEach(response.data, function (value, key) {
+        vm['gauge' + key] = value;
       });
 
       $log.info(vm);
