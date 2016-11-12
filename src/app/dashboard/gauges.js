@@ -5,7 +5,6 @@ angular
     controller: GaugesController
   });
 
-/** @ngInject */
 function GaugesController($http, $log) {
   var vm = this;
 

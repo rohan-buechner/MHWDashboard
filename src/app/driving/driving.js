@@ -5,7 +5,6 @@ angular
     controller: DrivingController
   });
 
-/** @ngInject */
 function DrivingController($log) {
   $log.info('in driving controller');
 }

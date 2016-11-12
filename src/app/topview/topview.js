@@ -5,7 +5,6 @@ angular
     controller: TopViewController
   });
 
-/** @ngInject */
 function TopViewController($log) {
   $log.info('in top view controller');
 }

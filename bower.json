@@ -5,9 +5,6 @@
     "angular": "^1.5.0",
     "angular-ui-router": "1.0.0-beta.1",
     "bootstrap": "^3.3.7",
-    "angular-chart.js": "^1.0.3",
-    "angular-strap": "^2.3.10",
-    "angular-dialgauge": "^0.1.5",
     "angularjs-gauge": "^1.0.0",
     "roboto-fontface": "^0.6.0"
   },

@@ -5,7 +5,6 @@ angular
     controller: CampController
   });
 
-/** @ngInject */
 function CampController($log, WebIService, $interval, $scope) {
   $log.info('in camp controller');
 
@@ -16,7 +15,8 @@ function CampController($log, WebIService, $interval, $scope) {
     WebIService.buttonClick('camp');
   }
 
-  killRunner = $interval(pollDevice, 2000);   // 1000 = 1 sec
+  // 1000 = 1 sec
+  killRunner = $interval(pollDevice, 2000);
 
   $scope.$on('$destroy', function () {
     $interval.cancel(killRunner);

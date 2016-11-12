@@ -5,7 +5,6 @@ angular
     controller: MediaController
   });
 
-/** @ngInject */
 function MediaController($log) {
   $log.info('in media controller');
 }
