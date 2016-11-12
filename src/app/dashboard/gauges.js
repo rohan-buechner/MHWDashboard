@@ -11,7 +11,13 @@ function GaugesController($http, $log) {
   $http
     .get('app/conf/gauges.json')
     .then(function (response) {
-      $log.info(response);
+      $log.info(response.data);
       vm.gauges = response.data;
+
+      angular.forEach(response.data, function(value, key){
+        vm["gauge"+key] = value;
+      });
+
+      $log.info(vm);
     });
 }

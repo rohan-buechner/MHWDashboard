@@ -18,6 +18,9 @@ body {
   linear-gradient(45deg, hsla(0,0%,0%,.25) 25%, transparent 25%, transparent 75%, hsla(0,0%,0%,.25) 75%, hsla(0,0%,0%,.25));
   background-position:0 0, 2px 2px;
   background-size:4px 4px;
+  h1 {
+    color: white;
+  }
 }
 
 a {
@@ -29,158 +32,23 @@ a {
   }
 }
 
-.main-container {
-  display: flex;
-  flex-direction: column;
-  min-height: 100%;
+.navbar .nav li {
+  width: 100px; /* or whatever width you want for items */
+  display: inline-block;
+  float: none;
 }
-.main {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
+.navbar .nav {
+  float: none;
+  text-align: center;
 }
 
-.header {
-  display: flex;
-  align-items: center;
-  background-color: #1f1f1f;
-
-  .app-version {
-    flex: 1;
-    text-align: right;
-    margin: 1rem;
-    color: white;
+@media (min-width: 768px) {
+  .navbar-nav {
+    margin: 20px;
   }
-
 }
-.header-title {
-  flex: 1;
-  font-size: 1.5rem;
-  margin: 1rem;
-}
-
-.title {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 1rem;
-  background-color: #212121;
-  color: white;
-}
-.title-h1 {
-  font-weight: 500;
-  font-size: 4rem;
-  margin: 1rem;
-}
-.title-logo {
-  height: 12rem;
-  background-color: white;
-  border-radius: 4rem;
-  margin: 1rem;
-}
-.title-h2 {
-  font-weight: 300;
-  font-size: 2rem;
-  margin: .5rem;
-}
-
-.footer {
-  padding: 4.0 rem;
-  font-size: 3 rem;
-  background-color: #000000;
-  text-align: center;
-  color: white;
-}
-
-.techs-container {
-  margin: 1rem;
-}
-.techs-h2 {
-  font-weight: 300;
-  font-size: 1.5rem;
-}
-.techs {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: space-around;
-}
-
-.tech {
-  height: 15rem;
-  width: 15rem;
-  border: 1px solid lightgray;
-  border-radius: 1rem;
-  margin: 1rem;
-  padding: 1rem;
-}
-.tech-logo {
-  width: 5rem;
-  height: 5rem;
-  float: right;
-  margin: 0 0 .5rem .5rem;
-}
-.tech-h3 {
-  font-size: 1.5rem;
-  margin: 0 0 2rem 0;
-}
-
-
-/*Circular Buttons*/
-
-.btn-circle {
-  width: 30px;
-  height: 30px;
-  text-align: center;
-  padding: 6px 0;
-  font-size: 12px;
-  line-height: 1.428571429;
-  border-radius: 15px;
-}
-.btn-circle.btn-lg {
-  width: 50px;
-  height: 50px;
-  padding: 10px 16px;
-  font-size: 18px;
-  line-height: 1.33;
-  border-radius: 25px;
-}
-.btn-circle.btn-xl {
-  width: 140px;
-  height: 140px;
-  padding: 50px 0px;
-  font-size: 20px;
-  line-height: 1.5;
-  border-radius: 100px;
-
-
-}
-
-.active {
-  background-color: #E62117;
-}
-
-
-
-
-
 
 /* buttons */
-
-/*
-button {
-  left: 50%;
-  margin: -40px;
-  position: absolute;
-  top: 50%;
-}
-button:hover,
-button:active {
-  outline: 0;
-}
-
-/* 3D Button */
-
 button.depth {
   background: #444;
   border: none;
@@ -245,4 +113,8 @@ ul, menu, dir, button, * {
   :focus {
     outline: -webkit-focus-ring-color auto 0px !important;
   }
+}
+
+canvas{
+  width:100%;
 }

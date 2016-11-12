@@ -8,6 +8,7 @@ angular
     controller: gaugeController
   });
 
-function gaugeController() {
-  this.value = this.gauge.value || 0;
+function gaugeController($log) {
+  $log.info(this);
+  this.value =  0;
 }
