@@ -9,7 +9,7 @@ function GaugesController($http, $log) {
   var vm = this;
 
   $http
-    .get('app/dashboard/gauges.json')
+    .get('app/conf/gauges.json')
     .then(function (response) {
       $log.info(response);
       vm.gauges = response.data;
