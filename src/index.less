@@ -5,7 +5,7 @@ html, body, #root {
 }
 
 body, h1, h2, h3 {
-  font-weight: 300
+  font-weight: 450
 }
 
 html {
@@ -79,7 +79,7 @@ button.depth {
 }
 
 button.depth:active {
-  color: #0ab;
+  color: @textglow;
   text-shadow: 0 0 20px hsla(240,75%,75%,.5),
   0 1px 1px hsla(0,0%,100%,.25),
     0 -1px 1px hsla(0,0%,0%,.75);
@@ -134,6 +134,8 @@ ul, menu, dir, button, * {
 
 @menubackground: #333333;
 @menuforeground: #cecece;
+@menuhighlight: #424242;
+@textglow: #FF9800;
 
 nav {
   text-align:center;
@@ -158,11 +160,12 @@ nav ul {
 
 nav ul li {
   display: inline-block;
+
 }
 
 
 nav ul li a {
-  color:#333333;
+  color:#ffffff;
   display:block;
   padding:0px 40px;
   text-decoration:none;
@@ -177,8 +180,8 @@ nav ul li:hover {
 
 
 nav ul li:hover > a{
-  color:#FFFFFF;
-  background: @menuforeground;
+  color: @textglow;
+  background: @menuhighlight;
 }
 
 nav ul li:hover > ul {
