@@ -22,7 +22,7 @@ function CampController($log, WebIService, $interval, $scope) {
   //   $interval.cancel(killRunner);
   // });
 
-  $scope.clicking = function() {
+  $scope.clicking = function () {
     $log.info('clicking in camp');
-  }
+  };
 }
