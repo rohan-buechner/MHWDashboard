@@ -1,6 +1,12 @@
-<ul>
-  <li><a ui-sref="app.driving.rear">Rear</a></li>
-  <li><a ui-sref="app.driving.roof">Roof</a></li>
-  <li><a ui-sref="app.driving.bottom">Bottom</a></li>
-</ul>
-<div ui-view></div>
+<div class="row">
+  <div class="col-md-2">
+    <ul>
+      <li><a ui-sref="app.driving.rear">Rear</a></li>
+      <li><a ui-sref="app.driving.roof">Roof</a></li>
+      <li><a ui-sref="app.driving.bottom">Bottom</a></li>
+    </ul>
+  </div>
+  <div class="col-md-10">
+    <div ui-view class="well"></div>
+  </div>
+</div>
