@@ -8,17 +8,21 @@ angular
 function CampController($log, WebIService, $interval, $scope) {
   $log.info('in camp controller');
 
-  var killRunner;
+  // var killRunner;
+  //
+  // // used to update the UI
+  // function pollDevice() {
+  //   WebIService.buttonClick('camp');
+  // }
+  //
+  // // 1000 = 1 sec
+  // killRunner = $interval(pollDevice, 3000);
+  //
+  // $scope.$on('$destroy', function () {
+  //   $interval.cancel(killRunner);
+  // });
 
-  // used to update the UI
-  function pollDevice() {
-    WebIService.buttonClick('camp');
+  $scope.clicking = function() {
+    $log.info('clicking in camp');
   }
-
-  // 1000 = 1 sec
-  killRunner = $interval(pollDevice, 3000);
-
-  $scope.$on('$destroy', function () {
-    $interval.cancel(killRunner);
-  });
 }
