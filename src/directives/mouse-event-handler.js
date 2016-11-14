@@ -1,7 +1,6 @@
 angular
   .module('app')
   .directive('holdClick', function ($parse, $interval, $log) {
-    var TICK_LENGTH = 15;
     return {
       restrict: 'A',
       link: function (scope, elem, attrs) {
@@ -15,37 +14,45 @@ angular
 
         function bindEndAction() {
           $log.info('bindEndAction');
-          elem.off('mouseup', endAction);
-          elem.off('mouseleave', endAction);
+          elem.on('mouseup', endAction);
+          elem.on('mouseleave', endAction);
         }
 
         function unbindEndAction() {
           $log.info('unbindEndAction');
-          elem.on('mouseup', endAction);
-          elem.on('mouseleave', endAction);
+          elem.off('mouseup', endAction);
+          elem.off('mouseleave', endAction);
         }
 
         function beginAction(e) {
           $log.info('beginAction');
           e.preventDefault();
           tickAction();
-        }
+          if (intervalPromise !== null) {
+            return;
+          }
 
-        intervalPromise = $interval(tickAction, TICK_LENGTH);
+          intervalPromise = $interval(tickAction, 1000);
+          bindEndAction();
+        }
 
         function endAction() {
           $log.info('endAction');
-          $interval.cancel(intervalPromise);
           unbindEndAction();
+          $interval.cancel(intervalPromise);
+          intervalPromise = null;
         }
 
         function tickAction() {
-          $log.info('tickAction');
+          $log.info('ticking');
           action(scope);
         }
 
+        elem.on('$destroy', function () {
+          $interval.cancel(intervalPromise);
+        });
+
         bindWhilePressed();
-        bindEndAction();
       }
     };
   });
