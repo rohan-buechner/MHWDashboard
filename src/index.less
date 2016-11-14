@@ -126,29 +126,33 @@ ul, menu, dir, button, * {
     h1.button-label {
       color:#cecece;
       margin-left: 25px;
+      display: inline-block;
     }
   }
 }
 
 
+@menubackground: #333333;
+@menuforeground: #cecece;
+
 nav {
   text-align:center;
   width: 100%;
-  background: #bebebe;
+  background: @menubackground;
   padding: 0;
   margin: 0;
   margin-bottom: 10px;
-  height: 60px;
+  height: 200px;//60px;
   position:relative;
+  font-size: 105px;
 }
 
 nav ul {
-  background: #bebebe;
+  background: @menubackground;
   list-style:none;
-  padding:0 20px;
+  padding:0;
   margin: 0;
-  height: 60px;
-
+  height: 200px;//60px;
 }
 
 
@@ -163,25 +167,27 @@ nav ul li a {
   padding:0px 40px;
   text-decoration:none;
   float: left;
-  height: 60px;
-  line-height: 60px;
+  height: 200px;//60px;
+  line-height: 200px//60px;
 }
 
 nav ul li:hover {
-  background: #333333;
+  background: @menuforeground;
 }
 
 
 nav ul li:hover > a{
   color:#FFFFFF;
+  background: @menuforeground;
 }
 
 nav ul li:hover > ul {
   display:block;
+  background: @menuforeground;
 }
 
 nav ul ul {
-  background: #BEBEBE;
+  background: @menubackground;
   padding:0;
   text-align: center;
   display:none;
@@ -189,4 +195,26 @@ nav ul ul {
   position: absolute;
   top: 60px;
   left: 0px;
+}
+
+#driving {
+  ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  li {
+    display: inline;
+  }
+
+  h1.button-label {
+    color:#cecece;
+    margin-left: 25px;
+    display: inline-block;
+  }
+}
+
+a {
+  text-decoration: none !important;
 }

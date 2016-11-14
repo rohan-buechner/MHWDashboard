@@ -10,7 +10,7 @@ function routesConfig($stateProvider, $urlRouterProvider, $locationProvider) {
     .state('app', {url: '/halsema', component: 'app'})
     .state('app.info', {url: '/info', component: 'gauges'})
     .state('app.camp', {url: '/camp', component: 'camp'})
-    .state('app.driving', {url: '/driving', component: 'driving'})
+    .state('app.driving', {url: '/driving', component: 'driving', abstract:true})
     .state('app.driving.rear', {url: '/rear', component: 'rear'})
     .state('app.driving.roof', {url: '/roof', component: 'roof'})
     .state('app.driving.bottom', {url: '/bottom', component: 'bottom'})

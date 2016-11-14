@@ -1,12 +1,29 @@
-<div class="row">
-  <div class="col-md-2">
-    <ul>
-      <li><a ui-sref="app.driving.rear">Rear</a></li>
-      <li><a ui-sref="app.driving.roof">Roof</a></li>
-      <li><a ui-sref="app.driving.bottom">Bottom</a></li>
-    </ul>
+<div id="driving" class="container-fluid">
+  <div class="row">
+    <div class="col-md-4 text-center">
+      <a ui-sref="app.driving.rear">
+        <button class="depth" type="button">&#8226;</button>
+      </a>
+      <h1 class="button-label">Rear</h1>
+    </div>
+    <div class="col-md-4 text-center">
+      <a ui-sref="app.driving.roof">
+        <button class="depth" type="button">&#8226;</button>
+      </a>
+      <h1 class="button-label">Roof</h1>
+    </div>
+    <div class="col-md-4 text-center">
+      <a ui-sref="app.driving.bottom">
+        <button class="depth" type="button">&#8226;</button>
+      </a>
+      <h1 class="button-label">Bottom</h1>
+    </div>
   </div>
-  <div class="col-md-10">
+</div>
+<div class="row">
+  <div class="col-md-12">
     <div ui-view class="well"></div>
   </div>
 </div>
+</div>
+
