@@ -24,5 +24,6 @@ function CampController($log, WebIService, $interval, $scope) {
 
   $scope.clicking = function () {
     $log.info('clicking in camp');
+    WebIService.buttonClick(0, 0);
   };
 }

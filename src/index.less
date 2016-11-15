@@ -4,10 +4,6 @@ html, body, #root {
   font-family: 'Roboto' !important;
 }
 
-body, h1, h2, h3 {
-  font-weight: 450
-}
-
 html {
   -webkit-tap-highlight-color: hsla(0,0,0,0);
   tap-highlight-color: hsla(0,0,0,0);
@@ -132,6 +128,8 @@ ul, menu, dir, button, * {
 }
 
 
+
+
 @menubackground: #333333;
 @menuforeground: #cecece;
 @menuhighlight: #424242;
@@ -174,6 +172,7 @@ nav ul li a {
   line-height: 160px//60px;
 }
 
+nav ul li:active,
 nav ul li:hover {
   background: @menuforeground;
   text-shadow: 0 0 8px @menubackground, 0 0 10px @textglow;
@@ -201,6 +200,53 @@ nav ul ul {
   top: 60px;
   left: 0px;
 }
+
+
+@media only screen
+and (min-device-width : 375px)
+and (max-device-width : 667px) {
+
+  nav {
+    height: 10px;
+    font-size: 7px;
+  }
+
+  nav ul {
+    height: 10px;
+  }
+
+  nav ul li a {
+    height: 10px;
+    line-height: 10px
+  }
+}
+
+@media only screen and (min-width: 1200px) {
+
+  nav {
+    height: 70px;
+    font-size: 45px;
+  }
+
+  nav ul {
+    height: 70px;
+  }
+
+  nav ul li a {
+    height: 70px;
+    line-height: 70px
+  }
+}
+//
+//@media (max-device-width: 1280px) and (orientation: landscape) {
+//
+//}
+//
+//@media (max-device-width: 800px) and (orientation: portrait) {
+//
+//}
+
+
 
 #driving {
   ul {

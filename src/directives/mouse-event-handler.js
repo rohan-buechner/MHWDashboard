@@ -1,6 +1,6 @@
 angular
   .module('app')
-  .directive('holdClick', function ($parse, $interval, $log) {
+  .directive('holdClick', function ($parse, $interval) {
     return {
       restrict: 'A',
       link: function (scope, elem, attrs) {
@@ -8,24 +8,20 @@ angular
         var intervalPromise = null;
 
         function bindWhilePressed() {
-          $log.info('bindWhilePressed');
           elem.on('mousedown', beginAction);
         }
 
         function bindEndAction() {
-          $log.info('bindEndAction');
           elem.on('mouseup', endAction);
           elem.on('mouseleave', endAction);
         }
 
         function unbindEndAction() {
-          $log.info('unbindEndAction');
           elem.off('mouseup', endAction);
           elem.off('mouseleave', endAction);
         }
 
         function beginAction(e) {
-          $log.info('beginAction');
           e.preventDefault();
           tickAction();
           if (intervalPromise !== null) {
@@ -37,14 +33,12 @@ angular
         }
 
         function endAction() {
-          $log.info('endAction');
           unbindEndAction();
           $interval.cancel(intervalPromise);
           intervalPromise = null;
         }
 
         function tickAction() {
-          $log.info('ticking');
           action(scope);
         }
 
