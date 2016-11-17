@@ -19,4 +19,15 @@ angular
 
 function DrivingController($log) {
   $log.info('in driving controller');
+
+  this.dieselTank = {
+    "key":"ivecobattery",
+    "title":"IVECO Battery",
+    "range":{
+      "min":0,
+      "max":4093
+    },
+    "value":15,
+    "unit":"V"
+  };
 }

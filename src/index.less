@@ -22,10 +22,6 @@ body {
 a {
   color: white;
   text-decoration: none;
-
-  &:hover {
-    color: #5aadbb;
-  }
 }
 
 //.navbar .nav li {
@@ -138,7 +134,7 @@ ul, menu, dir, button, * {
 nav {
   text-align:center;
   width: 100%;
-  background: @menubackground;
+  background-color: @menubackground;
   padding: 0;
   margin: 0;
   margin-bottom: 10px;
@@ -148,7 +144,7 @@ nav {
 }
 
 nav ul {
-  background: @menubackground;
+  background-color: @menubackground;
   list-style:none;
   padding:0;
   margin: 0;
@@ -172,26 +168,30 @@ nav ul li a {
   line-height: 160px//60px;
 }
 
-nav ul li:active,
+nav ul li.active,
 nav ul li:hover {
-  background: @menuforeground;
+  background-color: @textglow;
   text-shadow: 0 0 8px @menubackground, 0 0 10px @textglow;
-  box-shadow: 0px 0px 5px @textglow;
+  box-shadow: 0px 0px 5px @textglow; 
+  
+  a {
+    color: @menubackground;
+  }
 }
 
 
 nav ul li:hover > a{
   color: @textglow;
-  background: @menuhighlight;
+  background-color: @menuhighlight;
 }
 
 nav ul li:hover > ul {
   display:block;
-  background: @menuforeground;
+  background-color: @menubackground;
 }
 
 nav ul ul {
-  background: @menubackground;
+  background-color: @menubackground;
   padding:0;
   text-align: center;
   display:none;
