@@ -21,13 +21,13 @@ function DrivingController($log) {
   $log.info('in driving controller');
 
   this.dieselTank = {
-    "key":"ivecobattery",
-    "title":"IVECO Battery",
-    "range":{
-      "min":0,
-      "max":4093
+    key: 'dieseltank',
+    title: 'Diesel Tank',
+    range: {
+      min: 0,
+      max: 100
     },
-    "value":15,
-    "unit":"V"
+    value: 75,
+    unit: 'L'
   };
 }
