@@ -12,7 +12,7 @@ function WebIService($log, $http) {
 
     return $http({
       method: 'GET',
-      url: '../shell_scripts/hello.sh'
+      url: '../shell_scripts/hello.sh?' + _switch + '&' + _bank
       // _base+ 'runcommand.sh?cmd=254,' + _switch + ',' + _bank
 
     }).then(function (response) {
