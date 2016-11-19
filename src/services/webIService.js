@@ -5,24 +5,21 @@ angular
 function WebIService($log, $http) {
   $log.info('in WebI service');
 
-  var _base = 'http://192.168.1.12/cgi-bin/';
+  var _base = 'http://10.0.0.17/cgi-bin/';
 
-  function _webIClick(_bank, _switch) {
-    $log.info('in webi click');
+  function _customCommand(_cmd) {
+    $log.info('in _customCommand');
+
+    var _url = _base + 'runcommand.sh?' + Math.floor(Math.random() * 1000) + ':' + _cmd;
+    $log.info(_url);
 
     return $http({
       method: 'GET',
-      url: '../shell_scripts/hello.sh?' + _switch + '&' + _bank
-      // _base+ 'runcommand.sh?cmd=254,' + _switch + ',' + _bank
-
+      url: _url
     }).then(function (response) {
       // this callback will be called asynchronously
       // when the response is available
-
       $log.info(response);
-      $log.info(_base);
-      $log.info(_bank);
-      $log.info(_switch);
     }, function (response) {
       // called asynchronously if an error occurs
       // or server returns response with an error status.
@@ -31,13 +28,50 @@ function WebIService($log, $http) {
     });
   }
 
-  function _getCurrentState(elem) {
-    $log.info(elem + ' is currently on!');
-    return true;
+  function _readSensors() {
+    $log.info('in _readSensors');
+
+    var _url = _base + 'runcommand.sh?' + Math.floor(Math.random() * 1000) + ':cmd=254,196r32t1000';
+    $log.info(_url);
+
+    return $http({
+      method: 'GET',
+      url: _url
+    }).then(function (transport) {
+      $log.debug(transport);
+
+      var response = transport.responseText || 'error';
+      var vr = response.split('\n');
+      var adValues = vr[1].split(',');
+      var returnCollection = [];
+      var arrayLength = adValues.length / 2;
+
+      for (var i = 0; i < arrayLength; i++) {
+        var pos = (i * 2);
+        var lsb = adValues[pos];
+        var msb = adValues[pos + 1];
+        var adValue = parseInt(msb, 10) * (256 + parseInt(lsb, 10));
+        returnCollection.push(adValue);
+      }
+
+      $log.debug(returnCollection);
+
+      // this callback will be called asynchronously
+      // when the response is available
+      $log.info(response);
+
+      return returnCollection;
+    }, function (response) {
+      // called asynchronously if an error occurs
+      // or server returns response with an error status.
+
+      $log.error(response);
+      return [];
+    });
   }
 
   return {
-    buttonClick: _webIClick,
-    getState: _getCurrentState
+    readSensors: _readSensors,
+    customCMD: _customCommand
   };
 }

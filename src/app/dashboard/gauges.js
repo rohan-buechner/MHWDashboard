@@ -5,11 +5,11 @@ angular
     controller: GaugesController
   });
 
-function GaugesController($http, $log) {
+function GaugesController($http, $log, WebIService) {
   var vm = this;
 
   $http
-    .get('app/conf/gauges.json')
+    .get('/ProXR/halsema/gauges.json')
     .then(function (response) {
       $log.info(response.data);
       vm.gauges = response.data;
@@ -20,4 +20,6 @@ function GaugesController($http, $log) {
 
       $log.info(vm);
     });
+
+  WebIService.readSensors();
 }

@@ -6,18 +6,14 @@
       <table>
         <tr>
           <td>
-            <button class="depth" type="button" ng-click="click(2, 113)">&#x25B2;</button>
+            <div class="btn-group-vertical">
+              <button type="button" class="btn btn-lg btn-primary" ng-click="roofUp()">&#x25B2;</button>
+              <button type="button" class="btn btn-lg btn-primary" ng-click="roofStop()">&#8226;</button>
+              <button type="button" class="btn btn-lg btn-primary" ng-click="roofDown()">&#x25BC;</button>
+            </div>
           </td>
           <td>
             <h1 class="button-label">Roof Up</h1>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <button class="depth" type="button" ng-click="click(2, 114)">&#x25BC;</button>
-          </td>
-          <td>
-            <h1 class="button-label">Roof Down</h1>
           </td>
         </tr>
       </table>

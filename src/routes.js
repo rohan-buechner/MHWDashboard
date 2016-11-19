@@ -7,7 +7,7 @@ function routesConfig($stateProvider, $urlRouterProvider, $locationProvider) {
   $locationProvider.html5Mode(true).hashPrefix('!');
 
   $stateProvider
-    .state('app', {url: '/halsema', component: 'app'})
+    .state('app', {url: '/ProXR/halsema', component: 'app'})
     .state('app.info', {url: '/info', component: 'gauges'})
     .state('app.camp', {url: '/camp', component: 'camp'})
     .state('app.driving', {url: '/driving', component: 'driving', abstract: true})
@@ -17,5 +17,5 @@ function routesConfig($stateProvider, $urlRouterProvider, $locationProvider) {
     .state('app.media', {url: '/media', component: 'media'})
     .state('app.topview', {url: '/topview', component: 'topview'});
 
-  $urlRouterProvider.otherwise('/halsema/info');
+  $urlRouterProvider.otherwise('/ProXR/halsema/info');
 }
