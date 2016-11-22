@@ -1,7 +1,7 @@
 <div id="driving" class="container-fluid">
   <br>
   <div class="row">
-    <div class="col-md-4" style="color: #cecece; !important;">
+    <div class="col-xs-4 col-md-4" style="color: #cecece; !important;">
       <div class="text-center">
         <ng-gauge
           type="arch"
@@ -17,7 +17,7 @@
         </h2>
       </div>
     </div>
-    <div class="col-md-4" style="padding-top: 5%">
+    <div class="col-xs-4 col-md-4" style="padding-top: 5%">
       <table>
         <tr>
           <td>
@@ -29,7 +29,7 @@
         </tr>
       </table>
     </div>
-    <div class="col-md-4">
+    <div class="col-xs-4  col-md-4">
       <table>
         <tr>
           <td>
@@ -39,11 +39,12 @@
               </section>
             </div>
           </td>
-          <td><h1>
-            House Battery</h1>
+          <td>
+            <h1 class="button-label">
+              House Battery</h1>
           </td>
         </tr>
-        <tr >
+        <tr>
           <td style="padding-top: 20px">
             <div class="sphere">
               <section class="stage">
@@ -52,7 +53,7 @@
             </div>
           </td>
           <td style="padding-top: 20px">
-            <h1>IVECO Battery</h1>
+            <h1 class="button-label">IVECO Battery</h1>
           </td>
         </tr>
       </table>
@@ -65,19 +66,19 @@
     </div>
   </div>
   <div class="row">
-    <div class="col-md-4 text-center">
+    <div class="col-md-4 col-xs-4 text-center">
       <a ui-sref="app.driving.rear">
         <button class="depth" type="button">&#8226;</button>
       </a>
       <h1 class="button-label">Rear</h1>
     </div>
-    <div class="col-md-4 text-center">
+    <div class="col-md-4 col-xs-4 text-center">
       <a ui-sref="app.driving.roof">
         <button class="depth" type="button">&#8226;</button>
       </a>
       <h1 class="button-label">Roof</h1>
     </div>
-    <div class="col-md-4 text-center">
+    <div class="col-md-4 col-xs-4 text-center">
       <a ui-sref="app.driving.bottom">
         <button class="depth" type="button">&#8226;</button>
       </a>
