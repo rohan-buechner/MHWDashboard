@@ -35,7 +35,7 @@
           <td>
             <div class="sphere">
               <section class="stage">
-                <figure class="ball green" c><span class="shadow"></span></figure>
+                <figure class="ball" ng-class="{'green':$ctrl.isHouseCharging}"><span class="shadow"></span></figure>
               </section>
             </div>
           </td>
@@ -48,7 +48,7 @@
           <td style="padding-top: 20px">
             <div class="sphere">
               <section class="stage">
-                <figure class="ball" ng-click="isIVECOCharging: 'green'"><span class="shadow"></span></figure>
+                <figure class="ball" ng-class="{'green':$ctrl.isIVECOCharging}"><span class="shadow"></span></figure>
               </section>
             </div>
           </td>

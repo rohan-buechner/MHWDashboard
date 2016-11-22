@@ -17,10 +17,13 @@ angular
     template: '<img src="http://50.253.141.34:80/mjpg/video.mjpg?COUNTER" height="' + height + '%" width="' + width + '%" >'
   });
 
-function DrivingController($log) {
+function DrivingController($log, WebIService, $interval) {
   $log.info('in driving controller');
 
-  this.dieselTank = {
+
+  var vm = this;
+
+  vm.dieselTank = {
     key: 'dieseltank',
     title: 'Diesel Tank',
     range: {
@@ -30,4 +33,43 @@ function DrivingController($log) {
     value: 75,
     unit: 'L'
   };
+
+  // TODO: check actual data
+  vm.isIVECOCharging = false;
+  vm.isHouseCharging = true;
+
+  var interval;
+
+  function _readSensors() {
+    WebIService
+      .readSensors()
+      .then(function (sensorArray) {
+        vm.isIVECOCharging = !vm.isIVECOCharging;
+        vm.isHouseCharging = !vm.isHouseCharging;
+      });
+  }
+
+  var checkLoop = function () {
+    if (angular.isDefined(interval)) {
+      return;
+    }
+
+    interval = $interval(function () {
+      _readSensors();
+    }, 3000);
+  };
+
+  vm.$onInit = function () {
+    _readSensors();
+    checkLoop();
+  };
+
+  vm.$onDestroy = function () {
+    if (angular.isDefined(interval)) {
+      $interval.cancel(interval);
+      interval = undefined;
+    }
+  };
+
+  return vm;
 }
