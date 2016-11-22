@@ -5,28 +5,54 @@ angular
     controller: GaugesController
   });
 
-function GaugesController($http, $log, WebIService) {
+function GaugesController($http, $log, WebIService, $filter, $interval) {
   var vm = this;
+  var interval;
+  vm.gauges = [];
 
-  $http
-    .get('/ProXR/halsema/gauges.json')
-    .then(function (response) {
-      WebIService
-        .readSensors()
-        .then(function (sensorArray) {
-          vm.gauges = response.data.map(function (obj, index) {
-            return {
-              key: obj.key,
-              range: obj.range,
-              title: obj.title,
-              unit: obj.unit,
-              value: sensorArray[index]
-            };
+  function _readSensors() {
+    $http
+      .get('/ProXR/halsema/gauges.json')
+      .then(function (response) {
+        WebIService
+          .readSensors()
+          .then(function (sensorArray) {
+            vm.gauges = response.data.map(function (obj, index) {
+              return {
+                key: obj.key,
+                range: obj.range,
+                title: obj.title,
+                unit: obj.unit,
+                value: $filter('number')(sensorArray[index], 1)
+              };
+            });
+
+            $log.info('GaugesController.vm', vm);
           });
+      });
+  }
 
-          $log.info(vm);
-        });
-    });
+  var checkLoop = function () {
+    if (angular.isDefined(interval)) {
+      return;
+    }
+
+    interval = $interval(function () {
+      _readSensors();
+    }, 3000);
+  };
+
+  this.$onInit = function () {
+    _readSensors();
+    checkLoop();
+  };
+
+  this.$onDestroy = function () {
+    if (angular.isDefined(interval)) {
+      $interval.cancel(interval);
+      interval = undefined;
+    }
+  };
 
   return vm;
 }

@@ -3,11 +3,10 @@ angular
   .component('gaugeWidget', {
     templateUrl: 'app/dashboard/gauge.html',
     bindings: {
-      gauge: '<'
+      gauge: '='
     },
     controller: gaugeController
   });
 
 function gaugeController() {
-  this.value = 0;
 }
