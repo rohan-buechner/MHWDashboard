@@ -162,8 +162,6 @@ nav ul li a {
 nav ul li.active,
 nav ul li:hover {
   background-color: @textglow;
-  text-shadow: 0 0 8px @menubackground, 0 0 10px @textglow;
-  box-shadow: 0px 0px 5px @textglow;
 
   a {
     color: @menubackground;
@@ -208,15 +206,70 @@ nav ul ul {
     margin-left: 25px;
     display: inline-block;
   }
-  .row {
-    height: 150px;
-    line-height: 150px;
-  }
-  .well {
-    //max-width: 1000px;
-  }
 }
 
 a {
   text-decoration: none !important;
 }
+
+.vcenter {
+  display: inline-block;
+  vertical-align: middle;
+  float: none;
+}
+
+
+
+/* sphere */
+
+
+.ball {
+  display: inline-block;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  border-radius: 50%;
+  position: relative;
+  background: radial-gradient(circle at 50% 120%, #81e8f6, #76deef 10%, #055194 80%, #062745 100%);
+}
+
+.ball.green {
+  background: radial-gradient(circle at 50% 120%, #65f6a9, #57ef57 10%, #23942a 80%, #08450a 100%);
+}
+.ball.red {
+  background: radial-gradient(circle at 50% 120%, #81e8f6, #76deef 10%, #055194 80%, #062745 100%);
+}
+
+.ball:before {
+  content: "";
+  position: absolute;
+  top: 10%;
+  left: 5%;
+  width: 90%;
+  height: 90%;
+  border-radius: 50%;
+  background: radial-gradient(circle at 50% 0px, #ffffff, rgba(255, 255, 255, 0) 58%);
+  -webkit-filter: blur(5px);
+  z-index: 2;
+}
+.stage {
+  width: 75px;
+  height: 75px;
+  display: inline-block;
+  margin: 5px;
+  -webkit-perspective: 300px;
+  -moz-perspective: 300px;
+  -ms-perspective: 300px;
+  -o-perspective: 300px;
+  perspective: 300px;
+  -webkit-perspective-origin: 50% 50%;
+  -moz-perspective-origin: 50% 50%;
+  -ms-perspective-origin: 50% 50%;
+  -o-perspective-origin: 50% 50%;
+  perspective-origin: 50% 50%;
+}
+.sphere {
+  width: 75px;
+}
+
+/* sphere */

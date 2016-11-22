@@ -38,27 +38,27 @@ function WebIService($log, $http) {
       method: 'GET',
       url: _url
     }).then(function (transport) {
-      $log.debug(transport);
-
-      var response = transport.responseText || 'error';
-      var vr = response.split('\n');
-      var adValues = vr[1].split(',');
+      var response = transport.data || 'error';
+      var vr = response.split('\n');  // first line is OK message
+      var adValues = vr[1].split(','); // actual sensor data
       var returnCollection = [];
-      var arrayLength = adValues.length / 2;
 
-      for (var i = 0; i < arrayLength; i++) {
+      for (var i = 0; i < 16; i++) {
         var pos = (i * 2);
         var lsb = adValues[pos];
         var msb = adValues[pos + 1];
-        var adValue = parseInt(msb, 10) * (256 + parseInt(lsb, 10));
-        returnCollection.push(adValue);
+        var adValue = (parseInt(msb, 10) * 256) + parseInt(lsb, 10);
+        if (adValue > 0) {
+          returnCollection.push((adValue / 4096) * 100);
+        } else {
+          returnCollection.push(0);
+        }
       }
 
       $log.debug(returnCollection);
 
       // this callback will be called asynchronously
       // when the response is available
-      $log.info(response);
 
       return returnCollection;
     }, function (response) {

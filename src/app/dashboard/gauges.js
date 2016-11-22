@@ -11,15 +11,22 @@ function GaugesController($http, $log, WebIService) {
   $http
     .get('/ProXR/halsema/gauges.json')
     .then(function (response) {
-      $log.info(response.data);
-      vm.gauges = response.data;
+      WebIService
+        .readSensors()
+        .then(function (sensorArray) {
+          vm.gauges = response.data.map(function (obj, index) {
+            return {
+              key: obj.key,
+              range: obj.range,
+              title: obj.title,
+              unit: obj.unit,
+              value: sensorArray[index]
+            };
+          });
 
-      angular.forEach(response.data, function (value, key) {
-        vm['gauge' + key] = value;
-      });
-
-      $log.info(vm);
+          $log.info(vm);
+        });
     });
 
-  WebIService.readSensors();
+  return vm;
 }

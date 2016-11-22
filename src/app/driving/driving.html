@@ -1,44 +1,41 @@
 <div id="driving" class="container-fluid">
   <br>
   <div class="row">
-    <div class="col-md-6" style="color: #cecece; !important;">
+    <div class="col-md-4" style="color: #cecece; !important;">
       <div class="text-center">
         <ng-gauge
           type="arch"
-          thick="11"
+          thick="13"
           value="$ctrl.dieselTank.value"
-          cap="butt"
-          foreground-color="#ffcc66"
+          cap="Diesel Tank"
+          foreground-color="#ff9800"
           background-color="rgba(255,255,255,0.3)"
           append="{{$ctrl.dieselTank.unit}}">
         </ng-gauge>
-        <h1 style="color: #cecece; margin-top: -60px">
+        <h2 style="color: #cecece; margin-top: -26px">
           {{ $ctrl.dieselTank.title }}
-        </h1>
+        </h2>
       </div>
     </div>
-    <div class="col-md-6">
-
+    <div class="col-md-4 vcenter" style="padding-top: 5%">
       <table>
         <tr>
           <td>
             <button class="depth" type="button">&#8226;</button>
           <td>
           <td>
-            <h1 class="button-label">Fuel Pump</h1></td>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <button class="depth" type="button">&#8226;</button>
-          <td>
-          <td>
-            <h1 class="button-label">Compressor</h1></td>
+            <h1 class="button-label">Fuel Pump</h1>
           </td>
         </tr>
       </table>
-
-    </div>open
+    </div>
+    <div class="col-md-4">
+      <div class="sphere">
+        <section class="stage">
+          <figure class="ball green"><span class="shadow"></span></figure>
+        </section>
+      </div>
+    </div>
   </div>
   <div class="row">
     <div class="col-md-12">
