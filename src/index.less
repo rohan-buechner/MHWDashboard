@@ -279,22 +279,33 @@ a {
 }
 
 /* sphere */
-.btn-xl {
-  padding: 10px 20px;
-  font-size: 44px;
-  line-height: 1.3;
 
-  .btn-group-vertical > .btn:last-child:not(:first-child) {
+.btn-group-vertical.xl > {
+  .btn:last-child:not(:first-child) {
     border-top-left-radius: 0;
     border-top-right-radius: 0;
     border-bottom-right-radius: 40px;
     border-bottom-left-radius: 40px;
   }
 
-  .btn-group-vertical > .btn:first-child:not(:last-child) {
+  .btn:first-child:not(:last-child) {
     border-top-left-radius: 40px;
     border-top-right-radius: 40px;
     border-bottom-right-radius: 0;
     border-bottom-left-radius: 0;
   }
+}
+.btn-xl {
+  padding: 10px 20px;
+  font-size: 44px;
+  line-height: 1.3;
+
+  &.middle {
+    height: 70px;
+  }
+}
+
+.center-content {
+  justify-content: center;
+  display: flex;
 }
