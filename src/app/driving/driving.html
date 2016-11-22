@@ -17,7 +17,7 @@
         </h2>
       </div>
     </div>
-    <div class="col-md-4 vcenter" style="padding-top: 5%">
+    <div class="col-md-4" style="padding-top: 5%">
       <table>
         <tr>
           <td>
@@ -30,12 +30,33 @@
       </table>
     </div>
     <div class="col-md-4">
-      <div class="sphere">
-        <section class="stage">
-          <figure class="ball green"><span class="shadow"></span></figure>
-          <figure class="ball red"><span class="shadow"></span></figure>
-        </section>
-      </div>
+      <table>
+        <tr>
+          <td>
+            <div class="sphere">
+              <section class="stage">
+                <figure class="ball" c><span class="shadow"></span></figure>
+              </section>
+            </div>
+          </td>
+          <td><h1>
+            House Battery</h1>
+          </td>
+        </tr>
+        <tr >
+          <td style="padding-top: 20px">
+            <div class="sphere">
+              <section class="stage">
+                <figure class="ball" ng-click="isIVECOCharging: 'green'"><span class="shadow"></span></figure>
+              </section>
+            </div>
+          </td>
+          <td style="padding-top: 20px">
+            <h1>IVECO Battery</h1>
+          </td>
+        </tr>
+      </table>
+
     </div>
   </div>
   <div class="row">
@@ -65,7 +86,7 @@
   </div>
   <div class="row">
     <div class="col-md-12">
-      <div ui-view class="well"></div>
+      <div ui-view class="well" style="margin-top: 25px;"></div>
     </div>
   </div>
 </div>
