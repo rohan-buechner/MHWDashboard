@@ -7,8 +7,10 @@ angular
 
 function GaugesController($http, $log, WebIService, $filter, $interval) {
   var vm = this;
+  var interval;
+  vm.gauges = [];
 
-  function readSensors(multiplier) {
+  function _readSensors() {
     $http
       .get('/ProXR/halsema/gauges.json')
       .then(function (response) {
@@ -21,7 +23,7 @@ function GaugesController($http, $log, WebIService, $filter, $interval) {
                 range: obj.range,
                 title: obj.title,
                 unit: obj.unit,
-                value: $filter('number')( (sensorArray[index] + (multiplier || 1)), 1)
+                value: $filter('number')(sensorArray[index], 1)
               };
             });
 
@@ -30,25 +32,27 @@ function GaugesController($http, $log, WebIService, $filter, $interval) {
       });
   }
 
-  var checkIsRunning;
-  var counter = 5;
-  var checkLoop = function() {
-    // Don't start a new fight if we are already fighting
-    if ( angular.isDefined(checkIsRunning) ) return;
+  var checkLoop = function () {
+    if (angular.isDefined(interval)) {
+      return;
+    }
 
-    checkIsRunning = $interval(function() {
-
-      if (counter > 7) {
-        counter--
-      } else {
-        counter += 5;
-      }
-      readSensors(counter);
+    interval = $interval(function () {
+      _readSensors();
     }, 3000);
   };
 
-  readSensors();
-  checkLoop();
+  this.$onInit = function () {
+    _readSensors();
+    checkLoop();
+  };
+
+  this.$onDestroy = function () {
+    if (angular.isDefined(interval)) {
+      $interval.cancel(interval);
+      interval = undefined;
+    }
+  };
 
   return vm;
 }
