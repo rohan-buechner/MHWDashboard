@@ -31,13 +31,15 @@ function WebIService($log, $http) {
   function _readSensors() {
     $log.info('in _readSensors');
 
-    var _url = _base + 'runcommand.sh?' + Math.floor(Math.random() * 1000) + ':cmd=254,196r32t1000';
+     // var _url = _base + 'runcommand.sh?' + Math.floor(Math.random() * 1000) + ':cmd=254,196r32t1000';
+    var _url = './gauge_feed.sh';
     $log.info(_url);
 
     return $http({
       method: 'GET',
       url: _url
     }).then(function (transport) {
+      $log.info(transport);
       var response = transport.data || 'error';
       var vr = response.split('\n');  // first line is OK message
       var adValues = vr[1].split(','); // actual sensor data
