@@ -3,8 +3,6 @@ angular
   .service('WebIService', WebIService);
 
 function WebIService($log, $http) {
-  $log.info('in WebI service');
-
   var _base = 'http://10.0.0.17/cgi-bin/';
 
   function _customCommand(_cmd) {
@@ -39,7 +37,6 @@ function WebIService($log, $http) {
       method: 'GET',
       url: _url
     }).then(function (transport) {
-      $log.info(transport);
       var response = transport.data || 'error';
       var vr = response.split('\n');  // first line is OK message
       var adValues = vr[1].split(','); // actual sensor data
@@ -57,7 +54,7 @@ function WebIService($log, $http) {
         }
       }
 
-      $log.debug(returnCollection);
+      $log.debug('return collection', returnCollection);
 
       // this callback will be called asynchronously
       // when the response is available
