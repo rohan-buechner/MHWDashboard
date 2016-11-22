@@ -18,7 +18,7 @@
         </tr>
       </table>
     </div>
-    <div class="col-md-4">
+    <div class="col-md-4  center-content">
       <table>
         <tr>
           <td>
@@ -29,46 +29,27 @@
             </div>
           </td>
           <td>
-            <h1 class="button-label">Roof Up</h1>
-          </td>
-        </tr>
-      </table>
-
-      <table>
-        <tr>
-          <td>
-            <button class="depth" type="button" ng-click="click(3, 110)">&#x25B2;</button>
-          </td>
-          <td>
-            <h1 class="button-label">LHS Steady Up</h1>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <button class="depth" type="button" ng-click="click(3, 111)">&#x25BC;</button>
-          </td>
-          <td>
-            <h1 class="button-label">LHS Steady Down</h1>
+            <h1 class="button-label">Steady
+            <br>
+            (Left)</h1>
           </td>
         </tr>
       </table>
     </div>
-    <div class="col-md-4">
+    <div class="col-md-4  center-content">
       <table>
         <tr>
           <td>
-            <button class="depth" type="button" ng-click="click(3, 112)">&#x25B2;</button>
+            <div class="btn-group-vertical xl">
+              <button type="button" class="btn btn-xl btn-primary" ng-click="roofUp()">&#x25B2;</button>
+              <button type="button" class="btn btn-xl btn-primary middle" ng-click="roofStop()"><i class="glyphicon glyphicon-ban-circle"></i></button>
+              <button type="button" class="btn btn-xl btn-primary" ng-click="roofDown()">&#x25BC;</button>
+            </div>
           </td>
           <td>
-            <h1 class="button-label">RHS Steady Up</h1>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <button class="depth" type="button" ng-click="click(3, 113)">&#x25BC;</button>
-          </td>
-          <td>
-            <h1 class="button-label">RHS Steady Down</h1>
+            <h1 class="button-label">Steady
+              <br>
+              (Right)</h1>
           </td>
         </tr>
       </table>

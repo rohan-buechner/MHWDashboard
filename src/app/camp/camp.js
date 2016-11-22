@@ -31,7 +31,7 @@ function CampController($log, WebIService, $interval, $scope) {
     // killRunner = $interval(pollDevice(_bank, _switch-8), 4000);
   };
 
-  // roof
+  // Roof
   $scope.roofUp = function () {
     var cmd = 'cmd=254,110,2r1t300:cmd=254,109,2r1t300';
     WebIService.customCMD(cmd);
@@ -45,20 +45,16 @@ function CampController($log, WebIService, $interval, $scope) {
     WebIService.customCMD(cmd);
   };
 
-  // LHS Steady Up
-  $scope.roofUp = function () {
-    var cmd = 'cmd=254,110,2r1t300:cmd=254,109,2r1t300';
-    WebIService.customCMD(cmd);
-  };
-  $scope.roofDown = function () {
-    var cmd = 'cmd=254,102,2r1t300:cmd=254,109,2r1t300';
-    WebIService.customCMD(cmd);
-  };
-  $scope.roofStop = function () {
-    var cmd = 'cmd=254,101,2r1t300';
-    WebIService.customCMD(cmd);
-  };
+  // LHS Steady
+  // RHS Steady
 
+  // Dish
+  // TV (Inside)
+  // TV (Outside)
+  // Entry
+  // Awning
+
+  // Wutside light
   $scope.outsideLightOn = function () {
     var cmd = 'cmd=254,112,1r1t300';
     WebIService.customCMD(cmd);
