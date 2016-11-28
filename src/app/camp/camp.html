@@ -1,4 +1,4 @@
-<div class="camp-buttons well">
+<div class="camp-buttons">
 
   <br>
   <div class="row">
@@ -7,10 +7,10 @@
         <tr>
           <td>
             <div class="btn-group-vertical xl">
-              <button type="button" class="btn btn-xl btn-primary" ng-click="roofUp()">&#x25B2;</button>
-              <button type="button" class="btn btn-xl btn-primary middle" ng-click="roofStop()"><i
+              <button type="button" class="btn btn-xl btn-primary" ng-click="$ctrl.roofUp()">&#x25B2;</button>
+              <button type="button" class="btn btn-xl btn-primary middle" ng-click="$ctrl.roofStop()"><i
                 class="glyphicon glyphicon-ban-circle"></i></button>
-              <button type="button" class="btn btn-xl btn-primary" ng-click="roofDown()">&#x25BC;</button>
+              <button type="button" class="btn btn-xl btn-primary" ng-click="$ctrl.roofDown()">&#x25BC;</button>
             </div>
           </td>
           <td>
@@ -24,10 +24,10 @@
         <tr>
           <td>
             <div class="btn-group-vertical xl">
-              <button type="button" class="btn btn-xl btn-primary" ng-click="leftSteadyUp()">&#x25B2;</button>
-              <button type="button" class="btn btn-xl btn-primary middle" ng-click="leftSteadyStop()"><i
+              <button type="button" class="btn btn-xl btn-primary" ng-click="$ctrl.leftSteadyUp()">&#x25B2;</button>
+              <button type="button" class="btn btn-xl btn-primary middle" ng-click="$ctrl.leftSteadyStop()"><i
                 class="glyphicon glyphicon-ban-circle"></i></button>
-              <button type="button" class="btn btn-xl btn-primary" ng-click="leftSteadyDown()">&#x25BC;</button>
+              <button type="button" class="btn btn-xl btn-primary" ng-click="$ctrl.leftSteadyDown()">&#x25BC;</button>
             </div>
           </td>
           <td>
@@ -43,10 +43,10 @@
         <tr>
           <td>
             <div class="btn-group-vertical xl">
-              <button type="button" class="btn btn-xl btn-primary" ng-click="rightSteadyUp()">&#x25B2;</button>
-              <button type="button" class="btn btn-xl btn-primary middle" ng-click="rightSteadyStop()"><i
+              <button type="button" class="btn btn-xl btn-primary" ng-click="$ctrl.rightSteadyUp()">&#x25B2;</button>
+              <button type="button" class="btn btn-xl btn-primary middle" ng-click="$ctrl.rightSteadyStop()"><i
                 class="glyphicon glyphicon-ban-circle"></i></button>
-              <button type="button" class="btn btn-xl btn-primary" ng-click="rightSteadyDown()">&#x25BC;</button>
+              <button type="button" class="btn btn-xl btn-primary" ng-click="$ctrl.rightSteadyDown()">&#x25BC;</button>
             </div>
           </td>
           <td>
@@ -65,10 +65,10 @@
         <tr>
           <td>
             <div class="btn-group-vertical xl">
-              <button type="button" class="btn btn-xl btn-primary" ng-click="dishUp()">&#x25B2;</button>
-              <button type="button" class="btn btn-xl btn-primary middle" ng-click="dishStop()"><i
+              <button type="button" class="btn btn-xl btn-primary" ng-click="$ctrl.dishUp()">&#x25B2;</button>
+              <button type="button" class="btn btn-xl btn-primary middle" ng-click="$ctrl.dishStop()"><i
                 class="glyphicon glyphicon-ban-circle"></i></button>
-              <button type="button" class="btn btn-xl btn-primary" ng-click="dishDown()">&#x25BC;</button>
+              <button type="button" class="btn btn-xl btn-primary" ng-click="$ctrl.dishDown()">&#x25BC;</button>
             </div>
           </td>
           <td>
@@ -82,10 +82,10 @@
         <tr>
           <td>
             <div class="btn-group-vertical xl">
-              <button type="button" class="btn btn-xl btn-primary" ng-click="insideTvUp()">&#x25B2;</button>
-              <button type="button" class="btn btn-xl btn-primary middle" ng-click="insideTvStop()">
+              <button type="button" class="btn btn-xl btn-primary" ng-click="$ctrl.insideTvUp()">&#x25B2;</button>
+              <button type="button" class="btn btn-xl btn-primary middle" ng-click="$ctrl.insideTvStop()">
                 <i class="glyphicon glyphicon-ban-circle"></i></button>
-              <button type="button" class="btn btn-xl btn-primary" ng-click="insideTvDown()">&#x25BC;</button>
+              <button type="button" class="btn btn-xl btn-primary" ng-click="$ctrl.insideTvDown()">&#x25BC;</button>
             </div>
           </td>
           <td>
@@ -101,11 +101,11 @@
         <tr>
           <td>
             <div class="btn-group-vertical xl">
-              <button type="button" class="btn btn-xl btn-primary" ng-click="outsideTvUp()">&#x25B2;</button>
-              <button type="button" class="btn btn-xl btn-primary middle" ng-click="outsideTvStop()">
+              <button type="button" class="btn btn-xl btn-primary" ng-click="$ctrl.outsideTvUp()">&#x25B2;</button>
+              <button type="button" class="btn btn-xl btn-primary middle" ng-click="$ctrl.outsideTvStop()">
                 <i class="glyphicon glyphicon-ban-circle"></i>
               </button>
-              <button type="button" class="btn btn-xl btn-primary" ng-click="outsideTvDown()">&#x25BC;</button>
+              <button type="button" class="btn btn-xl btn-primary" ng-click="$ctrl.outsideTvDown()">&#x25BC;</button>
             </div>
           </td>
           <td>
@@ -124,14 +124,15 @@
         <tr>
           <td>
             <div class="btn-group-vertical xl">
-              <button type="button" class="btn btn-xl btn-primary" ng-click="entryStepUp()" style="margin-top: 40%">
+              <button type="button" class="btn btn-xl btn-primary" ng-click="$ctrl.entryStepUp()" style="margin-top: 40%">
                 On
               </button>
-              <button type="button" class="btn btn-xl btn-primary" ng-click="entryStepDown()">
+              <button type="button" class="btn btn-xl btn-primary" ng-click="$ctrl.entryStepDown()">
                 <!--<i class="glyphicon glyphicon-off"></i> Off-->
                 Off
               </button>
             </div>
+            
           </td>
           <td>
             <h1 class="button-label">Outside
@@ -146,10 +147,10 @@
         <tr>
           <td>
             <div class="btn-group-vertical xl">
-              <button type="button" class="btn btn-xl btn-primary" ng-click="entryStepUp()">&#x25B2;</button>
-              <button type="button" class="btn btn-xl btn-primary middle" ng-click="entryStepStop()"><i
+              <button type="button" class="btn btn-xl btn-primary" ng-click="$ctrl.entryStepUp()">&#x25B2;</button>
+              <button type="button" class="btn btn-xl btn-primary middle" ng-click="$ctrl.entryStepStop()"><i
                 class="glyphicon glyphicon-ban-circle"></i></button>
-              <button type="button" class="btn btn-xl btn-primary" ng-click="entryStepDown()">&#x25BC;</button>
+              <button type="button" class="btn btn-xl btn-primary" ng-click="$ctrl.entryStepDown()">&#x25BC;</button>
             </div>
           </td>
           <td>
@@ -165,10 +166,10 @@
         <tr>
           <td>
             <div class="btn-group-vertical xl">
-              <button type="button" class="btn btn-xl btn-primary" ng-click="awningUp()">&#x25B2;</button>
-              <button type="button" class="btn btn-xl btn-primary middle" ng-click="awningStop()"><i
+              <button type="button" class="btn btn-xl btn-primary" ng-click="$ctrl.awningUp()">&#x25B2;</button>
+              <button type="button" class="btn btn-xl btn-primary middle" ng-click="$ctrl.awningStop()"><i
                 class="glyphicon glyphicon-ban-circle"></i></button>
-              <button type="button" class="btn btn-xl btn-primary" ng-click="awningDown()">&#x25BC;</button>
+              <button type="button" class="btn btn-xl btn-primary" ng-click="$ctrl.awningDown()">&#x25BC;</button>
             </div>
           </td>
           <td>

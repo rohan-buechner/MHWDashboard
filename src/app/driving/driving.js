@@ -69,5 +69,15 @@ function DrivingController($log, WebIService, $interval) {
     }
   };
 
+  // Fuel Pump
+  vm.fuelPumpOn = function () {
+    var cmd = 'cmd=254,108,1r1t300';
+    WebIService.customCMD(cmd);
+  };
+  vm.fuelPumpOff = function () {
+    var cmd = 'cmd=254,100,1r1t300';
+    WebIService.customCMD(cmd);
+  };
+
   return vm;
 }
