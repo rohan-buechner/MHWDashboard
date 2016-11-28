@@ -1,7 +1,7 @@
 html, body, #root {
   margin: 0;
   height: 100%;
-  font-family: Helvetica Neue,Helvetica,Arial,sans-serif;
+  font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
 }
 
 html {
@@ -16,7 +16,6 @@ body {
   background-position: 0 0, 2px 2px;
   background-size: 4px 4px;
   h1 {
-    color: white;
     font-size: 32px;
   }
 }
@@ -104,16 +103,11 @@ ul, menu, dir, button, * {
   }
 }
 
-//
-//canvas {
-//  width:100%;
-//}
-
 .camp-buttons {
   td {
     height: 110px;
     h1.button-label {
-      color: #cecece;
+      color: #333333;
       margin-left: 25px;
       display: inline-block;
     }
@@ -156,22 +150,22 @@ nav ul li a {
   padding: 0px 40px;
   text-decoration: none;
   float: left;
-  height: 70px; //60px;
-  line-height: 70px //60px;
+  height: 70px;
+  line-height: 70px;
 }
 
 nav ul li.active,
 nav ul li:hover {
-  background-color: @textglow;
-
   a {
     color: @menubackground;
   }
 }
 
-nav ul li:hover > a {
-  color: @textglow;
-  background-color: @menuhighlight;
+nav ul li:hover > a,
+nav ul li:active > a,
+nav ul li.active > a {
+  color: @menuhighlight;
+  background-color: @textglow;
 }
 
 nav ul li:hover > ul {
@@ -189,7 +183,6 @@ nav ul ul {
   top: 60px;
   left: 0px;
 }
-
 
 #driving {
   ul {
@@ -219,10 +212,7 @@ a {
   float: none;
 }
 
-
-
 /* sphere */
-
 
 .ball {
   display: inline-block;
@@ -237,6 +227,7 @@ a {
 .ball.green {
   background: radial-gradient(circle at 50% 120%, #65f6a9, #57ef57 10%, #23942a 80%, #08450a 100%);
 }
+
 .ball.red {
   background: radial-gradient(circle at 100% 120%, #f67a77, #ef5c5b 100%, #941616 100%, #450000 100%);
 }
@@ -256,7 +247,9 @@ a {
 }
 
 .ball.green:before {
-  box-shadow: inset 0 0 2px 2px rgba(0, 0, 0, 0.2), inset 0 0 2px 4px rgba(0, 0, 0, 0.2), inset 0 0 2px 6px rgba(0, 0, 0, 0.2), inset 0 0 1px 8px rgba(52, 245, 4, 0.5), inset 0 -4px 2px 4px rgba(0, 0, 0, 0.5), inset 0 1px 1px 8px rgba(255, 255, 255, 0.25), inset 0 -30px 30px rgba(0, 0, 0, 0.2), 0 -4px 8px 4px rgba(3, 255, 0, 0.5), 0 10px 10px rgba(0, 0, 0, 0.25), 0 0 2px 2px rgba(0, 0, 0, 0.2), 0 0 2px 4px rgba(0, 0, 0, 0.2), 0 0 2px 6px rgba(0, 0, 0, 0.2), 0 0 2px 8px rgba(14, 14, 14, 0.45), 0 1px 2px 8px rgba(255, 255, 255, 0.25), 0 -1px 2px 8px rgba(11, 251, 74, 0.61);}
+  box-shadow: inset 0 0 2px 2px rgba(0, 0, 0, 0.2), inset 0 0 2px 4px rgba(0, 0, 0, 0.2), inset 0 0 2px 6px rgba(0, 0, 0, 0.2), inset 0 0 1px 8px rgba(52, 245, 4, 0.5), inset 0 -4px 2px 4px rgba(0, 0, 0, 0.5), inset 0 1px 1px 8px rgba(255, 255, 255, 0.25), inset 0 -30px 30px rgba(0, 0, 0, 0.2), 0 -4px 8px 4px rgba(3, 255, 0, 0.5), 0 10px 10px rgba(0, 0, 0, 0.25), 0 0 2px 2px rgba(0, 0, 0, 0.2), 0 0 2px 4px rgba(0, 0, 0, 0.2), 0 0 2px 6px rgba(0, 0, 0, 0.2), 0 0 2px 8px rgba(14, 14, 14, 0.45), 0 1px 2px 8px rgba(255, 255, 255, 0.25), 0 -1px 2px 8px rgba(11, 251, 74, 0.61);
+}
+
 .stage {
   width: 75px;
   height: 75px;
@@ -273,6 +266,7 @@ a {
   -o-perspective-origin: 50% 50%;
   perspective-origin: 50% 50%;
 }
+
 .sphere {
   width: 100px;
   height: 80px;
@@ -295,6 +289,7 @@ a {
     border-bottom-left-radius: 0;
   }
 }
+
 .btn-xl {
   padding: 10px 20px;
   font-size: 44px;
@@ -302,8 +297,13 @@ a {
 
   &.middle {
     height: 70px;
-    background-color: #840505;
+    background-color: #C30300;
     border: 1px #670000 solid;
+
+    &:active {
+      background-color: #ff9800;
+      border-color: #754601;
+    }
   }
 }
 
@@ -311,3 +311,71 @@ a {
   justify-content: center;
   display: flex;
 }
+
+#topview {
+
+
+  .well {
+    text-align: center;
+
+    &.left {
+      .btn-group-vertical,
+      img {
+        float: left;
+      }
+    }
+  }
+
+  .btn-group-vertical {
+    margin-top: 60px;
+
+    &.left {
+      margin-left: -80px;
+    }
+
+    &.right {
+      float: right;
+      margin-right: -80px;
+    }
+
+  }
+
+  .pressure-value {
+
+    margin-top: 130px;
+    font-size: 85px;
+
+    &.right {
+      float: right;
+    }
+
+    &.left {
+      position: absolute;
+    }
+  }
+
+  img {
+    width:80px;height:350px;
+  }
+}
+
+.btn-primary {
+  color: #ff9800;
+  background-color: #333333;
+  border-color: #131111;
+  &.middle {
+    color: white;
+  }
+
+  &:active,
+  &:hover {
+    color: white !important;
+    background-color: #ff9800 !important;
+    border-color: #754601 !important;
+    -webkit-box-shadow: inset 3px 4px 21px 0px rgba(0,0,0,0.75);
+    -moz-box-shadow: inset 3px 4px 21px 0px rgba(0,0,0,0.75);
+    box-shadow: inset 3px 4px 21px 0px rgba(0,0,0,0.75);
+  }
+}
+
+

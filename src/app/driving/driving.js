@@ -19,8 +19,6 @@ angular
 
 function DrivingController($log, WebIService, $interval) {
   $log.info('in driving controller');
-
-
   var vm = this;
 
   vm.dieselTank = {
@@ -43,7 +41,7 @@ function DrivingController($log, WebIService, $interval) {
   function _readSensors() {
     WebIService
       .readSensors()
-      .then(function (sensorArray) {
+      .then(function () {
         vm.isIVECOCharging = !vm.isIVECOCharging;
         vm.isHouseCharging = !vm.isHouseCharging;
       });
