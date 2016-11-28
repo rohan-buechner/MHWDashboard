@@ -20,7 +20,6 @@ angular
 function DrivingController($log, WebIService, $interval) {
   $log.info('in driving controller');
 
-
   var vm = this;
 
   vm.dieselTank = {
@@ -34,7 +33,7 @@ function DrivingController($log, WebIService, $interval) {
     unit: 'L'
   };
 
-  // TODO: check actual data
+  // todo check actual data
   vm.isIVECOCharging = false;
   vm.isHouseCharging = true;
 
@@ -43,7 +42,7 @@ function DrivingController($log, WebIService, $interval) {
   function _readSensors() {
     WebIService
       .readSensors()
-      .then(function (sensorArray) {
+      .then(function () {
         vm.isIVECOCharging = !vm.isIVECOCharging;
         vm.isHouseCharging = !vm.isHouseCharging;
       });
@@ -69,6 +68,16 @@ function DrivingController($log, WebIService, $interval) {
       $interval.cancel(interval);
       interval = undefined;
     }
+  };
+
+  // Fuel Pump
+  vm.fuelPumpOn = function () {
+    var cmd = 'cmd=254,108,1r1t300';
+    WebIService.customCMD(cmd);
+  };
+  vm.fuelPumpOff = function () {
+    var cmd = 'cmd=254,100,1r1t300';
+    WebIService.customCMD(cmd);
   };
 
   return vm;

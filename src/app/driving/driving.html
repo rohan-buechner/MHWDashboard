@@ -17,11 +17,19 @@
         </h2>
       </div>
     </div>
-    <div class="col-xs-4 col-md-4" style="padding-top: 5%">
+    <div class="col-xs-4 col-md-4 center-content">
       <table>
         <tr>
           <td>
-            <button class="depth" type="button">&#8226;</button>
+            <div class="btn-group-vertical xl">
+              <button type="button" class="btn btn-xl btn-primary" ng-click="$ctrl.fuelPumpOn()" style="margin-top: 40%">
+                On
+              </button>
+              <button type="button" class="btn btn-xl btn-primary" ng-click="$ctrl.fuelPumpOff()">
+                <!--<i class="glyphicon glyphicon-off"></i> Off-->
+                Off
+              </button>
+            </div>
           <td>
           <td>
             <h1 class="button-label">Fuel Pump</h1>

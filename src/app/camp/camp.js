@@ -24,7 +24,7 @@ function CampController($log, WebIService, $interval, $scope) {
     // $interval.cancel(killRunner);
   });
 
-  $scope.click = function (_bank, _switch) {
+  this.click = function (_bank, _switch) {
     WebIService.buttonClick(_bank, _switch);
     $log.debug(_bank, _switch);
     // 1000 = 1 sec
@@ -32,116 +32,116 @@ function CampController($log, WebIService, $interval, $scope) {
   };
 
   // Roof
-  $scope.roofUp = function () {
+  this.roofUp = function () {
     var cmd = 'cmd=254,110,2r1t300:cmd=254,109,2r1t300';
     WebIService.customCMD(cmd);
   };
-  $scope.roofDown = function () {
+  this.roofDown = function () {
     var cmd = 'cmd=254,102,2r1t300:cmd=254,109,2r1t300';
     WebIService.customCMD(cmd);
   };
-  $scope.roofStop = function () {
+  this.roofStop = function () {
     var cmd = 'cmd=254,101,2r1t300';
     WebIService.customCMD(cmd);
   };
 
   // Left Steady
-  $scope.leftSteadyUp = function () {
+  this.leftSteadyUp = function () {
     var cmd = 'cmd=254,110,2r1t300:cmd=254,109,2r1t300';
     WebIService.customCMD(cmd);
   };
-  $scope.leftSteadyDown = function () {
+  this.leftSteadyDown = function () {
     var cmd = 'cmd=254,102,2r1t300:cmd=254,109,2r1t300';
     WebIService.customCMD(cmd);
   };
-  $scope.leftSteadyStop = function () {
+  this.leftSteadyStop = function () {
     var cmd = 'cmd=254,101,2r1t300';
     WebIService.customCMD(cmd);
   };
   // RHS Steady
-  $scope.rightSteadyUp = function () {
+  this.rightSteadyUp = function () {
     var cmd = 'cmd=254,110,2r1t300:cmd=254,109,2r1t300';
     WebIService.customCMD(cmd);
   };
-  $scope.rightSteadyDown = function () {
+  this.rightSteadyDown = function () {
     var cmd = 'cmd=254,102,2r1t300:cmd=254,109,2r1t300';
     WebIService.customCMD(cmd);
   };
-  $scope.rightSteadyStop = function () {
+  this.rightSteadyStop = function () {
     var cmd = 'cmd=254,101,2r1t300';
     WebIService.customCMD(cmd);
   };
   // Dish
-  $scope.dishUp = function () {
+  this.dishUp = function () {
     var cmd = 'cmd=254,110,2r1t300:cmd=254,109,2r1t300';
     WebIService.customCMD(cmd);
   };
-  $scope.dishDown = function () {
+  this.dishDown = function () {
     var cmd = 'cmd=254,102,2r1t300:cmd=254,109,2r1t300';
     WebIService.customCMD(cmd);
   };
-  $scope.dishStop = function () {
+  this.dishStop = function () {
     var cmd = 'cmd=254,101,2r1t300';
     WebIService.customCMD(cmd);
   };
   // TV (Inside)
-  $scope.insideTvUp = function () {
+  this.insideTvUp = function () {
     var cmd = 'cmd=254,110,2r1t300:cmd=254,109,2r1t300';
     WebIService.customCMD(cmd);
   };
-  $scope.insideTvDown = function () {
+  this.insideTvDown = function () {
     var cmd = 'cmd=254,102,2r1t300:cmd=254,109,2r1t300';
     WebIService.customCMD(cmd);
   };
-  $scope.insideTvStop = function () {
+  this.insideTvStop = function () {
     var cmd = 'cmd=254,101,2r1t300';
     WebIService.customCMD(cmd);
   };
  // TV (Outside)
-  $scope.outsideTvUp = function () {
+  this.outsideTvUp = function () {
     var cmd = 'cmd=254,110,2r1t300:cmd=254,109,2r1t300';
     WebIService.customCMD(cmd);
   };
-  $scope.outsideTvDown = function () {
+  this.outsideTvDown = function () {
     var cmd = 'cmd=254,102,2r1t300:cmd=254,109,2r1t300';
     WebIService.customCMD(cmd);
   };
-  $scope.outsideTvStop = function () {
+  this.outsideTvStop = function () {
     var cmd = 'cmd=254,101,2r1t300';
     WebIService.customCMD(cmd);
   };
   // Entry
-  $scope.entryStepUp = function () {
+  this.entryStepUp = function () {
     var cmd = 'cmd=254,110,2r1t300:cmd=254,109,2r1t300';
     WebIService.customCMD(cmd);
   };
-  $scope.entryStepDown = function () {
+  this.entryStepDown = function () {
     var cmd = 'cmd=254,102,2r1t300:cmd=254,109,2r1t300';
     WebIService.customCMD(cmd);
   };
-  $scope.entryStepStop = function () {
+  this.entryStepStop = function () {
     var cmd = 'cmd=254,101,2r1t300';
     WebIService.customCMD(cmd);
   };
   // Awning
-  $scope.awningUp = function () {
+  this.awningUp = function () {
     var cmd = 'cmd=254,110,2r1t300:cmd=254,109,2r1t300';
     WebIService.customCMD(cmd);
   };
-  $scope.awningDown = function () {
+  this.awningDown = function () {
     var cmd = 'cmd=254,102,2r1t300:cmd=254,109,2r1t300';
     WebIService.customCMD(cmd);
   };
-  $scope.awningStop = function () {
+  this.awningStop = function () {
     var cmd = 'cmd=254,101,2r1t300';
     WebIService.customCMD(cmd);
   };
   // Wutside light
-  $scope.outsideLightOn = function () {
+  this.outsideLightOn = function () {
     var cmd = 'cmd=254,112,1r1t300';
     WebIService.customCMD(cmd);
   };
-  $scope.outsideLightOff = function () {
+  this.outsideLightOff = function () {
     var cmd = 'cmd=254,104,1r1t300';
     WebIService.customCMD(cmd);
   };
