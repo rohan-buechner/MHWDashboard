@@ -2,100 +2,60 @@
   {
     "key":"dieseltank",
     "title":"Diesel Tank",
-    "range":{
-      "min":0,
-      "max":4093
-    },
     "value":2043,
     "unit":"%"
   },
   {
     "key":"watertank",
     "title":"Water Tank",
-    "range":{
-      "min":0,
-      "max":4093
-    },
     "value":50,
     "unit":"%"
   },
   {
     "key":"batteryamps",
     "title":"Battery Amps",
-    "range":{
-      "min":0,
-      "max":4093
-    },
     "value":90,
     "unit":"A"
   },
   {
     "key":"fridge",
     "title":"Fridge",
-    "range":{
-      "min":0,
-      "max":4093
-    },
     "value":15,
     "unit":"°C"
   },
   {
     "key":"freezer",
     "title":"Freezer",
-    "range":{
-      "min":0,
-      "max":4093
-    },
     "value":15,
     "unit":"°C"
   },
   {
     "key":"housebattery",
     "title":"House Battery",
-    "range":{
-      "min":0,
-      "max":4093
-    },
     "value":15,
     "unit":"V"
   },
   {
     "key":"ivecobattery",
     "title":"IVECO Battery",
-    "range":{
-      "min":0,
-      "max":4093
-    },
     "value":15,
     "unit":"V"
   },
   {
     "key":"insidetemperature",
     "title":"Inside Temperature",
-    "range":{
-      "min":0,
-      "max":4093
-    },
     "value":15,
     "unit":"°C"
   },
   {
     "key":"outsidetemperature",
     "title":"Outside Temperature",
-    "range":{
-      "min":0,
-      "max":4093
-    },
     "value":15,
     "unit":"°C"
   },
   {
     "key":"acpower",
     "title":"AC Power",
-    "range":{
-      "min":0,
-      "max":4093
-    },
     "value":15,
     "unit":"V"
   }

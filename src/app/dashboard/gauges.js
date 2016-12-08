@@ -20,7 +20,6 @@ function GaugesController($http, $log, WebIService, $filter, $interval) {
             vm.gauges = response.data.map(function (obj, index) {
               return {
                 key: obj.key,
-                range: obj.range,
                 title: obj.title,
                 unit: obj.unit,
                 value: $filter('number')(sensorArray[index], 1)

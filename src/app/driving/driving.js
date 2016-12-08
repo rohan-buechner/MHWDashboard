@@ -17,33 +17,28 @@ angular
     template: '<img src="http://50.253.141.34:80/mjpg/video.mjpg?COUNTER" height="' + height + '%" width="' + width + '%" >'
   });
 
-function DrivingController($log, WebIService, $interval) {
+function DrivingController($log, WebIService, $interval, $filter) {
   $log.info('in driving controller');
   var vm = this;
+
+  var chargingVoltage = 56.6;
 
   vm.dieselTank = {
     key: 'dieseltank',
     title: 'Diesel Tank',
-    range: {
-      min: 0,
-      max: 100
-    },
-    value: 75,
+    value: 0,
     unit: 'L'
   };
-
-  // TODO: check actual data
-  vm.isIVECOCharging = false;
-  vm.isHouseCharging = true;
 
   var interval;
 
   function _readSensors() {
     WebIService
       .readSensors()
-      .then(function () {
-        vm.isIVECOCharging = !vm.isIVECOCharging;
-        vm.isHouseCharging = !vm.isHouseCharging;
+      .then(function (sensorArray) {
+        vm.dieselTank.value = $filter('number')(sensorArray[0], 1);
+        vm.isHouseCharging = $filter('number')(sensorArray[5], 1) > chargingVoltage;
+        vm.isIVECOCharging = $filter('number')(sensorArray[6], 1) > chargingVoltage;
       });
   }
 
