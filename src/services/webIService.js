@@ -37,7 +37,7 @@ function WebIService($log, $http) {
       method: 'GET',
       url: _url
     }).then(function (transport) {
-      var response = transport.data || 'error';
+      var response = transport.data || 'empty';
       var vr = response.split('\n');  // first line is OK message
       var adValues = vr[1].split(','); // actual sensor data
       var returnCollection = [];
@@ -69,8 +69,77 @@ function WebIService($log, $http) {
     });
   }
 
+  function _readRelaysForBank(_bankId) {
+    var _url = _base + 'runcommand.sh?' + Math.floor(Math.random() * 1000) + ':cmd=254,124,' + (_bankId + 1);
+
+    return $http({
+      method: 'GET',
+      url: _url
+    }).then(function (transport) {
+      var response = transport.data || 'empty';
+
+      // splits the OK from the 85,
+      var bankStatus = response.split('\n')[1];
+
+      $log.debug(transport);
+      $log.debug(_bankId);
+      $log.debug(bankStatus);
+
+      return updateBankStatus(_bankId, bankStatus);
+    }).catch(function () {
+      return updateBankStatus(_bankId, 7);
+    });
+  }
+
+  function updateBankStatus(_bankId, val) {
+    var result = {bank: _bankId, relays: ['false', 'false', 'false', 'false', 'false', 'false', 'false', 'false']};
+
+    if (val > 127) {
+      result.relays[7] = 'true';
+      val -= 128;
+    }
+
+    if (val > 63) {
+      result.relays[6] = 'true';
+      val -= 64;
+    }
+
+    if (val > 31) {
+      result.relays[5] = 'true';
+      val -= 32;
+    }
+
+    if (val > 15) {
+      result.relays[4] = 'true';
+      val -= 16;
+    }
+
+    if (val > 7) {
+      result.relays[3] = 'true';
+      val -= 8;
+    }
+
+    if (val > 3) {
+      result.relays[2] = 'true';
+      val -= 4;
+    }
+
+    if (val > 1) {
+      result.relays[1] = 'true';
+      val -= 2;
+    }
+
+    if (val > 0) {
+      result.relays[0] = 'true';
+    }
+
+    $log.debug(result);
+    return result;
+  }
+
   return {
     readSensors: _readSensors,
-    customCMD: _customCommand
+    customCMD: _customCommand,
+    readRelays: _readRelaysForBank
   };
 }

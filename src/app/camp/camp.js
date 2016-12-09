@@ -5,23 +5,24 @@ angular
     controller: CampController
   });
 
-function CampController($log, WebIService, $interval, $scope) {
+function CampController($log, WebIService, $q) {
   $log.info('in camp controller');
 
-   // var killRunner;
-   //
-   // // used to update the UI
-   // function pollDevice(_bank, killCommand) {
-   //  // WebIService.buttonClick(_bank, killCommand);
-   //   $log.debug(_bank, killCommand);
-   //   $interval.cancel(killRunner);
-   // }
+  var relays = { };
 
-   // 1000 = 1 sec
-   // killRunner = $interval(pollDevice, 3000);
-
-  $scope.$on('$destroy', function () {
-    // $interval.cancel(killRunner);
+  $q.all([
+    WebIService.readRelays(0),
+    WebIService.readRelays(1),
+    WebIService.readRelays(2),
+    WebIService.readRelays(3)
+  ]).then(function (data) {
+    relays.bank0 = data[0];
+    relays.bank1 = data[1];
+    relays.bank2 = data[2];
+    relays.bank3 = data[3];
+    return relays;
+  }).then(function (data) {
+    $log.debug(data);
   });
 
   this.click = function (_bank, _switch) {
@@ -97,7 +98,7 @@ function CampController($log, WebIService, $interval, $scope) {
     var cmd = 'cmd=254,114,3r1t300';
     WebIService.customCMD(cmd);
   };
- // TV (Outside)
+  // TV (Outside)
   this.outsideTvUp = function () {
     var cmd = 'cmd=254,110,2r1t300';
     WebIService.customCMD(cmd);
