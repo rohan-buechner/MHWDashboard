@@ -5,16 +5,15 @@ angular
     controller: CampController
   });
 
-function CampController($log, WebIService, $q) {
+function CampController($log, WebIService) {
   $log.info('in camp controller');
 
   this.outsideLightStatus = true;
 
-  $q.all([
-    WebIService.readRelays(4)
-  ]).then(function (data) {
-    this.outsideLightStatus = data[0][0];
-  });
+  WebIService.readRelays(4)
+    .then(function (data) {
+      this.outsideLightStatus = data[1];
+    });
 
   // Roof
   this.roofUp = function () {

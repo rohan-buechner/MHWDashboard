@@ -16,5 +16,8 @@
         "dist/css/bootstrap.css"
       ]
     }
+  },
+  "resolutions": {
+    "angular": "~1.5.8"
   }
 }

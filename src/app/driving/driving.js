@@ -22,6 +22,7 @@ function DrivingController($log, WebIService, $interval, $filter) {
   var vm = this;
 
   var chargingVoltage = 56.6;
+  vm.fuelPumpStatus = false;
 
   vm.dieselTank = {
     key: 'dieseltank',
@@ -33,7 +34,7 @@ function DrivingController($log, WebIService, $interval, $filter) {
   var interval;
 
   function _readSensors() {
-    WebIService
+    return WebIService
       .readSensors()
       .then(function (sensorArray) {
         vm.dieselTank.value = $filter('number')(sensorArray[0], 1);
@@ -53,7 +54,13 @@ function DrivingController($log, WebIService, $interval, $filter) {
   };
 
   vm.$onInit = function () {
-    _readSensors();
+    _readSensors()
+      .then(function () {
+        WebIService.readRelays(4)
+          .then(function (data) {
+            vm.fuelPumpStatus = data[0];
+          });
+      });
     checkLoop();
   };
 
@@ -67,12 +74,23 @@ function DrivingController($log, WebIService, $interval, $filter) {
   // Fuel Pump
   vm.fuelPumpOn = function () {
     var cmd = 'cmd=254,108,1r1t300';
-    WebIService.customCMD(cmd);
+    this.fuelPumpStatus = true;
+    toggleFuelPump(cmd);
   };
   vm.fuelPumpOff = function () {
     var cmd = 'cmd=254,100,1r1t300';
-    WebIService.customCMD(cmd);
+    this.fuelPumpStatus = false;
+    toggleFuelPump(cmd);
   };
+  function toggleFuelPump(cmd) {
+    WebIService.customCMD(cmd).then(function () {
+      $log.debug('in success');
+      WebIService.readRelays(1).then(function (data) {
+        // position is the position of the item in the bank
+        this.fuelPumpStatus = data[0];
+      });
+    });
+  }
 
   return vm;
 }

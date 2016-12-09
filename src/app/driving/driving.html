@@ -22,11 +22,17 @@
         <tr>
           <td>
             <div class="btn-group-vertical xl">
-              <button type="button" class="btn btn-xl btn-primary" ng-click="$ctrl.fuelPumpOn()" style="margin-top: 20px">
+              <button type="button"
+                      class="btn btn-xl btn-primary"
+                      ng-click="$ctrl.fuelPumpOn()"
+                      ng-class="{active: $ctrl.fuelPumpStatus}"
+                      style="margin-top: 20px">
                 On
               </button>
-              <button type="button" class="btn btn-xl btn-primary" ng-click="$ctrl.fuelPumpOff()">
-                <!--<i class="glyphicon glyphicon-off"></i> Off-->
+              <button type="button"
+                      class="btn btn-xl btn-primary"
+                      ng-click="$ctrl.fuelPumpOff()"
+                      ng-class="{active: !$ctrl.fuelPumpStatus}">
                 Off
               </button>
             </div>
