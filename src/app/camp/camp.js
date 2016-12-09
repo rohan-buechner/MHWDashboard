@@ -8,7 +8,7 @@ angular
 function CampController($log, WebIService) {
   $log.info('in camp controller');
 
-  this.outsideLightStatus = true;
+  this.outsideLightStatus = false;
 
   WebIService.readRelays(4)
     .then(function (data) {
