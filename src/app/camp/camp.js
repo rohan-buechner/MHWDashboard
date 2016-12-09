@@ -124,12 +124,12 @@ function CampController($log, WebIService) {
   this.outsideLightOn = function () {
     var cmd = 'cmd=254,109,4r1t300';
     this.outsideLightStatus = true;
-    toggleLight(cmd, 4, 0);
+    toggleLight(cmd);
   };
   this.outsideLightOff = function () {
     var cmd = 'cmd=254,101,4r1t300';
     this.outsideLightStatus = false;
-    toggleLight(cmd, 4, 0);
+    toggleLight(cmd);
   };
   function toggleLight(cmd) {
     WebIService.customCMD(cmd).then(function () {

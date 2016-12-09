@@ -7,6 +7,14 @@ angular
 
 function TopViewController($log, WebIService) {
   $log.info('in top view controller');
+
+  this.compressorStatus = false;
+
+  WebIService.readRelays(1)
+    .then(function (data) {
+      this.compressorStatus = data[1];
+    });
+
 // LHS front air suspension Pump
   this.lhsFrontP = function () {
     var cmd = 'cmd=254,110,1r1t300';
@@ -61,19 +69,19 @@ function TopViewController($log, WebIService) {
   };
   // Compressor for air suspension
   this.compressorOn = function () {
-    var cmd = 'cmd=254,109,4r1t300';
-    this.outsideLightStatus = true;
-    toggleCompressor(cmd, 4, 0);
+    var cmd = 'cmd=254,109,1r1t300';
+    this.compressorStatus = true;
+    toggleCompressor(cmd);
   };
   this.compressorOff = function () {
-    var cmd = 'cmd=254,101,4r1t300';
-    this.outsideLightStatus = false;
-    toggleCompressor(cmd, 4, 0);
+    var cmd = 'cmd=254,101,1r1t300';
+    this.compressorStatus = false;
+    toggleCompressor(cmd);
   };
   function toggleCompressor(cmd) {
     WebIService.customCMD(cmd).then(function () {
       $log.debug('in success');
-      WebIService.readRelays(4).then(function (data) {
+      WebIService.readRelays(1).then(function (data) {
         // position is the position of the item in the bank
         this.compressorStatus = data[1];
       });

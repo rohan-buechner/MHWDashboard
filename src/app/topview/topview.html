@@ -1,4 +1,22 @@
 <div id="topview">
+  <div class="row top-row">
+    <div class="col-sm-6">
+      <h1 class="button-label pull-right">Compressor:</h1>
+    </div>
+    <div class="col-xs-3 text-center">
+      <button class="depth" type="button" ng-class="{active: $ctrl.compressorStatus}"
+              ng-click="$ctrl.compressorOn()">&#8226;</button>
+
+      <h1 class="button-label">On</h1>
+    </div>
+    <div class="col-xs-3 text-center">
+      <button class="depth" type="button" ng-class="{active: !$ctrl.compressorStatus}"
+              ng-click="$ctrl.compressorOff()">&#8226;</button>
+
+      <h1 class="button-label">Off</h1>
+    </div>
+  </div>
+
   <div class="row">
     <div class="col-xs-6">
       <div class="well left">
@@ -33,7 +51,7 @@
             </div>
           </div>
           <div class="col-xs-6">
-            <img class="pull-right" src="app/topview/t2.png" >
+            <img class="pull-right" src="app/topview/t2.png">
           </div>
         </div>
       </div>

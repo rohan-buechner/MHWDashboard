@@ -19,10 +19,10 @@ function GaugesController($http, $log, WebIService, $filter, $interval) {
           .then(function (sensorArray) {
             vm.gauges = response.data.map(function (obj, index) {
               return {
-                key: obj.key,
                 title: obj.title,
                 unit: obj.unit,
-                value: $filter('number')(sensorArray[index], 1)
+                value: $filter('number')(sensorArray[index], 1),
+                pos: obj.pos
               };
             });
 
@@ -37,7 +37,15 @@ function GaugesController($http, $log, WebIService, $filter, $interval) {
     }
 
     interval = $interval(function () {
-      _readSensors();
+
+      WebIService
+        .readSensors()
+        .then(function (sensorArray) {
+          angular.forEach(vm.gauges, function (value, key) {
+            value.value = $filter('number')(sensorArray[key], 1);
+          });
+        });
+
     }, 3000);
   };
 
