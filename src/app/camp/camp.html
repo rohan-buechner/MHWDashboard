@@ -124,11 +124,10 @@
         <tr>
           <td>
             <div class="btn-group-vertical xl">
-              <button type="button" class="btn btn-xl btn-primary" ng-click="$ctrl.entryStepUp()" style="margin-top: 40%">
+              <button type="button" class="btn btn-xl btn-primary" ng-class="{active: $ctrl.outsideLightStatus}" ng-click="$ctrl.outsideLightOn()" style="margin-top: 40%">
                 On
               </button>
-              <button type="button" class="btn btn-xl btn-primary" ng-click="$ctrl.entryStepDown()">
-                <!--<i class="glyphicon glyphicon-off"></i> Off-->
+              <button type="button" class="btn btn-xl btn-primary" ng-class="{active: !$ctrl.outsideLightStatus}"ng-click="$ctrl.outsideLightOff()">
                 Off
               </button>
             </div>

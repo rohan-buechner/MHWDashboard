@@ -8,29 +8,13 @@ angular
 function CampController($log, WebIService, $q) {
   $log.info('in camp controller');
 
-  var relays = { };
+  this.outsideLightStatus = true;
 
   $q.all([
-    WebIService.readRelays(0),
-    WebIService.readRelays(1),
-    WebIService.readRelays(2),
-    WebIService.readRelays(3)
+    WebIService.readRelays(4)
   ]).then(function (data) {
-    relays.bank0 = data[0];
-    relays.bank1 = data[1];
-    relays.bank2 = data[2];
-    relays.bank3 = data[3];
-    return relays;
-  }).then(function (data) {
-    $log.debug(data);
+    this.outsideLightStatus = data[0][0];
   });
-
-  this.click = function (_bank, _switch) {
-    WebIService.buttonClick(_bank, _switch);
-    $log.debug(_bank, _switch);
-    // 1000 = 1 sec
-    // killRunner = $interval(pollDevice(_bank, _switch-8), 4000);
-  };
 
   // Roof
   this.roofUp = function () {
@@ -137,13 +121,24 @@ function CampController($log, WebIService, $q) {
     var cmd = 'cmd=254,104,3r1t300';
     WebIService.customCMD(cmd);
   };
-  // Wutside light
+  // Outside light
   this.outsideLightOn = function () {
-    var cmd = 'cmd=254,113,1r1t300';
-    WebIService.customCMD(cmd);
+    var cmd = 'cmd=254,109,4r1t300';
+    this.outsideLightStatus = true;
+    toggleLight(cmd, 4, 0);
   };
   this.outsideLightOff = function () {
-    var cmd = 'cmd=254,105,1r1t300';
-    WebIService.customCMD(cmd);
+    var cmd = 'cmd=254,101,4r1t300';
+    this.outsideLightStatus = false;
+    toggleLight(cmd, 4, 0);
   };
+  function toggleLight(cmd) {
+    WebIService.customCMD(cmd).then(function () {
+      $log.debug('in success');
+      WebIService.readRelays(4).then(function (data) {
+        // position is the position of the item in the bank
+        this.outsideLightStatus = data[1];
+      });
+    });
+  }
 }
