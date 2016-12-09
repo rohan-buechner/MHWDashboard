@@ -8,13 +8,13 @@ angular
     controller: DrivingController
   })
   .component('rear', {
-    template: '<img src="" height="' + height + '%" width="' + width + '%" >'
+    template: '<iframe src="http://admin:admin123@124.12.100.11/streaming/channels/101/httppreview" height="' + height + '%" width="' + width + '%"></iframe>'
   })
   .component('roof', {
-    template: '<img src="" height="' + height + '%" width="' + width + '%" >'
+    template: '<iframe src="http://admin:admin123@124.12.100.12/streaming/channels/101/httppreview" height="' + height + '%" width="' + width + '%"></iframe>'
   })
   .component('bottom', {
-    template: '<img src="" height="' + height + '%" width="' + width + '%" >'
+    template: '<iframe src="http://124.12.100.13/streaming/channels/101/httppreview" height="' + height + '%" width="' + width + '%"></iframe>'
   });
 
 function DrivingController($log, WebIService, $interval, $filter) {

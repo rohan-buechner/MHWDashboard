@@ -139,11 +139,11 @@ function CampController($log, WebIService, $q) {
   };
   // Wutside light
   this.outsideLightOn = function () {
-    var cmd = 'cmd=254,113,1r1t300';
+    var cmd = 'cmd=254,109,4r1t300';
     WebIService.customCMD(cmd);
   };
   this.outsideLightOff = function () {
-    var cmd = 'cmd=254,105,1r1t300';
+    var cmd = 'cmd=254,101,4r1t300';
     WebIService.customCMD(cmd);
   };
 }
