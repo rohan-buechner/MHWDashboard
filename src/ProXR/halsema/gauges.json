@@ -3,60 +3,70 @@
     "key":"dieseltank",
     "title":"Diesel Tank",
     "value":2043,
-    "unit":"%"
+    "unit":"%",
+    "pos":0
   },
   {
     "key":"watertank",
     "title":"Water Tank",
     "value":50,
-    "unit":"%"
+    "unit":"%",
+    "pos":1
   },
   {
     "key":"batteryamps",
     "title":"Battery Amps",
     "value":90,
-    "unit":"A"
+    "unit":"A",
+    "pos":2
   },
   {
     "key":"fridge",
     "title":"Fridge",
     "value":15,
-    "unit":"°C"
+    "unit":"°C",
+    "pos":3
   },
   {
     "key":"freezer",
     "title":"Freezer",
     "value":15,
-    "unit":"°C"
+    "unit":"°C",
+    "pos":4
   },
   {
     "key":"housebattery",
     "title":"House Battery",
     "value":15,
-    "unit":"V"
+    "unit":"V",
+    "pos":5
   },
   {
     "key":"ivecobattery",
     "title":"IVECO Battery",
     "value":15,
-    "unit":"V"
-  },
-  {
-    "key":"insidetemperature",
-    "title":"Inside Temperature",
-    "value":15,
-    "unit":"°C"
+    "unit":"V",
+    "pos":6
   },
   {
     "key":"outsidetemperature",
     "title":"Outside Temperature",
     "value":15,
-    "unit":"°C"
+    "unit":"°C",
+    "pos":7
+  },
+  {
+    "key":"insidetemperature",
+    "title":"Inside Temperature",
+    "value":15,
+    "unit":"°C",
+    "pos":8
   },
   {
     "key":"acpower",
     "title":"AC Power",
     "value":15,
-    "unit":"V"
+    "unit":"V",
+    "pos":9
   }
 ]
