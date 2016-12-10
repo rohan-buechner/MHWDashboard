@@ -1,6 +1,3 @@
-var height = 100;
-var width = 100;
-
 angular
   .module('app')
   .component('driving', {
@@ -8,14 +5,56 @@ angular
     controller: DrivingController
   })
   .component('rear', {
-    template: '<iframe src="http://admin:admin123@124.12.100.11/streaming/channels/101/httppreview" height="' + height + '%" width="' + width + '%"></iframe>'
+    template: getTemplate(),
+    controller: CameraController11,
+    controllerAs: 'vm'
   })
   .component('roof', {
-    template: '<iframe src="http://admin:admin123@124.12.100.12/streaming/channels/101/httppreview" height="' + height + '%" width="' + width + '%"></iframe>'
+    template: getTemplate(),
+    controller: CameraController12,
+    controllerAs: 'vm'
   })
   .component('bottom', {
-    template: '<iframe src="http://admin:admin123@124.12.100.13/streaming/channels/101/httppreview" height="' + height + '%" width="' + width + '%"></iframe>'
+    template: getTemplate(),
+    controller: CameraController13,
+    controllerAs: 'vm'
   });
+
+function getTemplate() {
+  return '<div id="wrap" class="row">' +
+          '<div class="col-sm-1"></div>' +
+          '<div class="col-sm-10">' +
+            '<iframe id="frame" ' +
+            'align="middle"' +
+            'style="-webkit-transform:scale(0.9);-moz-transform-scale(0.9);" ' +
+            'ng-src="{{vm.cameraSourceUrl}}"' +
+            'height="100%">' +
+            '</iframe>' +
+          '</div>' +
+          '<div class="col-sm-1"></div>' +
+        '</div>';
+}
+
+function CameraController11($sce) {
+  var vm = this;
+  var _url = 'http://admin:admin123@124.12.100.11/streaming/channels/101/httppreview';
+  vm.cameraSourceUrl = $sce.trustAsResourceUrl(_url);
+  return vm;
+}
+
+function CameraController12($sce) {
+  var vm = this;
+  var _url = 'http://admin:admin123@124.12.100.12/streaming/channels/101/httppreview';
+  vm.cameraSourceUrl = $sce.trustAsResourceUrl(_url);
+  return vm;
+}
+
+function CameraController13($sce) {
+  var vm = this;
+  var _url = 'http://admin:admin123@124.12.100.13/streaming/channels/101/httppreview';
+  vm.cameraSourceUrl = $sce.trustAsResourceUrl(_url);
+  return vm;
+}
 
 function DrivingController($log, WebIService, $interval, $filter) {
   $log.info('in driving controller');
