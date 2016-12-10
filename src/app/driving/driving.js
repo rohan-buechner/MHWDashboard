@@ -25,7 +25,6 @@ function DrivingController($log, WebIService, $interval, $filter) {
   vm.fuelPumpStatus = false;
 
   vm.dieselTank = {
-    key: 'dieseltank',
     title: 'Diesel Tank',
     value: 0,
     unit: 'L'
@@ -56,9 +55,10 @@ function DrivingController($log, WebIService, $interval, $filter) {
   vm.$onInit = function () {
     _readSensors()
       .then(function () {
-        WebIService.readRelays(4)
+        WebIService.readRelays(1)
           .then(function (data) {
-            vm.fuelPumpStatus = data[0];
+            $log.debug('vm.fuelPumpStatus', data.relays[0]);
+            vm.fuelPumpStatus = data.relays[0];
           });
       });
     checkLoop();
@@ -87,7 +87,7 @@ function DrivingController($log, WebIService, $interval, $filter) {
       $log.debug('in success');
       WebIService.readRelays(1).then(function (data) {
         // position is the position of the item in the bank
-        this.fuelPumpStatus = data[0];
+        this.fuelPumpStatus = data.relays[0];
       });
     });
   }

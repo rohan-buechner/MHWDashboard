@@ -22,8 +22,6 @@ function WebIService($log, $http) {
   }
 
   function _readSensors() {
-    $log.info('in _readSensors');
-
     var _url = _base + 'runcommand.sh?' + Math.floor(Math.random() * 1000) + ':cmd=254,196r32t1000';
 
     // var _url = './gauge_feed.sh';
@@ -51,15 +49,8 @@ function WebIService($log, $http) {
       }
 
       $log.debug('return collection', returnCollection);
-
-      // this callback will be called asynchronously
-      // when the response is available
-
       return returnCollection;
     }, function (response) {
-      // called asynchronously if an error occurs
-      // or server returns response with an error status.
-
       $log.error(response);
       return [];
     });
