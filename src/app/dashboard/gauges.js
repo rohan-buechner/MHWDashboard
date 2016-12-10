@@ -84,8 +84,6 @@ function GaugesController($log, WebIService, $filter, $interval) {
             pos: obj.pos
           };
         });
-
-        $log.info('GaugesController.vm', vm);
       });
   }
 
