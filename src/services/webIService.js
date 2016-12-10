@@ -2,10 +2,7 @@ angular
   .module('app')
   .service('WebIService', WebIService);
 
-function WebIService($log, $http) {
-  var _base = 'http://124.12.100.20/cgi-bin/';
-  // var _base = '/cgi-bin/';
-
+function WebIService($log, $http, _base) {
   function _customCommand(_cmd) {
     var _url = _base + 'runcommand.sh?' + Math.floor(Math.random() * 1000) + ':' + _cmd;
 
@@ -24,7 +21,6 @@ function WebIService($log, $http) {
   function _readSensors() {
     var _url = _base + 'runcommand.sh?' + Math.floor(Math.random() * 1000) + ':cmd=254,196r32t1000';
 
-    // var _url = './gauge_feed.sh';
     return $http({
       method: 'GET',
       url: _url

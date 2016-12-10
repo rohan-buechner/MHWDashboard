@@ -5,12 +5,10 @@ angular
 
     $sceDelegateProvider.resourceUrlWhitelist([
       // Allow same origin resource loads.
-      'self',
-      // Allow loading from our assets domain.  Notice the difference between * and **.
-      'http://srv*.assets.example.com/**']);
+      'self']);
   })
-  .filter('trustUrl', function ($sce) {
-    return function (url) {
-      return $sce.trustAsResourceUrl(url);
-    };
-  });
+
+  // var _base = 'http://124.12.100.20/cgi-bin/';
+  // var _base = 'http://10.0.0.17/cgi-bin/';
+  // var _base = '/cgi-bin/';
+  .constant('_base','http://10.0.0.17/cgi-bin/');

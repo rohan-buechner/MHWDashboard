@@ -11,61 +11,61 @@ function GaugesController($log, WebIService, $filter, $interval) {
   vm.gauges = [
     {
       title: 'Diesel Tank',
-      unit: 'L',
+      unit: '%',
       pos: 0,
       value: 0
     },
     {
       title: 'Water Tank',
-      unit: 'L',
+      unit: '%',
       pos: 1,
       value: 0
     },
     {
       title: 'Battery Amps',
-      unit: 'A',
+      unit: '%',
       pos: 2,
       value: 0
     },
     {
       title: 'Fridge',
-      unit: '°C',
+      unit: '%',//'°C',
       pos: 3,
       value: 0
     },
     {
       title: 'Freezer',
-      unit: '°C',
+      unit: '%',
       pos: 4,
       value: 0
     },
     {
       title: 'House Battery',
-      unit: 'V',
+      unit: '%',
       pos: 5,
       value: 0
     },
     {
       title: 'IVECO Battery',
-      unit: 'V',
+      unit: '%',
       pos: 6,
       value: 0
     },
     {
       title: 'Outside Temperature',
-      unit: '°C',
+      unit: '%',
       pos: 7,
       value: 0
     },
     {
       title: 'Inside Temperature',
-      unit: '°C',
+      unit: '%',
       pos: 8,
       value: 0
     },
     {
       title: 'AC Power',
-      unit: 'V',
+      unit: '%',
       pos: 9,
       value: 0
     }
