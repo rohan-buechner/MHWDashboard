@@ -14,7 +14,7 @@ angular
     template: '<iframe src="http://admin:admin123@124.12.100.12/streaming/channels/101/httppreview" height="' + height + '%" width="' + width + '%"></iframe>'
   })
   .component('bottom', {
-    template: '<iframe src="http://124.12.100.13/streaming/channels/101/httppreview" height="' + height + '%" width="' + width + '%"></iframe>'
+    template: '<iframe src="http://admin:admin123@124.12.100.13/streaming/channels/101/httppreview" height="' + height + '%" width="' + width + '%"></iframe>'
   });
 
 function DrivingController($log, WebIService, $interval, $filter) {
