@@ -12,7 +12,7 @@ function CampController($log, WebIService) {
 
   WebIService.readRelays(4)
     .then(function (data) {
-      this.outsideLightStatus = data[1];
+      this.outsideLightStatus = data.relays[1];
     });
 
   // Roof
@@ -136,7 +136,7 @@ function CampController($log, WebIService) {
       $log.debug('in success');
       WebIService.readRelays(4).then(function (data) {
         // position is the position of the item in the bank
-        this.outsideLightStatus = data[1];
+        this.outsideLightStatus = data.relays[1];
       });
     });
   }

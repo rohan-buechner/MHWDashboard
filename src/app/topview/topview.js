@@ -12,7 +12,7 @@ function TopViewController($log, WebIService) {
 
   WebIService.readRelays(1)
     .then(function (data) {
-      this.compressorStatus = data[1];
+      this.compressorStatus = data.relays[1];
     });
 
 // LHS front air suspension Pump
@@ -83,7 +83,7 @@ function TopViewController($log, WebIService) {
       $log.debug('in success');
       WebIService.readRelays(1).then(function (data) {
         // position is the position of the item in the bank
-        this.compressorStatus = data[1];
+        this.compressorStatus = data.relays[1];
       });
     });
   }
