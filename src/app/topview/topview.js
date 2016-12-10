@@ -142,7 +142,7 @@ function TopViewController($log, WebIService, $interval, $filter) {
   };
 
   function checkAndExecute(cmd) {
-    if(!vm.compressorStatus) {
+    if (!vm.compressorStatus) {
       return;
     }
     WebIService.customCMD(cmd);

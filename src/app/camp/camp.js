@@ -19,7 +19,7 @@ function CampController($log, WebIService, $q) {
       $log.debug(data);
       vm.outsideLightStatus = data[0].relays[5];
       vm.entryStepStatus = data[1].relays[2];
-    })
+    });
   };
 
   // Roof
@@ -148,5 +148,4 @@ function CampController($log, WebIService, $q) {
     var cmd = 'cmd=254,104,3r1t300';
     WebIService.customCMD(cmd);
   };
-
 }
