@@ -1,2 +1,5 @@
 angular
-  .module('app', ['ui.router', 'angularjs-gauge']);
+  .module('app', ['ui.router', 'angularjs-gauge'])
+  .config(function ($logProvider) {
+    $logProvider.debugEnabled(true);
+  });
