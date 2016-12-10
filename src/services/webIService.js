@@ -65,16 +65,21 @@ function WebIService($log, $http) {
       method: 'GET',
       url: _url
     }).then(function (transport) {
+      $log.debug(transport);
+
       var response = transport.data || 'empty';
 
-      // splits the OK from the result,
-      var bankStatus = response.split('\n')[1].charAt(0);
+      // splits the OK from the result, and remove the comma at the end
+      var bankStatus = response.split('\n')[1].slice(0, -1);
 
       return updateBankStatus(_bankId, bankStatus);
     });
   }
 
   function updateBankStatus(_bankId, val) {
+    $log.debug('updateBankStatus: _bankId', _bankId);
+    $log.debug('updateBankStatus: val', val);
+
     var result = {bank: _bankId, relays: [false, false, false, false, false, false, false, false]};
 
     if (val > 127) {

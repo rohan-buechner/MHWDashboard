@@ -5,139 +5,148 @@ angular
     controller: CampController
   });
 
-function CampController($log, WebIService) {
+function CampController($log, WebIService, $q) {
   $log.info('in camp controller');
 
-  this.outsideLightStatus = false;
+  var vm = this;
+  vm.outsideLightStatus = false;
 
-  WebIService.readRelays(4)
-    .then(function (data) {
-      this.outsideLightStatus = data.relays[1];
-    });
+  vm.$onInit = function () {
+    $q.all([
+      WebIService.readRelays(2),
+      WebIService.readRelays(3)
+    ]).then(function (data) {
+      $log.debug(data);
+      vm.outsideLightStatus = data[0].relays[5];
+      vm.entryStepStatus = data[1].relays[2];
+    })
+  };
 
   // Roof
-  this.roofUp = function () {
+  vm.roofUp = function () {
     var cmd = 'cmd=254,111,2r1t300:cmd=254,110,2r1t300';
     WebIService.customCMD(cmd);
   };
-  this.roofDown = function () {
+  vm.roofDown = function () {
     var cmd = 'cmd=254,111,2r1t300:cmd=254,102,2r1t300';
     WebIService.customCMD(cmd);
   };
-  this.roofStop = function () {
+  vm.roofStop = function () {
     var cmd = 'cmd=254,103,2r1t300';
     WebIService.customCMD(cmd);
   };
 
   // Left Steady
-  this.leftSteadyUp = function () {
+  vm.leftSteadyUp = function () {
     var cmd = 'cmd=254,115,2r1t300:cmd=254,114,2r1t300';
     WebIService.customCMD(cmd);
   };
-  this.leftSteadyDown = function () {
+  vm.leftSteadyDown = function () {
     var cmd = 'cmd=254,115,2r1t300:cmd=254,106,2r1t300';
     WebIService.customCMD(cmd);
   };
-  this.leftSteadyStop = function () {
+  vm.leftSteadyStop = function () {
     var cmd = 'cmd=254,107,2r1t300';
     WebIService.customCMD(cmd);
   };
   // RHS Steady
-  this.rightSteadyUp = function () {
+  vm.rightSteadyUp = function () {
     var cmd = 'cmd=254,109,3r1t300:cmd=254,108,3r1t300';
     WebIService.customCMD(cmd);
   };
-  this.rightSteadyDown = function () {
+  vm.rightSteadyDown = function () {
     var cmd = 'cmd=254,109,3r1t300:cmd=254,100,3r1t300';
     WebIService.customCMD(cmd);
   };
-  this.rightSteadyStop = function () {
+  vm.rightSteadyStop = function () {
     var cmd = 'cmd=254,101,3r1t300';
     WebIService.customCMD(cmd);
   };
   // Dish
-  this.dishUp = function () {
+  vm.dishUp = function () {
     var cmd = 'cmd=254,112,2r1t300';
     WebIService.customCMD(cmd);
   };
-  this.dishDown = function () {
-    var cmd = 'cmd=254,103,2r1t300';
+  vm.dishDown = function () {
+    var cmd = 'cmd=254,104,2r1t300';
     WebIService.customCMD(cmd);
   };
-  this.dishStop = function () {
-    var cmd = 'cmd=254,103,2r1t300';
-    WebIService.customCMD(cmd);
-  };
+
   // TV (Inside)
-  this.insideTvUp = function () {
-    var cmd = 'cmd=254,113,3r1t300';
+  vm.insideTvUp = function () {
+    var cmd = 'cmd=254,106,3r1t300:cmd=254,113,3r1t300';
     WebIService.customCMD(cmd);
   };
-  this.insideTvDown = function () {
-    var cmd = 'cmd=254,114,3r1t300';
-    WebIService.customCMD(cmd);
-  };
-  this.insideTvStop = function () {
-    var cmd = 'cmd=254,114,3r1t300';
+  vm.insideTvDown = function () {
+    var cmd = 'cmd=254,105,3r1t300:cmd=254,114,3r1t300';
     WebIService.customCMD(cmd);
   };
   // TV (Outside)
-  this.outsideTvUp = function () {
-    var cmd = 'cmd=254,110,2r1t300';
+  vm.outsideTvUp = function () {
+    var cmd = 'cmd=254,100,4r1t300:cmd=254,115,3r1t300';
     WebIService.customCMD(cmd);
   };
-  this.outsideTvDown = function () {
-    var cmd = 'cmd=254,102,2r1t300';
+  vm.outsideTvDown = function () {
+    var cmd = 'cmd=254,107,3r1t300:cmd=254,108,4r1t300';
     WebIService.customCMD(cmd);
   };
-  this.outsideTvStop = function () {
-    var cmd = 'cmd=254,101,2r1t300';
-    WebIService.customCMD(cmd);
-  };
-  // Entry
-  this.entryStepUp = function () {
-    var cmd = 'cmd=254,110,3r1t300';
-    WebIService.customCMD(cmd);
-  };
-  this.entryStepDown = function () {
-    var cmd = 'cmd=254,102,3r1t300';
-    WebIService.customCMD(cmd);
-  };
-  this.entryStepStop = function () {
-    var cmd = 'cmd=254,102,3r1t300';
-    WebIService.customCMD(cmd);
-  };
-  // Awning
-  this.awningUp = function () {
-    var cmd = 'cmd=254,112,3r1t300:cmd=254,111,3r1t300';
-    WebIService.customCMD(cmd);
-  };
-  this.awningDown = function () {
-    var cmd = 'cmd=254,112,3r1t300:cmd=254,103,3r1t300';
-    WebIService.customCMD(cmd);
-  };
-  this.awningStop = function () {
-    var cmd = 'cmd=254,104,3r1t300';
-    WebIService.customCMD(cmd);
-  };
+
   // Outside light
-  this.outsideLightOn = function () {
-    var cmd = 'cmd=254,109,4r1t300';
-    this.outsideLightStatus = true;
+  vm.outsideLightOn = function () {
+    var cmd = 'cmd=254,113,2r1t300';
+    vm.outsideLightStatus = true;
     toggleLight(cmd);
   };
-  this.outsideLightOff = function () {
-    var cmd = 'cmd=254,101,4r1t300';
-    this.outsideLightStatus = false;
+  vm.outsideLightOff = function () {
+    var cmd = 'cmd=254,105,2r1t300';
+    vm.outsideLightStatus = false;
     toggleLight(cmd);
   };
   function toggleLight(cmd) {
     WebIService.customCMD(cmd).then(function () {
       $log.debug('in success');
-      WebIService.readRelays(4).then(function (data) {
+      WebIService.readRelays(2).then(function (data) {
         // position is the position of the item in the bank
-        this.outsideLightStatus = data.relays[1];
+        $log.debug('this.outsideLightStatus', data.relays[5]);
+        vm.outsideLightStatus = data.relays[5];
       });
     });
   }
+
+  // Entry
+  vm.entryStepOut = function () {
+    var cmd = 'cmd=254,110,3r1t300';
+    vm.entryStepStatus = true;
+    toggleEntryStep(cmd);
+  };
+  vm.entryStepIn = function () {
+    var cmd = 'cmd=254,102,3r1t300';
+    vm.entryStepStatus = false;
+    toggleEntryStep(cmd);
+  };
+  function toggleEntryStep(cmd) {
+    WebIService.customCMD(cmd).then(function () {
+      $log.debug('in success');
+      WebIService.readRelays(3).then(function (data) {
+        // position is the position of the item in the bank
+        $log.debug('this.toggleEntryStep', data.relays[2]);
+        vm.entryStepStatus = data.relays[2];
+      });
+    });
+  }
+
+  // Awning
+  vm.awningUp = function () {
+    var cmd = 'cmd=254,112,3r1t300:cmd=254,111,3r1t300';
+    WebIService.customCMD(cmd);
+  };
+  vm.awningDown = function () {
+    var cmd = 'cmd=254,112,3r1t300:cmd=254,103,3r1t300';
+    WebIService.customCMD(cmd);
+  };
+  vm.awningStop = function () {
+    var cmd = 'cmd=254,104,3r1t300';
+    WebIService.customCMD(cmd);
+  };
+
 }

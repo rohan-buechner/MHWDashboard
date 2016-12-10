@@ -65,9 +65,7 @@
         <tr>
           <td>
             <div class="btn-group-vertical xl">
-              <button type="button" class="btn btn-xl btn-primary" ng-click="$ctrl.dishUp()">&#x25B2;</button>
-              <button type="button" class="btn btn-xl btn-primary middle" ng-click="$ctrl.dishStop()"><i
-                class="glyphicon glyphicon-ban-circle"></i></button>
+              <button type="button" class="btn btn-xl btn-primary" ng-click="$ctrl.dishUp()" style="margin-top: 40%">&#x25B2;</button>
               <button type="button" class="btn btn-xl btn-primary" ng-click="$ctrl.dishDown()">&#x25BC;</button>
             </div>
           </td>
@@ -78,13 +76,11 @@
       </table>
     </div>
     <div class="col-xs-4 center-content">
-      <table>
+      <table style="margin-bottom: 40px">
         <tr>
           <td>
             <div class="btn-group-vertical xl">
-              <button type="button" class="btn btn-xl btn-primary" ng-click="$ctrl.insideTvUp()">&#x25B2;</button>
-              <button type="button" class="btn btn-xl btn-primary middle" ng-click="$ctrl.insideTvStop()">
-                <i class="glyphicon glyphicon-ban-circle"></i></button>
+              <button type="button" class="btn btn-xl btn-primary" ng-click="$ctrl.insideTvUp()" style="margin-top: 40%">&#x25B2;</button>
               <button type="button" class="btn btn-xl btn-primary" ng-click="$ctrl.insideTvDown()">&#x25BC;</button>
             </div>
           </td>
@@ -101,10 +97,7 @@
         <tr>
           <td>
             <div class="btn-group-vertical xl">
-              <button type="button" class="btn btn-xl btn-primary" ng-click="$ctrl.outsideTvUp()">&#x25B2;</button>
-              <button type="button" class="btn btn-xl btn-primary middle" ng-click="$ctrl.outsideTvStop()">
-                <i class="glyphicon glyphicon-ban-circle"></i>
-              </button>
+              <button type="button" class="btn btn-xl btn-primary" ng-click="$ctrl.outsideTvUp()" style="margin-top: 40%">&#x25B2;</button>
               <button type="button" class="btn btn-xl btn-primary" ng-click="$ctrl.outsideTvDown()">&#x25BC;</button>
             </div>
           </td>
@@ -145,10 +138,8 @@
         <tr>
           <td>
             <div class="btn-group-vertical xl">
-              <button type="button" class="btn btn-xl btn-primary" ng-click="$ctrl.entryStepUp()">&#x25B2;</button>
-              <button type="button" class="btn btn-xl btn-primary middle" ng-click="$ctrl.entryStepStop()"><i
-                class="glyphicon glyphicon-ban-circle"></i></button>
-              <button type="button" class="btn btn-xl btn-primary" ng-click="$ctrl.entryStepDown()">&#x25BC;</button>
+              <button type="button" class="btn btn-xl btn-primary" ng-click="$ctrl.entryStepOut()"ng-class="{active: $ctrl.entryStepStatus}" style="margin-top: 40%">Out</button>
+              <button type="button" class="btn btn-xl btn-primary" ng-click="$ctrl.entryStepIn()" ng-class="{active: !$ctrl.entryStepStatus}">In</button>
             </div>
           </td>
           <td>
