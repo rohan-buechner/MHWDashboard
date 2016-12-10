@@ -3,11 +3,11 @@ angular
   .service('WebIService', WebIService);
 
 function WebIService($log, $http) {
-  var _base = 'http://124.12.100.20/cgi-bin/';
+  // var _base = 'http://124.12.100.20/cgi-bin/';
+  var _base = '/cgi-bin/';
 
   function _customCommand(_cmd) {
     var _url = _base + 'runcommand.sh?' + Math.floor(Math.random() * 1000) + ':' + _cmd;
-    $log.info(_url);
 
     return $http({
       method: 'GET',
@@ -25,8 +25,6 @@ function WebIService($log, $http) {
     var _url = _base + 'runcommand.sh?' + Math.floor(Math.random() * 1000) + ':cmd=254,196r32t1000';
 
     // var _url = './gauge_feed.sh';
-    $log.info(_url);
-
     return $http({
       method: 'GET',
       url: _url
@@ -59,8 +57,6 @@ function WebIService($log, $http) {
   function _readRelaysForBank(_bankId) {
     var _url = _base + 'runcommand.sh?' + Math.floor(Math.random() * 1000) + ':cmd=254,124,' + (_bankId);
 
-    // var _url = './button_status.sh';
-
     return $http({
       method: 'GET',
       url: _url
@@ -77,9 +73,6 @@ function WebIService($log, $http) {
   }
 
   function updateBankStatus(_bankId, val) {
-    $log.debug('updateBankStatus: _bankId', _bankId);
-    $log.debug('updateBankStatus: val', val);
-
     var result = {bank: _bankId, relays: [false, false, false, false, false, false, false, false]};
 
     if (val > 127) {
