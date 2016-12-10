@@ -13,14 +13,9 @@ function WebIService($log, $http) {
       method: 'GET',
       url: _url
     }).then(function (response) {
-      // this callback will be called asynchronously
-      // when the response is available
-      $log.info('success', response);
+      $log.debug('success', response);
     }, function (response) {
-      // called asynchronously if an error occurs
-      // or server returns response with an error status.
-
-      $log.info('fail', response);
+      $log.debug('fail', response);
     }).catch(function (err) {
       $log.error(err);
     });
@@ -29,9 +24,9 @@ function WebIService($log, $http) {
   function _readSensors() {
     $log.info('in _readSensors');
 
-    // var _url = _base + 'runcommand.sh?' + Math.floor(Math.random() * 1000) + ':cmd=254,196r32t1000';
-    var _url = './gauge_feed.sh';
+    var _url = _base + 'runcommand.sh?' + Math.floor(Math.random() * 1000) + ':cmd=254,196r32t1000';
 
+    // var _url = './gauge_feed.sh';
     $log.info(_url);
 
     return $http({
@@ -71,9 +66,9 @@ function WebIService($log, $http) {
   }
 
   function _readRelaysForBank(_bankId) {
-    // var _url = _base + 'runcommand.sh?' + Math.floor(Math.random() * 1000) + ':cmd=254,124,' + (_bankId);
+    var _url = _base + 'runcommand.sh?' + Math.floor(Math.random() * 1000) + ':cmd=254,124,' + (_bankId);
 
-    var _url = './button_status.sh';
+    // var _url = './button_status.sh';
 
     return $http({
       method: 'GET',

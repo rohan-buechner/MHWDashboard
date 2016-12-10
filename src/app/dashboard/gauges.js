@@ -5,29 +5,87 @@ angular
     controller: GaugesController
   });
 
-function GaugesController($http, $log, WebIService, $filter, $interval) {
+function GaugesController($log, WebIService, $filter, $interval) {
   var vm = this;
   var interval;
-  vm.gauges = [];
+  vm.gauges = [
+    {
+      title: 'Diesel Tank',
+      unit: 'L',
+      pos: 0,
+      value: 0
+    },
+    {
+      title: 'Water Tank',
+      unit: 'L',
+      pos: 1,
+      value: 0
+    },
+    {
+      title: 'Battery Amps',
+      unit: 'A',
+      pos: 2,
+      value: 0
+    },
+    {
+      title: 'Fridge',
+      unit: '°C',
+      pos: 3,
+      value: 0
+    },
+    {
+      title: 'Freezer',
+      unit: '°C',
+      pos: 4,
+      value: 0
+    },
+    {
+      title: 'House Battery',
+      unit: 'V',
+      pos: 5,
+      value: 0
+    },
+    {
+      title: 'IVECO Battery',
+      unit: 'V',
+      pos: 6,
+      value: 0
+    },
+    {
+      title: 'Outside Temperature',
+      unit: '°C',
+      pos: 7,
+      value: 0
+    },
+    {
+      title: 'Inside Temperature',
+      unit: '°C',
+      pos: 8,
+      value: 0
+    },
+    {
+      title: 'AC Power',
+      unit: 'V',
+      pos: 9,
+      value: 0
+    }
+  ];
 
   function _readSensors() {
-    $http
-      .get('/ProXR/halsema/gauges.json')
-      .then(function (response) {
-        WebIService
-          .readSensors()
-          .then(function (sensorArray) {
-            vm.gauges = response.data.map(function (obj, index) {
-              return {
-                title: obj.title,
-                unit: obj.unit,
-                value: $filter('number')(sensorArray[index], 1),
-                pos: obj.pos
-              };
-            });
+    WebIService
+      .readSensors()
+      .then(function (sensorArray) {
+        vm.gauges = vm.gauges.map(function (obj) {
+          $log.debug(obj);
+          return {
+            title: obj.title,
+            unit: obj.unit,
+            value: $filter('number')(sensorArray[obj.pos], 1) || 0,
+            pos: obj.pos
+          };
+        });
 
-            $log.info('GaugesController.vm', vm);
-          });
+        $log.info('GaugesController.vm', vm);
       });
   }
 
@@ -37,15 +95,13 @@ function GaugesController($http, $log, WebIService, $filter, $interval) {
     }
 
     interval = $interval(function () {
-
       WebIService
         .readSensors()
         .then(function (sensorArray) {
-          angular.forEach(vm.gauges, function (value, key) {
-            value.value = $filter('number')(sensorArray[key], 1);
+          angular.forEach(vm.gauges, function (obj) {
+            obj.value = $filter('number')(sensorArray[obj.pos], 1);
           });
         });
-
     }, 3000);
   };
 
