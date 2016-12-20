@@ -35,7 +35,7 @@
     "karma-phantomjs-shim": "^1.1.2",
     "phantomjs-prebuilt": "^2.1.13",
     "bower": "^1.7.9",
-    "gulp-inject": "^4.1.0",
+    "gulp-inject": "^4.2.0",
     "main-bower-files": "^2.13.1",
     "wiredep": "^4.0.0",
     "eslint": "^3.10.2",
