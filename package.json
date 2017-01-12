@@ -27,7 +27,7 @@
     "karma-coverage": "^1.1.1",
     "karma-jasmine": "^1.0.2",
     "karma-junit-reporter": "^1.1.0",
-    "jasmine": "^2.4.1",
+    "jasmine": "2.5.2",
     "es6-shim": "^0.35.0",
     "karma-angular-filesort": "^1.0.0",
     "karma-ng-html2js-preprocessor": "^1.0.0",
