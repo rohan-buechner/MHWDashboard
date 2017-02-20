@@ -11,4 +11,4 @@ angular
   // var _base = 'http://124.12.100.20/cgi-bin/';
   // var _base = 'http://10.0.0.17/cgi-bin/';
   // var _base = '/cgi-bin/';
-  .constant('_base','http://10.0.0.17/cgi-bin/');
+  .constant('_base', 'http://10.0.0.17/cgi-bin/');
