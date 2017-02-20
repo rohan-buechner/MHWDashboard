@@ -9,30 +9,31 @@ function TopViewController($log, WebIService, $interval, $filter) {
   var vm = this;
   var interval;
   vm.compressorStatus = false;
+  // TODO. reset all values to 0 or else
   vm.gauges = [
     {
       title: 'L Front Pressure',
       unit: 'bar',
       pos: 10,
-      value: 0
+      value: 5.3
     },
     {
       title: 'R Front Pressure',
       unit: 'bar',
       pos: 11,
-      value: 0
+      value: 5.2
     },
     {
       title: 'L Rear Pressure',
       unit: 'bar',
       pos: 12,
-      value: 0
+      value: 5.8
     },
     {
       title: 'R Rear Pressure',
       unit: 'bar',
       pos: 13,
-      value: 0
+      value: 5.9
     }
   ];
 
@@ -44,9 +45,9 @@ function TopViewController($log, WebIService, $interval, $filter) {
     interval = $interval(function () {
       WebIService
         .readSensors()
-        .then(function (sensorArray) {
-          angular.forEach(vm.gauges, function (obj) {
-            obj.value = $filter('number')(sensorArray[obj.pos], 1);
+        .then(function (sensorArray) { // eslint-disable-line no-unused-vars
+          angular.forEach(vm.gauges, function (obj) { // eslint-disable-line no-unused-vars
+            // obj.value = $filter('number')(sensorArray[obj.pos], 1); TODO: uncomment this plez
           });
 
           $log.debug('vm.gauges', vm.gauges);

@@ -13,7 +13,8 @@ function GaugesController($log, WebIService, $filter, $interval) {
       title: 'SUB Tank',
       unit: 'ℓ',
       pos: 0,
-      value: 10 // TODO reset to 0
+      value: 90, // TODO reset to 0
+      displayValue: 10
     },
     {
       title: 'Water Tank',
@@ -23,22 +24,25 @@ function GaugesController($log, WebIService, $filter, $interval) {
     },
     {
       title: 'Battery Amps',
-      unit: 'Amps',
+      unit: ' amps',
       pos: 2,
-      value: 0
+      value: 50,
+      displayValue: 0
     },
     {
       title: 'Fridge',
       unit: '°',
       pos: 3,
-      value: 0
+      value: 50,
+      displayValue: 0
     },
     {
       title: 'Freezer',
       unit: '°',
       pos: 4,
-      value: 18,
-      negateValue: true
+      value: 50,
+      negateValue: true,
+      displayValue: 18
     },
     {
       title: 'House Battery',
@@ -56,19 +60,22 @@ function GaugesController($log, WebIService, $filter, $interval) {
       title: 'Outside Temperature',
       unit: '°',
       pos: 7,
-      value: 20
+      value: 37,
+      displayValue: 20
     },
     {
       title: 'Inside Temperature',
       unit: '°',
       pos: 8,
-      value: 20
+      value: 37,
+      displayValue: 20
     },
     {
       title: 'AC Power',
       unit: 'V',
       pos: 9,
-      value: 220
+      value: 80,
+      displayValue: 220
     }
   ];
 

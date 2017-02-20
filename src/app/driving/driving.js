@@ -65,8 +65,8 @@ function DrivingController($log, WebIService, $interval, $filter) {
 
   vm.dieselTank = {
     title: 'Diesel Tank',
-    value: 10, // TODO: reset to 0
-    unit: 'ℓ'
+    value: 10,
+    unit: 'L'
   };
 
   var interval;
@@ -75,7 +75,7 @@ function DrivingController($log, WebIService, $interval, $filter) {
     return WebIService
       .readSensors()
       .then(function (sensorArray) {
-        // TODO: uncomment this line. vm.dieselTank.value = $filter('number')(sensorArray[0], 1);
+        // vm.dieselTank.value = $filter('number')(sensorArray[0], 1);
         vm.isHouseCharging = $filter('number')(sensorArray[5], 1) > chargingVoltage;
         vm.isIVECOCharging = $filter('number')(sensorArray[6], 1) > chargingVoltage;
       });
