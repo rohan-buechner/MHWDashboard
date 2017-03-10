@@ -13,7 +13,7 @@ function GaugesController($log, WebIService, $filter, $interval) {
       title: 'SUB Tank',
       unit: 'ℓ',
       pos: 0,
-      value: 90, // TODO reset to 0
+      value: 20, // TODO reset to 0
       displayValue: 10
     },
     {

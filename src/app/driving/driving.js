@@ -65,8 +65,9 @@ function DrivingController($log, WebIService, $interval, $filter) {
 
   vm.dieselTank = {
     title: 'Diesel Tank',
-    value: 10,
-    unit: 'L'
+    unit: 'ℓ',
+    value: 20, // TODO reset to 0
+    displayValue: 10
   };
 
   var interval;

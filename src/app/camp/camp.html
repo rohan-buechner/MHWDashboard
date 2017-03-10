@@ -120,6 +120,22 @@
         <tr>
           <td>
             <div class="btn-group-vertical xl">
+              <button type="button" class="btn btn-xl btn-primary" ng-click="$ctrl.awningUp()">&#x25B2;</button>
+              <button type="button" class="btn btn-xl btn-primary middle" ng-click="$ctrl.awningStop()">&nbsp;</button>
+              <button type="button" class="btn btn-xl btn-primary" ng-click="$ctrl.awningDown()">&#x25BC;</button>
+            </div>
+          </td>
+          <td>
+            <h1 class="button-label">Awning</h1>
+          </td>
+        </tr>
+      </table>
+    </div>
+    <div class="col-xs-4 center-content">
+      <table>
+        <tr>
+          <td>
+            <div class="btn-group-vertical xl">
               <button type="button" class="btn btn-xl btn-primary" ng-class="{active: $ctrl.outsideLightStatus}"
                       ng-click="$ctrl.outsideLightOn()" style="margin-top: 40%">
                 On
@@ -137,23 +153,6 @@
           </td>
         </tr>
       </table>
-    </div>
-    <div class="col-xs-4 center-content">
-      <table>
-        <tr>
-          <td>
-            <div class="btn-group-vertical xl">
-              <button type="button" class="btn btn-xl btn-primary" ng-click="$ctrl.awningUp()">&#x25B2;</button>
-              <button type="button" class="btn btn-xl btn-primary middle" ng-click="$ctrl.awningStop()">&nbsp;</button>
-              <button type="button" class="btn btn-xl btn-primary" ng-click="$ctrl.awningDown()">&#x25BC;</button>
-            </div>
-          </td>
-          <td>
-            <h1 class="button-label">Awning</h1>
-          </td>
-        </tr>
-      </table>
-
     </div>
     <div class="col-xs-4 center-content">
     </div>

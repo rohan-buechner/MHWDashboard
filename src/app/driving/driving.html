@@ -10,7 +10,9 @@
           cap="Diesel Tank"
           foreground-color="#ff9800"
           background-color="rgba(255,255,255,0.3)"
-          append="{{$ctrl.dieselTank.unit}}">
+          append="{{$ctrl.dieselTank.unit}}"
+          negate-value="{{$ctrl.dieselTank.negateValue}}"
+          display-value="{{$ctrl.dieselTank.displayValue}}">
         </ng-gauge>
         <h2 style="color: #cecece; margin-top: -26px">
           {{ $ctrl.dieselTank.title }}

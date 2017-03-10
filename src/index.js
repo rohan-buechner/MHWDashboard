@@ -8,7 +8,7 @@ angular
       'self']);
   })
 
-  // var _base = 'http://124.12.100.20/cgi-bin/';
-  // var _base = 'http://10.0.0.17/cgi-bin/';
+  // var _base = 'http://124.12.100.20/cgi-bin/';  //prod
+  // var _base = 'http://10.0.0.17/cgi-bin/';   //dev
   // var _base = '/cgi-bin/';
-  .constant('_base', 'http://10.0.0.17/cgi-bin/');
+  .constant('_base', '/cgi-bin/');
