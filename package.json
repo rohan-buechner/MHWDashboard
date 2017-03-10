@@ -31,7 +31,7 @@
     "es6-shim": "^0.35.0",
     "karma-angular-filesort": "^1.0.0",
     "karma-ng-html2js-preprocessor": "^1.0.0",
-    "karma-phantomjs-launcher": "^1.0.0",
+    "karma-phantomjs-launcher": "1.0.2",
     "karma-phantomjs-shim": "^1.1.2",
     "phantomjs-prebuilt": "^2.1.13",
     "bower": "^1.7.9",
