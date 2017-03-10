@@ -10,34 +10,39 @@ function GaugesController($log, WebIService, $filter, $interval) {
   var interval;
   vm.gauges = [
     {
-      title: 'Diesel Tank',
-      unit: '%',
+      title: 'SUB Tank',
+      unit: 'ℓ',
       pos: 0,
-      value: 0
+      value: 20, // TODO reset to 0
+      displayValue: 10
     },
     {
       title: 'Water Tank',
-      unit: '%',
+      unit: 'ℓ',
       pos: 1,
-      value: 0
+      value: 85 // TODO reset to 0
     },
     {
       title: 'Battery Amps',
-      unit: '%',
+      unit: ' amps',
       pos: 2,
-      value: 0
+      value: 50,
+      displayValue: 0
     },
     {
       title: 'Fridge',
-      unit: '%',//'°C',
+      unit: '°',
       pos: 3,
-      value: 0
+      value: 50,
+      displayValue: 0
     },
     {
       title: 'Freezer',
-      unit: '%',
+      unit: '°',
       pos: 4,
-      value: 0
+      value: 50,
+      negateValue: true,
+      displayValue: 18
     },
     {
       title: 'House Battery',
@@ -49,39 +54,43 @@ function GaugesController($log, WebIService, $filter, $interval) {
       title: 'IVECO Battery',
       unit: '%',
       pos: 6,
-      value: 0
+      value: 80
     },
     {
       title: 'Outside Temperature',
-      unit: '%',
+      unit: '°',
       pos: 7,
-      value: 0
+      value: 37,
+      displayValue: 20
     },
     {
       title: 'Inside Temperature',
-      unit: '%',
+      unit: '°',
       pos: 8,
-      value: 0
+      value: 37,
+      displayValue: 20
     },
     {
       title: 'AC Power',
-      unit: '%',
+      unit: 'V',
       pos: 9,
-      value: 0
+      value: 80,
+      displayValue: 220
     }
   ];
 
   function _readSensors() {
     WebIService
       .readSensors()
-      .then(function (sensorArray) {
+      .then(function (sensorArray) { // eslint-disable-line no-unused-vars
         vm.gauges = vm.gauges.map(function (obj) {
           $log.debug(obj);
           return {
             title: obj.title,
             unit: obj.unit,
-            value: $filter('number')(sensorArray[obj.pos], 1) || 0,
-            pos: obj.pos
+            value: obj.value, // TODO: obj.value must be replaced with => $filter('number')(sensorArray[obj.pos], 1) || 0,
+            pos: obj.pos,
+            negateValue: obj.negateValue
           };
         });
       });
@@ -95,9 +104,9 @@ function GaugesController($log, WebIService, $filter, $interval) {
     interval = $interval(function () {
       WebIService
         .readSensors()
-        .then(function (sensorArray) {
-          angular.forEach(vm.gauges, function (obj) {
-            obj.value = $filter('number')(sensorArray[obj.pos], 1);
+        .then(function (sensorArray) { // eslint-disable-line no-unused-vars
+          angular.forEach(vm.gauges, function (obj) { // eslint-disable-line no-unused-vars
+          // TODO: uncomment this line obj.value = $filter('number')(sensorArray[obj.pos], 1);
           });
         });
     }, 3000);

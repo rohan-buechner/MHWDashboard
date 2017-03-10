@@ -23,36 +23,39 @@
         <tr>
           <td>
             <div class="btn-group-vertical xl">
-              <button type="button" class="btn btn-xl btn-primary" ng-click="$ctrl.leftSteadyUp()">&#x25B2;</button>
-              <button type="button" class="btn btn-xl btn-primary middle" ng-click="$ctrl.leftSteadyStop()">&nbsp;</button>
-              <button type="button" class="btn btn-xl btn-primary" ng-click="$ctrl.leftSteadyDown()">&#x25BC;</button>
+              <button type="button" class="btn btn-xl btn-primary" ng-click="$ctrl.entryStepOut()"
+                      ng-class="{active: $ctrl.entryStepStatus}" style="margin-top: 40%">Out
+              </button>
+              <button type="button" class="btn btn-xl btn-primary" ng-click="$ctrl.entryStepIn()"
+                      ng-class="{active: !$ctrl.entryStepStatus}">In
+              </button>
             </div>
           </td>
           <td>
-            <h1 class="button-label">Steady
+            <h1 class="button-label">Entry
               <br>
-              (Left)</h1>
+              Step</h1>
           </td>
         </tr>
       </table>
     </div>
     <div class="col-xs-4  center-content">
-      <table>
-        <tr>
-          <td>
-            <div class="btn-group-vertical xl">
-              <button type="button" class="btn btn-xl btn-primary" ng-click="$ctrl.rightSteadyUp()">&#x25B2;</button>
-              <button type="button" class="btn btn-xl btn-primary middle" ng-click="$ctrl.rightSteadyStop()">&nbsp;</button>
-              <button type="button" class="btn btn-xl btn-primary" ng-click="$ctrl.rightSteadyDown()">&#x25BC;</button>
-            </div>
-          </td>
-          <td>
-            <h1 class="button-label">Steady
-              <br>
-              (Right)</h1>
-          </td>
-        </tr>
-      </table>
+      <!--<table>-->
+        <!--<tr>-->
+          <!--<td>-->
+            <!--<div class="btn-group-vertical xl">-->
+              <!--<button type="button" class="btn btn-xl btn-primary" ng-click="$ctrl.rightSteadyUp()">&#x25B2;</button>-->
+              <!--<button type="button" class="btn btn-xl btn-primary middle" ng-click="$ctrl.rightSteadyStop()">&nbsp;</button>-->
+              <!--<button type="button" class="btn btn-xl btn-primary" ng-click="$ctrl.rightSteadyDown()">&#x25BC;</button>-->
+            <!--</div>-->
+          <!--</td>-->
+          <!--<td>-->
+            <!--<h1 class="button-label">Steady-->
+              <!--<br>-->
+              <!--(Right)</h1>-->
+          <!--</td>-->
+        <!--</tr>-->
+      <!--</table>-->
     </div>
   </div>
   <br>
@@ -117,6 +120,22 @@
         <tr>
           <td>
             <div class="btn-group-vertical xl">
+              <button type="button" class="btn btn-xl btn-primary" ng-click="$ctrl.awningUp()">&#x25B2;</button>
+              <button type="button" class="btn btn-xl btn-primary middle" ng-click="$ctrl.awningStop()">&nbsp;</button>
+              <button type="button" class="btn btn-xl btn-primary" ng-click="$ctrl.awningDown()">&#x25BC;</button>
+            </div>
+          </td>
+          <td>
+            <h1 class="button-label">Awning</h1>
+          </td>
+        </tr>
+      </table>
+    </div>
+    <div class="col-xs-4 center-content">
+      <table>
+        <tr>
+          <td>
+            <div class="btn-group-vertical xl">
               <button type="button" class="btn btn-xl btn-primary" ng-class="{active: $ctrl.outsideLightStatus}"
                       ng-click="$ctrl.outsideLightOn()" style="margin-top: 40%">
                 On
@@ -136,41 +155,6 @@
       </table>
     </div>
     <div class="col-xs-4 center-content">
-      <table>
-        <tr>
-          <td>
-            <div class="btn-group-vertical xl">
-              <button type="button" class="btn btn-xl btn-primary" ng-click="$ctrl.entryStepOut()"
-                      ng-class="{active: $ctrl.entryStepStatus}" style="margin-top: 40%">Out
-              </button>
-              <button type="button" class="btn btn-xl btn-primary" ng-click="$ctrl.entryStepIn()"
-                      ng-class="{active: !$ctrl.entryStepStatus}">In
-              </button>
-            </div>
-          </td>
-          <td>
-            <h1 class="button-label">Entry
-              <br>
-              Step</h1>
-          </td>
-        </tr>
-      </table>
-    </div>
-    <div class="col-xs-4 center-content">
-      <table>
-        <tr>
-          <td>
-            <div class="btn-group-vertical xl">
-              <button type="button" class="btn btn-xl btn-primary" ng-click="$ctrl.awningUp()">&#x25B2;</button>
-              <button type="button" class="btn btn-xl btn-primary middle" ng-click="$ctrl.awningStop()">&nbsp;</button>
-              <button type="button" class="btn btn-xl btn-primary" ng-click="$ctrl.awningDown()">&#x25BC;</button>
-            </div>
-          </td>
-          <td>
-            <h1 class="button-label">Awning</h1>
-          </td>
-        </tr>
-      </table>
     </div>
   </div>
 </div>
